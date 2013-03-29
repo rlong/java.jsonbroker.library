@@ -1,0 +1,41 @@
+
+###############################################################################
+
+var Test = function() { 
+}
+
+Test.prototype.ping = function() {
+
+	var callObject = ["call",{},"test","ping",[]];
+	var callJson = JSON.stringify(callObject);
+
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open( "POST", "/services", false); // sync call
+	xmlhttp.send(callJson); //send GET request
+
+	var responseText = xmlhttp.responseText;
+	var response = eval('(' + responseText + ')');
+
+
+}
+
+###############################################################################
+
+var test = new Test();
+
+test.ping();
+
+###############################################################################
+
+
+var callObject = ["call",{},"test","ping",[]];
+var callJson = JSON.stringify(callObject);
+
+var xmlhttp = new XMLHttpRequest();
+xmlhttp.open( "POST", "/services", false); // sync call
+xmlhttp.send(callJson); //send GET request
+
+var responseText = xmlhttp.responseText;
+var response = eval('(' + responseText + ')');
+
+###############################################################################
