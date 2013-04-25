@@ -11,7 +11,6 @@ import java.util.Map;
 import jsonbroker.library.common.broker.BrokerMessage;
 import jsonbroker.library.common.broker.BrokerMessageType;
 import jsonbroker.library.common.exception.BaseException;
-import jsonbroker.library.common.exception.ErrorCodeUtilities;
 import jsonbroker.library.common.json.JsonObject;
 import jsonbroker.library.common.log.Log;
 
@@ -19,11 +18,13 @@ import jsonbroker.library.common.log.Log;
 public class ServicesRegistery implements Service {
 	
 	
-	private static final int BASE = ErrorCodeUtilities.getBaseErrorCode("jsonbroker.ServicesRegistery");
-	
-	private static final int SERVICE_NOT_FOUND = BASE | 0x1;
-	
+    public static class ErrorDomain
+    {
+        public static final String SERVICE_NOT_FOUND = "jsonbroker.ServicesRegistery.SERVICE_NOT_FOUND";
+    }
+
 	private static Log log = Log.getLog(ServicesRegistery.class);
+	
 
 	private HashMap<String, DescribedService> _services; 
 	
@@ -50,7 +51,7 @@ public class ServicesRegistery implements Service {
         	
 			String technicalError = String.format( "null == answer, serviceName = '%s'", serviceName );
 			BaseException e = new BaseException( this, technicalError);
-			e.setFaultCode( SERVICE_NOT_FOUND );
+			e.setErrorDomain( ErrorDomain.SERVICE_NOT_FOUND );
 			throw e;
         }
         	
