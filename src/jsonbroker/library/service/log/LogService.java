@@ -68,7 +68,7 @@ public class LogService implements DescribedService {
 
 		if( "log".equals( methodName ) ) {
 			
-			JsonArray parameters = request.getParamaters();
+			JsonArray parameters = request.getOrderedParamaters();
 			
 			String scope = parameters.getString( 0);
 

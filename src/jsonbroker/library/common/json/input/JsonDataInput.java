@@ -35,7 +35,6 @@ public class JsonDataInput extends JsonInput {
 	
 	public boolean hasNextByte() {
 		
-		//log.debug( _data.getCount(), "_data.getCount()" );
 		if( 1 + _cursor >= _data.getCount()) {
 			return false;
 		}

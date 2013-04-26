@@ -25,7 +25,7 @@ public abstract class NetworkAddress_Generated {
 	}
 
 	public NetworkAddress_Generated( jsonbroker.library.common.json.JsonObject values ){
-		_port = values.getInteger( "port" );
+		_port = values.getInt( "port" );
 	}
 
 	public jsonbroker.library.common.json.JsonObject toJsonObject() {

@@ -17,7 +17,7 @@ public class JsonWalker {
 		
 		for( int index = 0, count = jsonArray.size(); index < count; index++ ) {
 			
-			Object value = jsonArray.getObject( index );
+			Object value = jsonArray.getObject( index, null );
 			
 			if( null == value ) {
 				visitor.onNull( index );

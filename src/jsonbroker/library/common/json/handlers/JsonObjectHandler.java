@@ -53,14 +53,10 @@ public final class JsonObjectHandler extends JsonHandler {
 			
 			String key = JsonStringHandler.readString( input );
 			
-			//log.debug( key, "key");
-			
 			b = input.scanToNextToken();
 			
 			JsonHandler valueHandler =  JsonHandler.getHandler( b );
 			Object value = valueHandler.readValue( input);
-			
-			//log.debug( value.toString(), "value.toString()");
 			
 			answer.put( key , value);
 			

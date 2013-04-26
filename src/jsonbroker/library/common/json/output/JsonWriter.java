@@ -26,6 +26,7 @@ public class JsonWriter implements JsonDocumentHandler {
 
 	////////////////////////////////////////////////////////////////////////////
 	// document
+	
 	public void onObjectDocumentStart() {
 		
 		_output.append( '{');

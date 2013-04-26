@@ -89,7 +89,7 @@ public class Log {
 	}
 	
 
-	/////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 
 	public void debug( String message ) {
 
@@ -111,76 +111,30 @@ public class Log {
 		
 		_delegate.debug( this, value, name);
 		
-//        if (null == value)
-//        {
-//            debug(name + " = NULL");
-//            return;
-//        }
-//
-//		String[] messages = value.getLogMessages();
-//		if( 0 == messages.length ) {
-//			debug( name + " = {}");
-//			return;
-//		}
-//		
-//		if( 1 == messages.length ) {
-//			debug( name + " = " + messages[0]);
-//			return;
-//		}
-//		
-//		debug( name + " = {");
-//		
-//		for( int i = 0, count = messages.length; i < count; i++ ) {
-//			debug( "    " + messages[i] );
-//		}
-//		
-//		debug( "}" );
 	}
 
 	public void debug( long value, String name  ) {
 		_delegate.debug( this, value, name);
-		//debug( name + " = " + value);
 	}
 
 	public void debug( Object value, String name ) {
 		_delegate.debug( this, value, name);
-//		if( null == value ) {
-//			debug( name + " = NULL");
-//		} else {
-//			debug( name + " = " + value.toString() );
-//		}		
 	}
 	
 	public void debug( String value, String name ) {
 		
 		_delegate.debug( this, value, name);
-//		if( null == value ) {
-//			debug( name + " = NULL");
-//		} else {
-//			debug( name + " = '" + value + "'");
-//		}
 	}
 	
 	
 	public void debugIp4Address( int value, String name ) {
 		
 		_delegate.debugIp4Address( this, value, name);
-//		int ip1 = value & 0xFF;
-//		int ip2 = ( value >> 8 ) & 0xFF;
-//		int ip3 = ( value >> 16 ) & 0xFF;
-//		int ip4 = ( value >> 24 ) & 0xFF;
-//		
-//		String message = String.format( "%s = %d.%d.%d.%d", name, ip1, ip2, ip3, ip4);
-//
-//		
-//		debug( message );
 	
 	}
 	
 	public void debugFormat( String format, Object ... args ) {
 		_delegate.debugFormat( this, format, args);
-//		String message = String.format( format, args );
-//		debug( message );
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -215,7 +169,7 @@ public class Log {
 	}
 
 	
-	/////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 	
 	public void warn( String message ) {
 		_delegate.warn( this, message);
@@ -268,7 +222,7 @@ public class Log {
 		
 	}
 
-	/////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 
 	public void error( String message ) {
 		_delegate.error(this, message);

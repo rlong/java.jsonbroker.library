@@ -67,29 +67,29 @@ public class BrokerMessage {
 	}
 
 	///////////////////////////////////////////////////////////////////////
-	private JsonArray _paramaters;
+	private JsonArray _orderedParamaters;
 
 	///////////////////////////////////////////////////////////////////////
 
 	/**
 	 * @return
 	 */
-	public JsonArray getParamaters() {
-		return _paramaters;
+	public JsonArray getOrderedParamaters() {
+		return _orderedParamaters;
 	}
 
 	/**
 	 * @return
 	 */
-	public void setParamaters(JsonArray paramaters) {
-		_paramaters = paramaters;
+	public void setOrderedParamaters(JsonArray paramaters) {
+		_orderedParamaters = paramaters;
 	}
 
 	///////////////////////////////////////////////////////////////////////
 	public BrokerMessage() {
 		_metaData = new JsonObject();
 		_associativeParamaters = new JsonObject();
-		_paramaters = new JsonArray();
+		_orderedParamaters = new JsonArray();
 	}
 	
 	
@@ -105,9 +105,9 @@ public class BrokerMessage {
 		_methodName = values.getString( 5 );
 		_associativeParamaters = values.getJsonObject( 6 );
 		if( 7 < values.size() ) {
-			_paramaters = values.getJsonArray( 7 );
+			_orderedParamaters = values.getJsonArray( 7 );
 		} else {
-			_paramaters = new JsonArray(0);	
+			_orderedParamaters = new JsonArray(0);	
 		}
 	}	
 	
@@ -143,7 +143,7 @@ public class BrokerMessage {
 		answer._serviceName = request._serviceName;
 		answer._methodName = request._methodName;
 		answer._associativeParamaters = FaultSerializer.toJsonObject( t );
-		answer._paramaters = new JsonArray(0);
+		answer._orderedParamaters = new JsonArray(0);
 		
 		return answer;			
 
@@ -158,7 +158,7 @@ public class BrokerMessage {
 		answer._serviceName = request._serviceName;
 		answer._methodName = request._methodName;
 		answer._associativeParamaters = new JsonObject();
-		answer._paramaters = new JsonArray(0);
+		answer._orderedParamaters = new JsonArray(0);
 		
 		return answer;			
 	}
@@ -172,7 +172,7 @@ public class BrokerMessage {
 		answer._serviceName = request._serviceName;
 		answer._methodName = request._methodName;
 		answer._associativeParamaters = new JsonObject();
-		answer._paramaters = new JsonArray(0);
+		answer._orderedParamaters = new JsonArray(0);
 		
 		return answer;			
 	}
@@ -188,31 +188,31 @@ public class BrokerMessage {
 		answer.add( 0 );
 		answer.add( _methodName );
 		answer.add( _associativeParamaters );
-		answer.add( _paramaters );
+		answer.add( _orderedParamaters );
 		
 		return answer;
 		
 	}
 
 	public void addParameter( Integer parameter ) {
-		_paramaters.add( parameter );
+		_orderedParamaters.add( parameter );
 	}
 
 	public void addParameter( JsonObject parameter ) {
-		_paramaters.add( parameter );
+		_orderedParamaters.add( parameter );
 	}
 	
 	public void addParameter( JsonArray parameter ) {
-		_paramaters.add( parameter );
+		_orderedParamaters.add( parameter );
 	}
 
 	public void addParameter( Object parameter ) {
-		_paramaters.add( parameter );
+		_orderedParamaters.add( parameter );
 	}
 
 
 	public void addParameter(String parameter) {
-		_paramaters.add( parameter );
+		_orderedParamaters.add( parameter );
 	}
 	
 	public void setResponseType( String type ) {

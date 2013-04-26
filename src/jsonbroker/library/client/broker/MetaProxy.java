@@ -36,8 +36,8 @@ public class MetaProxy {
     		
     	} else {
     		
-    		int majorVersion = associativeParamaters.getInteger( "majorVersion" );
-    		int minorVersion = associativeParamaters.getInteger( "minorVersion" );    		
+    		int majorVersion = associativeParamaters.getInt( "majorVersion" );
+    		int minorVersion = associativeParamaters.getInt( "minorVersion" );    		
     		int answer[] = {majorVersion,minorVersion};
     		return answer;
     		

@@ -24,14 +24,10 @@ public final class JsonArrayHandler extends JsonHandler {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////
 	
 	private JsonArrayHandler() {
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////
 
 	
@@ -42,7 +38,7 @@ public final class JsonArrayHandler extends JsonHandler {
 		int count = array.size();
 		if( count > 0 ) {
 			
-			Object object = array.getObject( 0 );
+			Object object = array.getObject( 0, null );
 			
 			JsonHandler valueHandler =  JsonHandler.getHandler( object );
 			
@@ -53,7 +49,7 @@ public final class JsonArrayHandler extends JsonHandler {
 			
 			output.append( ',');
 			
-			Object object = array.getObject( i );
+			Object object = array.getObject( i, null );
 			
 			JsonHandler valueHandler =  JsonHandler.getHandler( object );
 			
@@ -83,8 +79,6 @@ public final class JsonArrayHandler extends JsonHandler {
 			
 			JsonHandler valueHandler = JsonHandler.getHandler( b );
 			Object object = valueHandler.readValue( input);
-			
-			//log.debug( object.toString(), "object.toString()");
 			
 			answer.add( object );
 						

@@ -41,18 +41,8 @@ public class SubjectGroup {
     	return _subjectDictionary.size();
     }
     
-//    public Subject subjectForUsername(String username)
-//    {
-//    	Subject answer = _subjectDictionary.get(username);
-//
-//        return answer;
-//    }
-    
     public boolean contains(String username) {
     	
-//    	if (!_usersRealm.equals(realm)) {
-//    		return false;
-//    	}
     	
     	if (_subjectDictionary.containsKey(username) ) {
     		return true;
@@ -63,11 +53,6 @@ public class SubjectGroup {
     // will throw an exception for a bad 'username'
     public Subject getSubject(String username )
     {
-//    	if (!_usersRealm.equals(realm)) {
-//    		
-//    		log.errorFormat( "!_usersRealm.equals(realm); _usersRealm = '%s'; realm = '%s'" , _usersRealm, realm);
-//            throw HttpErrorHelper.unauthorized401FromOriginator(this);
-//        }
 
     	if (!_subjectDictionary.containsKey(username))
         {
@@ -81,16 +66,6 @@ public class SubjectGroup {
         return answer;
     }
     
-//    public Subject subjectForAuthorizationRequestHeader(Authorization authorizationRequestHeader)
-//    {
-//        String username = authorizationRequestHeader.getUsername();
-//
-//        String realm = authorizationRequestHeader.getRealm();
-//
-//
-//        return getSubject(username, realm);
-//    }
-
     
     public void addSubject(Subject subject)
     {

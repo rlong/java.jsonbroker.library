@@ -5,6 +5,8 @@
 
 package jsonbroker.library.server.http.security;
 
+import org.junit.experimental.categories.Category;
+
 import jsonbroker.library.client.broker.ServiceHttpProxy;
 import jsonbroker.library.client.http.Authenticator;
 import jsonbroker.library.client.http.HttpDispatcher;
@@ -15,9 +17,13 @@ import jsonbroker.library.common.net.NetworkAddress;
 import jsonbroker.library.common.security.SecurityConfiguration;
 import jsonbroker.library.common.security.Subject;
 import jsonbroker.library.service.test.TestProxy;
+import jsonbroker.library.test.IntegrationTest;
 import jsonbroker.library.test.JsonBrokerIntegrationTestUtilities;
 import junit.framework.TestCase;
 
+// vvv http://weblogs.java.net/blog/johnsmart/archive/2010/04/25/grouping-tests-using-junit-categories-0
+@Category(IntegrationTest.class)
+// ^^^ http://weblogs.java.net/blog/johnsmart/archive/2010/04/25/grouping-tests-using-junit-categories-0
 public class HttpSecurityIntegrationTest extends TestCase {
 	
 	private static Log log = Log.getLog(HttpSecurityIntegrationTest.class);

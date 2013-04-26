@@ -39,7 +39,6 @@ public class StringHelper {
 		} catch (UnsupportedEncodingException e) {
 			throw new BaseException( StringHelper.class, e );
 		}
-
 	}
 	
 	

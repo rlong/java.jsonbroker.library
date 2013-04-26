@@ -55,7 +55,7 @@ public class JavascriptCallbackAdapterHelper {
 		jsonWriter.append( response.getMethodName() );
 		jsonWriter.append("\",");
 		jsonObjectHandler.writeValue( response.getAssociativeParamaters(), jsonWriter );
-		JsonArray parameters = response.getParamaters();
+		JsonArray parameters = response.getOrderedParamaters();
 		
 		for( int i = 0, count = parameters.size(); i < count; i++ ) {
 			jsonWriter.append( ',');
@@ -86,7 +86,7 @@ public class JavascriptCallbackAdapterHelper {
 		jsonWriter.append( notification.getMethodName() );
 		jsonWriter.append("\",");
 		jsonObjectHandler.writeValue( notification.getAssociativeParamaters(), jsonWriter );
-		JsonArray parameters = notification.getParamaters();
+		JsonArray parameters = notification.getOrderedParamaters();
 		
 		for( int i = 0, count = parameters.size(); i < count; i++ ) {
 			jsonWriter.append( ',');

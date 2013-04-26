@@ -60,7 +60,7 @@ public class JsonBuilderUnitTest extends TestCase {
 		assertNotNull( jsonDocument );
 		assertNull( jsonDocument.getObject( "nullKey", null));
 		assertTrue( jsonDocument.getBoolean( "booleanKey" ));
-		assertEquals( 314, jsonDocument.getInteger( "integerKey"));
+		assertEquals( 314, jsonDocument.getInt( "integerKey"));
 		assertEquals( "value", jsonDocument.getString( "stringKey"));
 	}
 	

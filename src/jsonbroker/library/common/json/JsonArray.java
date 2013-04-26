@@ -160,8 +160,27 @@ public class JsonArray implements Serializable {
 		
 		Object blob = _values.get(index);
 		
-		return (Object)blob;
+		if( null == blob ) {
+			String technicalError = String.format( "null == blob; index = %d", index );
+			throw new BaseException( this, technicalError );			
+		}
+
+		
+		return blob;
 	}
+	
+	public Object getObject( int index, Object defaultValue ) {
+		
+		Object blob = _values.get(index);
+		
+		if( null == blob ) {
+			
+			return defaultValue;
+		}
+		
+		return blob;
+	}
+
 
 	public void add( String value ) {
 		_values.add( value);

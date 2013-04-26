@@ -29,7 +29,6 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 	
 	private static Log log = Log.getLog( JsonObject.class );
 
-	//private static final JsonObjectHandler JSON_OBJECT_HANDLER = JsonObjectHandler.getInstance();
 	/**
 	 * 
 	 */
@@ -152,7 +151,7 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 	}
 	
 	
-	public int getInteger( String key ) {
+	public int getInt( String key ) {
 		
 		Object blob = _values.get(key);
 		
@@ -173,7 +172,7 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 
 	}
 	
-	public int getInteger( String key, int defaultValue ) {
+	public int getInt( String key, int defaultValue ) {
 		
 		Object blob = _values.get(key);
 		

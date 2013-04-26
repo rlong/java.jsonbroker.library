@@ -40,18 +40,13 @@ public class HttpRequestReader {
 
 	private static final Log log = Log.getLog(HttpRequestReader.class);
 
-	//private static void setOperationDetailsForRequest(HTTPRequest request, String line)
 	private static void setOperationDetailsForRequest(HttpRequest request, String line) {
-		
-		//log.debug(line, "line");
-		//log.debug(line, "line");
 		
 		// inherited from c-sharp ... not sure this will happen in the java world
 		if (line == null) {
 			
 			log.error( "line == null");
 			
-			//throw HTTPException.badRequest400FromOriginator(typeof(HTTPRequestReader));
 			throw HttpErrorHelper.badRequest400FromOriginator(HttpRequestReader.class);
 			
 			
@@ -59,15 +54,12 @@ public class HttpRequestReader {
 		
         // HTTP request lines are of the form:
         // [METHOD] [Encoded URL] HTTP/1.?
-		//string[] tokens = line.Split(new char[] { ' ' });
 		StringTokenizer tokenizer = new StringTokenizer( line );
 
-		//if (tokens.Length != 3)
 		if( 3 != tokenizer.countTokens() ) { 
 			
 			log.errorFormat("3 != tokenizer.countTokens(); tokenizer.countTokens() = %d; line = '%s'", tokenizer.countTokens(), line);
 			
-			//throw HTTPException.badRequest400FromOriginator(typeof(HTTPRequestReader));
 			throw HttpErrorHelper.badRequest400FromOriginator(HttpRequestReader.class);
 			
 		}
@@ -85,7 +77,6 @@ public class HttpRequestReader {
 			
 			log.errorFormat( "unknown HTTP method; method = '%s'; line = '%s'" , method, line );
 			
-			//throw HTTPException.methodNotImplemented501FromOriginator(typeof(HTTPRequestReader));
 			throw HttpErrorHelper.methodNotImplemented501FromOriginator( HttpRequestReader.class);
 		}
 		
@@ -93,16 +84,9 @@ public class HttpRequestReader {
         /*
          * HTTP request-uri ... 
          */
-		//String requestUri = tokens[1];
 		String requestUri = tokenizer.nextToken();
 		
-		
-		//log.debug(requestUri, "requestUri");
-		//log.debug(requestUri, "requestUri");
-		
-		//request.requestUri = requestUri;
 		request.setRequestUri( requestUri );
-		
 		
 	}
 
@@ -207,8 +191,6 @@ public class HttpRequestReader {
 		do {
 			buffer.clear();
 			String line = readLine(inputStream,buffer);
-			
-			//log.debug( line, "line");
 			
 			if (0 == line.length()) {
 				break;

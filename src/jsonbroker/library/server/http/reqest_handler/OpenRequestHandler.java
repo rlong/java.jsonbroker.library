@@ -28,14 +28,14 @@ public class OpenRequestHandler implements RequestHandler {
 		
 	}
 		
-	public void addHttpProcessor( RequestHandler processor ) {
+	public void addRequestHandler( RequestHandler processor ) {
 		
 		String requestUri = REQUEST_URI + processor.getProcessorUri();
 		log.debug( requestUri, "requestUri" );
 		_processors.put( requestUri, processor );
 	}
 	
-	public void removeHttpProcessor( RequestHandler processor ) {
+	public void removeRequestHandler( RequestHandler processor ) {
 		
 		String requestUri = REQUEST_URI + processor.getProcessorUri();
 		log.info( requestUri, "requestUri" );
@@ -44,7 +44,7 @@ public class OpenRequestHandler implements RequestHandler {
 	
 	
 	
-	private RequestHandler getHttpProcessor( String requestUri ) {
+	private RequestHandler getRequestHandler( String requestUri ) {
 	
 		log.debug( requestUri, "requestUri" );
 		
@@ -68,7 +68,7 @@ public class OpenRequestHandler implements RequestHandler {
 	public HttpResponse processRequest(HttpRequest request) {
 		
 		String requestUri = request.getRequestUri();
-		RequestHandler httpProcessor = getHttpProcessor( requestUri );
+		RequestHandler httpProcessor = getRequestHandler( requestUri );
 
 		if( null == httpProcessor ) {
 			log.errorFormat( "null == httpProcessor; requestUri = %s" , requestUri);

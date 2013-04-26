@@ -103,7 +103,7 @@ public class FaultSerializer {
 		
 		BaseException answer = new BaseException(originator, faultMessage);
 		
-		int faultCode = jsonObject.getInteger( "faultCode", BaseException.DEFAULT_FAULT_CODE );
+		int faultCode = jsonObject.getInt( "faultCode", BaseException.DEFAULT_FAULT_CODE );
 		answer.setFaultCode( faultCode );
 		
 		String underlyingFaultMessage = jsonObject.getString( "underlyingFaultMessage", null);

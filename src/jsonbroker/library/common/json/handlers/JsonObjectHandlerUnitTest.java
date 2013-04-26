@@ -72,7 +72,7 @@ public class JsonObjectHandlerUnitTest extends TestCase {
 		JsonObject value = (JsonObject)handlerResponse;
 		
 		
-		assertEquals( 1, value.getInteger("k1"));
+		assertEquals( 1, value.getInt("k1"));
 		assertEquals( "string-value", value.getString("k2"));
 		
 
