@@ -16,9 +16,9 @@ import jsonbroker.library.common.security.Subject;
 import jsonbroker.library.server.broker.DescribedService;
 import jsonbroker.library.server.broker.Service;
 import jsonbroker.library.server.broker.ServicesRegistery;
-import jsonbroker.library.server.http.reqest_handler.AuthProcessor;
+import jsonbroker.library.server.http.reqest_handler.AuthRequestHandler;
 import jsonbroker.library.server.http.reqest_handler.OpenRequestHandler;
-import jsonbroker.library.server.http.reqest_handler.ServicesProcessor;
+import jsonbroker.library.server.http.reqest_handler.ServicesRequestHandler;
 import jsonbroker.library.server.http.security.HttpSecurityManager;
 import jsonbroker.library.service.test.TestService;
 
@@ -26,8 +26,6 @@ public class JsonBrokerIntegrationTestUtilities {
 	
 	private static final Log log = Log.getLog(JsonBrokerIntegrationTestUtilities.class);
 
-	
-	
 	public static final Subject TEST_SUBJECT = new Subject( Subject.TEST_USER, Subject.TEST_REALM, Subject.TEST_PASSWORD, "Test User");
 	
 	
@@ -99,8 +97,8 @@ public class JsonBrokerIntegrationTestUtilities {
 		}
 
 		////////////////////////////////////////////////////////////////////			
-		ServicesProcessor synchronousServiceProcessor = new ServicesProcessor(servicesRegistery);
-		answer.addHttpProcessor( synchronousServiceProcessor ); 
+		ServicesRequestHandler synchronousServiceProcessor = new ServicesRequestHandler(servicesRegistery);
+		answer.addRequestHandler( synchronousServiceProcessor ); 
 		
 		return answer;
 		
@@ -115,9 +113,9 @@ public class JsonBrokerIntegrationTestUtilities {
 	}
 
 
-	static AuthProcessor buildAuthProcessor( DescribedService authService ) {
+	static AuthRequestHandler buildAuthProcessor( DescribedService authService ) {
 		
-		AuthProcessor answer = new AuthProcessor( buildHttpSecurityManager() );		
+		AuthRequestHandler answer = new AuthRequestHandler( buildHttpSecurityManager() );		
 		
 		ServicesRegistery servicesRegistery = new ServicesRegistery();
 		
@@ -128,8 +126,8 @@ public class JsonBrokerIntegrationTestUtilities {
 		}
 
 		////////////////////////////////////////////////////////////////////			
-		ServicesProcessor synchronousServiceProcessor = new ServicesProcessor(servicesRegistery);
-		answer.addHttpProcessor( synchronousServiceProcessor ); 
+		ServicesRequestHandler synchronousServiceProcessor = new ServicesRequestHandler(servicesRegistery);
+		answer.addRequestHandler( synchronousServiceProcessor ); 
 		
 		return answer;
 		
@@ -211,17 +209,6 @@ public class JsonBrokerIntegrationTestUtilities {
 			return service;
 		}
 
-//		if( testType == TestType.EMBEDDED_OPEN_SERVER ) {
-//			
-//			OpenProcessor openProcessor = buildOpenProcessor( service );
-//			startServer(openProcessor);
-//		}
-//		
-//		if( testType == TestType.EMBEDDED_AUTH_SERVER ) {
-//			AuthProcessor authProcessor = buildAuthProcessor( service );
-//			startServer(authProcessor);
-//			
-//		}
 		
 		return buildProxy( testType );
 		
