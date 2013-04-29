@@ -18,6 +18,7 @@ import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.handlers.JsonObjectHandler;
 import jsonbroker.library.common.json.input.JsonDataInput;
+import jsonbroker.library.common.json.input.JsonInputHelper;
 import jsonbroker.library.common.json.output.JsonStringOutput;
 import jsonbroker.library.common.log.Log;
 
@@ -385,10 +386,10 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 
 	public static JsonObject build( Data data ) {
 		
-		JsonDataInput reader = new JsonDataInput(data);
-		reader.scanToNextToken();
+		JsonDataInput jsonInput = new JsonDataInput(data);
+		JsonInputHelper.scanToNextToken(jsonInput);
 		
-		return JsonObjectHandler.readJsonObject( reader );
+		return JsonObjectHandler.readJsonObject( jsonInput );
 		
 	}
 	

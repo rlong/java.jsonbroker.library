@@ -9,10 +9,9 @@ import jsonbroker.library.common.auxiliary.Data;
 import jsonbroker.library.common.log.Log;
 
 
-public class JsonDataInput extends JsonInput {
+public class JsonDataInput implements JsonInput {
 
 	private static final Log log = Log.getLog(JsonDataInput.class );
-
 	
 	Data _data;
 	
@@ -21,6 +20,20 @@ public class JsonDataInput extends JsonInput {
 	int _line = 1;
 	int _offset;
 	
+	////////////////////////////////////////////////////////////////////////////
+	//
+	private MutableDataPool _mutableDataPool;
+	
+	@Override
+	public MutableDataPool getMutableDataPool() {
+		if( null == _mutableDataPool ) {
+			_mutableDataPool = new MutableDataPool();
+		}
+		return _mutableDataPool;
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	//
 
 	public int getCursor() {
 		return _cursor;

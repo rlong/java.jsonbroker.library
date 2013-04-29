@@ -5,7 +5,7 @@
 
 package jsonbroker.library.common.json.output;
 
-public class JsonStringOutput extends JsonOutput {
+public class JsonStringOutput implements JsonOutput {
 	
 	StringBuilder  _stringBuilder;
 	

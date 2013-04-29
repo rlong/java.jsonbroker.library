@@ -11,6 +11,7 @@ import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonArray;
 import jsonbroker.library.common.json.handlers.JsonArrayHandler;
 import jsonbroker.library.common.json.input.JsonDataInput;
+import jsonbroker.library.common.json.input.JsonInputHelper;
 import jsonbroker.library.common.json.output.JsonStringOutput;
 
 
@@ -21,15 +22,16 @@ public class Serializer  {
 	
 	public static BrokerMessage deserialize( Data data  ) {
 		
-		JsonDataInput reader = new JsonDataInput(data);
+		JsonDataInput jsonInput = new JsonDataInput(data);
 		
-		reader.scanToNextToken();
+		JsonInputHelper.scanToNextToken( jsonInput ); 
+		
 		
 		JsonArray messageComponents;
 		try {
-			messageComponents = JsonArrayHandler.readJsonArray( reader );
+			messageComponents = JsonArrayHandler.readJsonArray( jsonInput );
 		} catch( BaseException exception ) {
-			exception.addContext( "Serializer.dataOffset", reader.getCursor());
+			exception.addContext( "Serializer.dataOffset", jsonInput.getCursor());
 			throw exception;
 		}
 				

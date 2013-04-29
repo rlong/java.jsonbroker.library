@@ -120,7 +120,7 @@ public class HttpRequestReader {
 			
 			// end of stream or end of the line
 			if( -1 == byteRead || '\n' == byteRead ) {
-				return StringHelper.getUtf8String( buffer );
+				return StringHelper.fromUtf8Data( buffer );
 			}
 			
 			// filter out '\r'

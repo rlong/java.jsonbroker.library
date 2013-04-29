@@ -5,11 +5,10 @@
 
 package jsonbroker.library.common.json.output;
 
-public abstract class JsonOutput {
+public interface JsonOutput {
 	
 	public abstract void append(char c);	
 	public abstract void append(String string );
-	public abstract String toString(); 
 
 
 }

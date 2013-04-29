@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 
 import jsonbroker.library.common.json.JsonObject;
 import jsonbroker.library.common.json.input.JsonInput;
+import jsonbroker.library.common.json.input.JsonInputHelper;
 import jsonbroker.library.common.json.output.JsonOutput;
 import jsonbroker.library.common.log.Log;
 
@@ -48,19 +49,20 @@ public final class JsonObjectHandler extends JsonHandler {
 		
 		input.nextByte(); // move past the '{'
 		
-		byte b = input.scanToNextToken();
+		
+		byte b = JsonInputHelper.scanToNextToken( input );
 		while( '}' != b ) {
 			
 			String key = JsonStringHandler.readString( input );
 			
-			b = input.scanToNextToken();
+			b = JsonInputHelper.scanToNextToken( input );
 			
 			JsonHandler valueHandler =  JsonHandler.getHandler( b );
 			Object value = valueHandler.readValue( input);
 			
 			answer.put( key , value);
 			
-			b = input.scanToNextToken();			
+			b = JsonInputHelper.scanToNextToken( input );			
 			
 		}
 		

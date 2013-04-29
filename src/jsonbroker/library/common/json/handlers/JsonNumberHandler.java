@@ -44,7 +44,7 @@ public final class JsonNumberHandler extends JsonHandler {
 	
 	public static Number readNumber( JsonInput input) {
 		
-		MutableData data = input.reserveMutableData();
+		MutableData data = input.getMutableDataPool().reserveMutableData();
 		
 		try {
 			boolean isFloat = false;
@@ -88,7 +88,7 @@ public final class JsonNumberHandler extends JsonHandler {
 				}
 			} while( true );
 		} finally  {
-			input.releaseMutableData( data);
+			input.getMutableDataPool().releaseMutableData( data);
 		}
 
 	}

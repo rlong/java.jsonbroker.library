@@ -26,8 +26,7 @@ public final class JsonStringHandler extends JsonHandler {
 
 	public static String readString( JsonInput input) {
 		
-		
-		MutableData data = input.reserveMutableData();
+		MutableData data = input.getMutableDataPool().reserveMutableData();
 
 		try {
 			byte b;
@@ -68,7 +67,7 @@ public final class JsonStringHandler extends JsonHandler {
 				}
 			}
 		} finally {
-			input.releaseMutableData( data);
+			input.getMutableDataPool().releaseMutableData( data);
 		}
 
 	}

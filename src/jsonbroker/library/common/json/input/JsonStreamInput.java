@@ -9,7 +9,7 @@ import java.io.InputStream;
 
 import jsonbroker.library.common.auxiliary.StreamUtilities;
 
-public class JsonStreamInput extends JsonInput {
+public class JsonStreamInput implements JsonInput {
 	
 	private byte _currentByte;
 	private int _nextByte;
@@ -18,6 +18,19 @@ public class JsonStreamInput extends JsonInput {
 	
 	int _line;
 	int _offset;
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	private MutableDataPool _mutableDataPool;
+	
+	@Override
+	public MutableDataPool getMutableDataPool() {
+		if( null == _mutableDataPool ) {
+			_mutableDataPool = new MutableDataPool();
+		}
+		return _mutableDataPool;
+	}
+	
 
 	
 	public JsonStreamInput( InputStream inputStream ) {

@@ -8,6 +8,7 @@ package jsonbroker.library.common.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import jsonbroker.library.common.auxiliary.ByteHelper;
 import jsonbroker.library.common.auxiliary.Data;
 import jsonbroker.library.common.auxiliary.RandomUtilities;
 import jsonbroker.library.common.auxiliary.StringHelper;
@@ -65,7 +66,7 @@ public class SecurityUtilities {
 		byte[] hash = digester.digest();
 		
         //NSString* answer = [self bytesToString:hashBytes];
-        String answer = StringHelper.toHexString( hash );
+        String answer = ByteHelper.toHexString( hash );
 
         return answer;
 

@@ -38,7 +38,7 @@ public class Defaults {
 	        if( null != environmentValue ) {
 	        	
 	        	log.debug( environmentValue, "environmentValue" );
-	        	JsonObject environment = JsonObjectHelper.buildFromString(environmentValue);
+	        	JsonObject environment = JsonObjectHelper.fromString(environmentValue);
 	        	return new Defaults(environment);
 	        }
 		}

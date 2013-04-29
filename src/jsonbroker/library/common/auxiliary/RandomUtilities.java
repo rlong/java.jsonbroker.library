@@ -30,7 +30,7 @@ public class RandomUtilities {
 
         _randy.nextBytes( uuid );
         
-        return StringHelper.toHexString( uuid );
+        return ByteHelper.toHexString( uuid );
     }
 
 }

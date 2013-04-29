@@ -7,6 +7,7 @@ package jsonbroker.library.common.json.handlers;
 
 import jsonbroker.library.common.json.JsonArray;
 import jsonbroker.library.common.json.input.JsonInput;
+import jsonbroker.library.common.json.input.JsonInputHelper;
 import jsonbroker.library.common.json.output.JsonOutput;
 import jsonbroker.library.common.log.Log;
 
@@ -74,7 +75,7 @@ public final class JsonArrayHandler extends JsonHandler {
 		
 		input.nextByte(); // move past the '['
 		
-		byte b = input.scanToNextToken();
+		byte b = JsonInputHelper.scanToNextToken( input );
 		while( ']' != b ) {
 			
 			JsonHandler valueHandler = JsonHandler.getHandler( b );
@@ -82,7 +83,7 @@ public final class JsonArrayHandler extends JsonHandler {
 			
 			answer.add( object );
 						
-			b = input.scanToNextToken();			
+			b = JsonInputHelper.scanToNextToken( input );			
 		}
 		
 		// move past the ']' if we can

@@ -20,7 +20,7 @@ public class JsonReader {
 		
 		int index = -1;
 		
-		for( byte nextTokenStart = input.scanToNextToken(); ']' != nextTokenStart; nextTokenStart = input.scanToNextToken()) {
+		for( byte nextTokenStart = JsonInputHelper.scanToNextToken( input ); ']' != nextTokenStart; nextTokenStart = JsonInputHelper.scanToNextToken( input )) {
 			
 			index++;
 			
@@ -93,11 +93,11 @@ public class JsonReader {
 	
 	private static void readObject( JsonInput input, JsonDocumentHandler handler ) {
 		
-		for( byte nextTokenStart = input.scanToNextToken(); '}' != nextTokenStart; nextTokenStart = input.scanToNextToken()) {
+		for( byte nextTokenStart = JsonInputHelper.scanToNextToken( input ); '}' != nextTokenStart; nextTokenStart = JsonInputHelper.scanToNextToken( input )) {
 			
 			String key = JsonStringHandler.readString( input );
 			
-			nextTokenStart = input.scanToNextToken();
+			nextTokenStart = JsonInputHelper.scanToNextToken( input );
 					
 			if( '"' == nextTokenStart ) {
 				String value = JsonStringHandler.readString( input );

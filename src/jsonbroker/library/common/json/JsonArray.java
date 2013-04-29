@@ -14,6 +14,7 @@ import jsonbroker.library.common.auxiliary.MutableData;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.handlers.JsonArrayHandler;
 import jsonbroker.library.common.json.input.JsonDataInput;
+import jsonbroker.library.common.json.input.JsonInputHelper;
 import jsonbroker.library.common.json.output.JsonStringOutput;
 
 
@@ -66,10 +67,29 @@ public class JsonArray implements Serializable {
 		return _values.size();
 	}
 	
+
 	public void add( Integer value ) {
 		_values.add( value);
 	}
-	
+
+	public void add( JsonArray value ) {
+		_values.add( value);
+	}
+
+	public void add( JsonObject value ) {
+		_values.add( value);
+	}
+
+
+	public void add( Object value ) {
+		_values.add( value);
+	}
+
+	public void add( String value ) {
+		_values.add( value);
+	}
+
+
 	public int getInteger( int index ) {
 		
 		Object blob = _values.get(index);
@@ -102,9 +122,6 @@ public class JsonArray implements Serializable {
 	}
 
 
-	public void add( JsonArray value ) {
-		_values.add( value);
-	}
 
 	public JsonArray getJsonArray( int index ) {
 		
@@ -127,9 +144,6 @@ public class JsonArray implements Serializable {
 	}
 	
 	
-	public void add( JsonObject value ) {
-		_values.add( value);
-	}
 
 	public JsonObject getJsonObject( int index ) {
 		
@@ -151,9 +165,6 @@ public class JsonArray implements Serializable {
 		
 	}
 	
-	public void add( Object value ) {
-		_values.add( value);
-	}
 
 
 	public Object getObject( int index ) {
@@ -181,10 +192,6 @@ public class JsonArray implements Serializable {
 		return blob;
 	}
 
-
-	public void add( String value ) {
-		_values.add( value);
-	}
 	
 	public String getString( int index ) {
 		
@@ -225,16 +232,16 @@ public class JsonArray implements Serializable {
 	
 	public static JsonArray build( Data data ) {
 		
-		JsonDataInput reader = new JsonDataInput(data);
+		JsonDataInput input = new JsonDataInput(data);
 		
 		try{ 
 			
-			reader.scanToNextToken();
-			return JsonArrayHandler.readJsonArray( reader );
+			JsonInputHelper.scanToNextToken( input );			
+			return JsonArrayHandler.readJsonArray( input );
 			
 		} catch( BaseException e ) {
 			
-			e.addContext( "position", reader.getPositionInformation() );
+			e.addContext( "position", input.getPositionInformation() );
 			throw e;
 		}
 		
@@ -247,6 +254,10 @@ public class JsonArray implements Serializable {
 		return build( data );
 	}
 
+	
+	public void set( int index, int value ) {
+		_values.set( index, value );
+	}
 	
 	
 	public String toString(JsonStringOutput jsonWriter) {

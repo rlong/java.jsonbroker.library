@@ -2,20 +2,27 @@
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
+
 package jsonbroker.library.common.json;
+
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import jsonbroker.library.common.auxiliary.Data;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.json.input.JsonDataInput;
 import jsonbroker.library.common.json.input.JsonInput;
 import jsonbroker.library.common.json.input.JsonReader;
+import jsonbroker.library.common.json.input.JsonStreamInput;
+import jsonbroker.library.common.json.output.JsonStreamOutput;
 import jsonbroker.library.common.json.output.JsonStringOutput;
 import jsonbroker.library.common.json.output.JsonWriter;
 
 public class JsonArrayHelper {
 	
 	
-	public static JsonArray buildFromString(String jsonString) {
+	public static JsonArray fromString(String jsonString) {
 		
 		byte[] rawData = StringHelper.toUtfBytes(jsonString);
 		Data data = new Data(rawData);
@@ -25,9 +32,18 @@ public class JsonArrayHelper {
         JsonReader.read(input, builder);
         
         JsonArray answer = builder.getArrayDocument();
-
         return answer;
-
+	}
+	
+	public static JsonArray read( InputStream inputStream ) {
+		
+		JsonStreamInput jsonStreamInput = new JsonStreamInput( inputStream );
+        JsonBuilder builder = new JsonBuilder();
+        JsonReader.read(jsonStreamInput, builder);
+        
+        JsonArray answer = builder.getArrayDocument();
+        return answer;
+		
 	}
 	
 	public static String toString( JsonArray jsonArray ) {
@@ -36,7 +52,24 @@ public class JsonArrayHelper {
 		JsonWriter writer = new JsonWriter(output);
 		JsonWalker.walk( jsonArray, writer);
 		return  output.toString();
+	}
+	
+	
+	public static byte[] toBytes( JsonArray  jsonArray ) {
+		
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		write( jsonArray, byteArrayOutputStream );
+		return byteArrayOutputStream.toByteArray();
+	}
+	
+	public static void write( JsonArray jsonArray, OutputStream destination ) {
+
+		JsonStreamOutput jsonStringOutput = new JsonStreamOutput( destination );
+		JsonWriter writer = new JsonWriter(jsonStringOutput);
+		JsonWalker.walk( jsonArray, writer);
+		jsonStringOutput.flush();
 
 	}
+
 
 }

@@ -35,7 +35,7 @@ public class JsonBuilder implements JsonDocumentHandler {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	JsonBuilder() {
+	public JsonBuilder() {
 		_stack = new JsonStack();
 	}
 
