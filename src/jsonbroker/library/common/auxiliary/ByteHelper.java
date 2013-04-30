@@ -5,6 +5,10 @@
 
 package jsonbroker.library.common.auxiliary;
 
+import java.io.UnsupportedEncodingException;
+
+import jsonbroker.library.common.exception.BaseException;
+
 public class ByteHelper {
 
     static final char[] _hexDigits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
@@ -23,6 +27,15 @@ public class ByteHelper {
 	        answer.append(_hexDigits[b & 0xf]);
 	    }
 	    return answer.toString();
+	}
+
+	public static String toUtf8String( byte[] buffer, int offset, int length ) { 
+		
+		try {
+			return new String( buffer, offset, length, StringHelper.UTF_8 );
+		} catch (UnsupportedEncodingException e) {
+			throw new BaseException( StringHelper.class , e );
+		}
 	}
 
 }

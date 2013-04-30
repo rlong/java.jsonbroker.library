@@ -12,7 +12,6 @@ import jsonbroker.library.common.log.Log;
 
 public class JsonBuilder implements JsonDocumentHandler {
 	
-	private static final Log log = Log.getLog(JsonBuilder.class );
 
 	JsonStack _stack;
 	
@@ -78,8 +77,6 @@ public class JsonBuilder implements JsonDocumentHandler {
 	@Override
 	public void onArrayStart(int index) {
 		
-		log.debug( index, "index");
-		
 		JsonArray jsonArray = new JsonArray();		
 		_stack.getCurrentArray().add( jsonArray );
 		_stack.push( jsonArray );
@@ -89,7 +86,6 @@ public class JsonBuilder implements JsonDocumentHandler {
 	@Override
 	public void onArrayEnd(int index) {
 
-		log.debug( index, "index");
 		_stack.pop();
 		
 	}
@@ -116,7 +112,6 @@ public class JsonBuilder implements JsonDocumentHandler {
 	@Override
 	public void onObjectStart(int index) {
 		
-		log.debug( index, "index");
 		JsonObject jsonObject = new JsonObject();
 		_stack.getCurrentArray().add( jsonObject );
 		_stack.push( jsonObject );
@@ -125,7 +120,6 @@ public class JsonBuilder implements JsonDocumentHandler {
 	@Override
 	public void onObjectEnd(int index) {
 		
-		log.debug( index, "index");
 		_stack.pop();
 		
 	}
@@ -142,8 +136,6 @@ public class JsonBuilder implements JsonDocumentHandler {
 	@Override
 	public void onArrayStart(String key) {
 		
-		log.debug( key, "key" );
-		
 		JsonArray jsonArray = new JsonArray();
 		_stack.getCurrentObject().put( key, jsonArray);
 		_stack.push( jsonArray );
@@ -152,7 +144,7 @@ public class JsonBuilder implements JsonDocumentHandler {
 
 	@Override
 	public void onArrayEnd(String key) {
-		log.debug( key, "key" );
+
 		_stack.pop();
 	}
 
@@ -177,9 +169,6 @@ public class JsonBuilder implements JsonDocumentHandler {
 	@Override
 	public void onObjectStart(String key) {
 		
-		log.debug( key, "key" );
-
-		
 		JsonObject jsonObject = new JsonObject();
 		_stack.getCurrentObject().put( key, jsonObject);
 		_stack.push( jsonObject );
@@ -188,7 +177,7 @@ public class JsonBuilder implements JsonDocumentHandler {
 
 	@Override
 	public void onObjectEnd(String key) {
-		log.debug( key, "key" );
+
 		_stack.pop();
 	}
 

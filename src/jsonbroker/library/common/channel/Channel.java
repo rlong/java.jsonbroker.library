@@ -9,6 +9,7 @@ public interface Channel {
 
 	public void close(boolean ignoreErrors);
 	
+	// can return null
 	public String readLine();
 	
 	public void write( byte[] bytes ); 

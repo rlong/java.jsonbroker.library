@@ -23,7 +23,6 @@ public class SocketChannel implements Channel {
 	InputStream _inputStream;
 	OutputStream _outputStream;
 	
-	
 
 	public SocketChannel( Socket socket ) {
 		
@@ -70,6 +69,7 @@ public class SocketChannel implements Channel {
 	}
 	
 	@Override
+	// can return null
 	public String readLine() {
 		
 		String answer = ChannelHelper.readLine( _inputStream, this );

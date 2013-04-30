@@ -18,21 +18,6 @@ public class StringHelper {
 	public static final String UTF_8 = "UTF-8";
 	
 
-	public static String fromUtf8Bytes( byte[] buffer, int offset, int length ) { 
-		
-		try {
-			return new String( buffer, offset, length, UTF_8 );
-		} catch (UnsupportedEncodingException e) {
-			throw new BaseException( StringHelper.class , e );
-		}
-	}
-	
-	public static String fromUtf8Data( Data data ) {
-		byte[] buffer =  data.getBytes();
-		int length = data.getCount();
-		return fromUtf8Bytes( buffer, 0, length);
-	}
-	
 	public static byte[] toUtfBytes( String string ) {
 		
 		try {

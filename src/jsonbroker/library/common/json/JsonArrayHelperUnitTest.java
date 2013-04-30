@@ -5,7 +5,7 @@
 
 package jsonbroker.library.common.json;
 
-import jsonbroker.library.common.auxiliary.StringHelper;
+import jsonbroker.library.common.auxiliary.ByteHelper;
 import jsonbroker.library.common.log.Log;
 import junit.framework.TestCase;
 
@@ -49,7 +49,7 @@ public class JsonArrayHelperUnitTest extends TestCase {
 		{			
 			byte[] bytes = JsonArrayHelper.toBytes( target );
 			assertEquals( 23, bytes.length );
-			String expectedValue = StringHelper.fromUtf8Bytes( bytes, 0, bytes.length);
+			String expectedValue = ByteHelper.toUtf8String( bytes, 0, bytes.length);
 			log.debug( expectedValue, "expectedValue" );
 			assertEquals( "[null,true,314,\"value\"]" , expectedValue);
 			

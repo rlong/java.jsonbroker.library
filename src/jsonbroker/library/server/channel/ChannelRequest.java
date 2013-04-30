@@ -6,6 +6,7 @@
 package jsonbroker.library.server.channel;
 
 import jsonbroker.library.common.auxiliary.Data;
+import jsonbroker.library.common.auxiliary.DataHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.channel.Channel;
 import jsonbroker.library.common.json.JsonArray;
@@ -77,6 +78,11 @@ public class ChannelRequest {
 			
 			byte[] rawData = StringHelper.toUtfBytes(endpointHeader);
 			Data data = new Data(rawData);
+			
+			{
+				log.debug(DataHelper.toUtf8String(data), "DataHelper.toUtf8String(data)" );
+			}
+			
 			JsonInput input = new JsonDataInput(data);
 
 			JsonBuilder builder = new JsonBuilder();

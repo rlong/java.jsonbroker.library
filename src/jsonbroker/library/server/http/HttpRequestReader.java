@@ -8,10 +8,10 @@ package jsonbroker.library.server.http;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 
+import jsonbroker.library.common.auxiliary.DataHelper;
 import jsonbroker.library.common.auxiliary.MutableData;
 import jsonbroker.library.common.auxiliary.NumericUtilities;
 import jsonbroker.library.common.auxiliary.StreamUtilities;
-import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.StreamEntity;
 import jsonbroker.library.common.log.Log;
@@ -120,7 +120,7 @@ public class HttpRequestReader {
 			
 			// end of stream or end of the line
 			if( -1 == byteRead || '\n' == byteRead ) {
-				return StringHelper.fromUtf8Data( buffer );
+				return DataHelper.toUtf8String( buffer );
 			}
 			
 			// filter out '\r'

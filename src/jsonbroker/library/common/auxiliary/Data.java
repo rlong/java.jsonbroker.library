@@ -65,7 +65,7 @@ public class Data implements Loggable {
 	
 	public String getUtf8String( int offset, int length ) { 
 		
-		return StringHelper.fromUtf8Bytes( _buffer.getBytes(), offset, length);
+		return ByteHelper.toUtf8String( _buffer.getBytes(), offset, length);
 		
 	}
 	

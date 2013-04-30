@@ -7,6 +7,7 @@ package jsonbroker.library.client.channel;
 
 import jsonbroker.library.common.broker.BrokerMessage;
 import jsonbroker.library.common.channel.Channel;
+import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonArray;
 import jsonbroker.library.common.json.JsonArrayHelper;
 import jsonbroker.library.common.log.Log;
@@ -51,6 +52,13 @@ public class ServiceChannelProxy implements Service {
 		
 		String channelHeader = _channel.readLine();
 		log.debug( channelHeader, "channelHeader"  );
+		
+        if (null == channelHeader)
+        {
+            String errorMessage = "null == channelHeader; channel looks like it is closed";
+            throw new BaseException(this, errorMessage);
+        }
+
 		
 		String endpointHeader = _channel.readLine();
 		log.debug( endpointHeader, "endpointHeader" );
