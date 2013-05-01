@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import jsonbroker.library.common.auxiliary.StreamUtilities;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.HttpStatus;
@@ -176,7 +176,7 @@ public class HttpDispatcher {
 			// vvv http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/HttpClient.html
 			if( null != apacheEntityInputStream ) {
 				// Closing the input stream will trigger connection release
-				StreamUtilities.close( apacheEntityInputStream, false, this);
+				InputStreamHelper.close( apacheEntityInputStream, false, this);
 			}
 			// ^^^ http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/client/HttpClient.html
 			

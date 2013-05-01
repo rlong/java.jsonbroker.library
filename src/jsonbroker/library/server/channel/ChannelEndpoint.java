@@ -6,10 +6,12 @@
 package jsonbroker.library.server.channel;
 
 import jsonbroker.library.common.channel.Channel;
+import jsonbroker.library.common.json.JsonArray;
+import jsonbroker.library.common.json.JsonObject;
 
 public interface ChannelEndpoint {
 
-
-	public void handleRequest( Channel channel, ChannelRequest channelRequest  );
+	public void handleRequest( Channel channel, JsonArray endpointRequest, ChannelResponse channelResponse  );
+	public void handleRequest( Channel channel, JsonObject endpointRequest, ChannelResponse channelResponse );
 	
 }

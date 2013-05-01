@@ -10,6 +10,8 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
+import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.http.Entity;
@@ -66,7 +68,7 @@ public class HttpResponseWriter {
 			statusLineAndHeaders.append("Accept-Ranges: bytes\r\n\r\n");
 			
 			byte[] utfBytes = StringHelper.toUtfBytes( statusLineAndHeaders.toString());
-			StreamUtilities.write( utfBytes, outputStream, HttpResponseWriter.class);
+			OutputStreamHelper.write( utfBytes, outputStream, HttpResponseWriter.class);
 
 			return; // our work is done
 		}
@@ -101,7 +103,7 @@ public class HttpResponseWriter {
 
 		
 		byte[] utfBytes = StringHelper.toUtfBytes( statusLineAndHeaders.toString());
-		StreamUtilities.write( utfBytes, outputStream, HttpResponseWriter.class);
+		OutputStreamHelper.write( utfBytes, outputStream, HttpResponseWriter.class);
 		
 		////////////////////////////////////////////////////////////////////////
 		// write the entity
@@ -112,9 +114,9 @@ public class HttpResponseWriter {
 		}
 		
 		InputStream entityInputStream = entity.getContent();
-		StreamUtilities.skip( seekPosition, entityInputStream, HttpResponseWriter.class);
+		InputStreamHelper.skip( seekPosition, entityInputStream, HttpResponseWriter.class);
 		StreamUtilities.write( contentLength.longValue(), entityInputStream, outputStream);		
-		StreamUtilities.flush( outputStream, true, HttpResponseWriter.class);
+		OutputStreamHelper.flush( outputStream, true, HttpResponseWriter.class);
 		
 	}
 

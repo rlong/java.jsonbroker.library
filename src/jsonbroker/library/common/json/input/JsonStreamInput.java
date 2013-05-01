@@ -7,7 +7,7 @@ package jsonbroker.library.common.json.input;
 
 import java.io.InputStream;
 
-import jsonbroker.library.common.auxiliary.StreamUtilities;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 
 public class JsonStreamInput implements JsonInput {
 	
@@ -36,8 +36,8 @@ public class JsonStreamInput implements JsonInput {
 	public JsonStreamInput( InputStream inputStream ) {
 		_inputStream = inputStream;
 		
-		_currentByte = (byte)StreamUtilities.readByte( inputStream, this);
-		_nextByte = StreamUtilities.readByte( inputStream, this);
+		_currentByte = (byte)InputStreamHelper.readByte( inputStream, this);
+		_nextByte = InputStreamHelper.readByte( inputStream, this);
 		
 	}
 	
@@ -59,7 +59,7 @@ public class JsonStreamInput implements JsonInput {
 	@Override
 	public byte nextByte() {
 		_currentByte = (byte)_nextByte;
-		_nextByte = StreamUtilities.readByte( _inputStream,this);
+		_nextByte = InputStreamHelper.readByte( _inputStream,this);
 		
 		return _currentByte;
 		

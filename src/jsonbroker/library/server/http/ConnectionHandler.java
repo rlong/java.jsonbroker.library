@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
+import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.http.Entity;
@@ -127,7 +129,7 @@ public class ConnectionHandler implements Runnable{
 		// clean up 'entity' stream if it exists... 
 		Entity entity = response.getEntity();
 		if( null != entity ) {
-			StreamUtilities.close( entity.getContent(), false, this);
+			InputStreamHelper.close( entity.getContent(), false, this);
 		}
 	}
 	
@@ -209,7 +211,7 @@ public class ConnectionHandler implements Runnable{
         log.debug("finishing");
 
 		if( _socket.isConnected() ) {
-            StreamUtilities.flush(_outputStream, true, this);            
+            OutputStreamHelper.flush(_outputStream, true, this);            
 		}  
 
 
@@ -223,8 +225,8 @@ public class ConnectionHandler implements Runnable{
 				
 				_socket.close();
 			}
-            StreamUtilities.close(_inputStream, true, this);
-            StreamUtilities.close(_outputStream, true, this);
+            InputStreamHelper.close(_inputStream, true, this);
+            OutputStreamHelper.close(_outputStream, true, this);
             
 		} catch (IOException e) {
 			log.warn( e );

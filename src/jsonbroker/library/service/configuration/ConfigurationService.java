@@ -12,7 +12,8 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import jsonbroker.library.common.auxiliary.StreamUtilities;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
+import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.broker.BrokerMessage;
 import jsonbroker.library.common.exception.BaseException;
@@ -78,7 +79,7 @@ public class ConfigurationService implements DescribedService {
 			_bundles.put(bundleName, answer);
 			return answer;
 		} finally {
-			StreamUtilities.close( fis, false, this  );
+			InputStreamHelper.close( fis, false, this  );
 		}
 		
 	}
@@ -100,7 +101,7 @@ public class ConfigurationService implements DescribedService {
 			throw new BaseException( this, e);
 		}
 		finally {
-			StreamUtilities.close( fos );
+			OutputStreamHelper.close( fos );
 		}
 	}
 

@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.MutableData;
-import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.auxiliary.StringHelper;
 
 public class ChannelHelper {
@@ -24,20 +24,20 @@ public class ChannelHelper {
 		
 		int b = 0;
 
-		b = StreamUtilities.readByte(inputStream, caller);
+		b = InputStreamHelper.readByte(inputStream, caller);
 		while( '\n' != b ) {
 			if( -1 == b ) {
 				return null;
 			}
 			data.append( (byte)b );
-			b = StreamUtilities.readByte(inputStream, caller);
+			b = InputStreamHelper.readByte(inputStream, caller);
 		}
 
 		return data.getUtf8String( 0, data.getCount() );
 		
 	}	
 
-	public static void write( OutputStream outputStream, byte[] bytes ) {
+	public static void write( byte[] bytes, OutputStream outputStream ) {
 		
 		try {
 			outputStream.write( bytes );
@@ -47,15 +47,17 @@ public class ChannelHelper {
 		}
 	}
 
-	public static void write( OutputStream outputStream, String line ) {
+	public static void write( String line, OutputStream outputStream ) {
 		
 		byte[] utfBytes = StringHelper.toUtfBytes( line  );
-		write( outputStream, utfBytes );
+		write( utfBytes, outputStream );
 	}
+	
+	
 
-	public static void writeLine( OutputStream outputStream, String line ) {
+	public static void writeLine( String line, OutputStream outputStream ) {
 		
-		write( outputStream, line + '\n' );
+		write( line + '\n', outputStream );
 		
 	}
 	

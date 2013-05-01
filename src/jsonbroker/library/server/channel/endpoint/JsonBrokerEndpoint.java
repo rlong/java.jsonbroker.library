@@ -7,21 +7,20 @@ package jsonbroker.library.server.channel.endpoint;
 
 import jsonbroker.library.common.broker.BrokerMessage;
 import jsonbroker.library.common.channel.Channel;
+import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonArray;
-import jsonbroker.library.common.json.JsonArrayHelper;
-import jsonbroker.library.common.log.Log;
+import jsonbroker.library.common.json.JsonObject;
 import jsonbroker.library.server.broker.DescribedService;
 import jsonbroker.library.server.broker.ServicesRegistery;
 import jsonbroker.library.server.channel.ChannelEndpoint;
-import jsonbroker.library.server.channel.ChannelRequest;
+import jsonbroker.library.server.channel.ChannelResponse;
 
 public class JsonBrokerEndpoint implements ChannelEndpoint {
 	
 	
-	private static final Log log = Log.getLog(JsonBrokerEndpoint.class);
-	
-	private static final byte[] NEWLINE = { '\n' };
+	public static final String ENDPOINT_NAME = "jsonbroker.JsonbrokerEndpoint";
 
+	
 	ServicesRegistery _servicesRegistery;
 
 	public JsonBrokerEndpoint() {
@@ -32,47 +31,18 @@ public class JsonBrokerEndpoint implements ChannelEndpoint {
 		_servicesRegistery.addService( service );
 	}
 
+	
+	public void handleRequest( Channel channel, JsonArray endpointRequest, ChannelResponse channelResponse  ) {
+		
+		BrokerMessage brokerRequest = new BrokerMessage( endpointRequest );
+		BrokerMessage brokerResponse = _servicesRegistery.process( brokerRequest );
+		JsonArray endpointResponse = brokerResponse.toJsonArray();
+		
+		channelResponse.writeResponse( channel, endpointResponse);
+	}
 
-	public void handleRequest( Channel channel, ChannelRequest channelRequest  ) {
-		
-		
-		
-		byte[] endpointResponseHeader;
-		
-		// do some stuff ...
-		{
-			JsonArray brokerMessageArray = channelRequest.getEndpointHeaderArray();
-			BrokerMessage brokerRequest = new BrokerMessage( brokerMessageArray );
-			BrokerMessage brokerResponse = _servicesRegistery.process( brokerRequest );
-			
-			endpointResponseHeader = JsonArrayHelper.toBytes( brokerResponse.toJsonArray() );
-		}
-
-		JsonArray channelHeader = channelRequest.getChannelHeader();
-
-		// prepare the response ...
-		{			
-			channelHeader.set( 4, endpointResponseHeader.length);
-			channelHeader.add( 200 ); // 200: OK
-		}
-		
-		// write the response ...
-		{
-			byte[] channelHeaderBytes = JsonArrayHelper.toBytes( channelHeader );
-			channel.write( channelHeaderBytes );
-			channel.write( NEWLINE );
-			channel.write( endpointResponseHeader );
-			channel.write( NEWLINE );
-			
-		}
-		
-		
-		
-		
-		
-			
-		
-		
+	public void handleRequest( Channel channel, JsonObject endpointRequest, ChannelResponse channelResponse ) {
+		throw new BaseException( this, "endpoint '"+ENDPOINT_NAME+"' does not support requests of type 'JsonObject'" );
 		
 	}
 

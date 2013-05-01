@@ -16,110 +16,10 @@ import jsonbroker.library.common.log.Log;
 
 public class StreamUtilities {
 	
-	private static final Log log = Log.getLog(StreamUtilities.class);
 
 	private static final int BASE_ERROR_CODE = ErrorCodeUtilities.getBaseErrorCode("jsonbroker.StreamUtilities");
 	public static final int IOEXCEPTION_ON_STREAM_WRITE = BASE_ERROR_CODE | 0x01;
 	
-	
-	public static final int read( InputStream inputStream, byte[] destination, Object caller ) {
-		try {
-			return inputStream.read(destination);
-		} catch (IOException e) {
-			throw new BaseException( caller, e);
-		}
-	}
-	
-	/**
-	 * 
-	 * @param inputStream
-	 * @param caller
-	 * 
-	 * @return the next byte of data, or -1 if the end of the stream is reached
-	 */
-	public static final int readByte( InputStream inputStream, Object caller ) {
-
-		try {
-			return inputStream.read();
-		} catch (IOException e) {
-			throw new BaseException( caller, e);
-		}
-	}
-
-	public static void close( InputStream inputStream, boolean swallowException, Object caller ) {
-		
-		if( null == inputStream ) {
-			return;
-		}
-		
-		try {
-			inputStream.close();
-		} catch (IOException e) {
-			if( swallowException ) {
-				log.warn( e.getMessage(), "e.getMessage()" );			
-			} else {
-				throw new BaseException( caller, e);
-			}			
-		}
-	}
-	
-	public static void close( InputStream inputStream , Object caller ) {
-		
-		if( null == inputStream ) {
-			return;
-		}
-		
-		try {
-			inputStream.close();
-		} catch (IOException e) {
-			throw new BaseException( caller, e);
-		}
-	}
-
-
-	public static void close( OutputStream outputStream ) {
-		
-		if( null == outputStream ) {
-			return;
-		}
-		
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-			throw new BaseException( StreamUtilities.class, e);
-		}
-	}
-	
-	public static void close( OutputStream outputStream, boolean swallowException, Object caller  ) {
-		
-		if( null == outputStream ) {
-			return;
-		}
-		
-		try {
-			outputStream.close();
-		} catch (IOException e) {
-			if( swallowException ) {
-				log.warn( e.getMessage(), "e.getMessage()" );			
-			} else {
-				throw new BaseException( caller, e);
-			}			
-		}
-	}
-
-	
-	public static void skip( long count, InputStream inputStream, Object caller  ) {
-		
-		if( null == inputStream ) {
-			return;
-		}
-		
-		try {
-			inputStream.skip( count );
-		} catch (IOException e) {
-			throw new BaseException( caller, e);
-		}
-	}
 	
 	public static void write( long count, InputStream inputStream, OutputStream outputStream ) {
 		
@@ -168,26 +68,6 @@ public class StreamUtilities {
 		}
 	}
 
-	public static void write( byte b, OutputStream outputStream, Object caller ) {
-		
-		try {
-			outputStream.write( b);
-		} catch (IOException e) {
-			throw new BaseException( caller, e);
-		}
-
-	}
-
-	public static void write( byte[] bytes, OutputStream outputStream, Object caller ) {
-		
-		try {
-			outputStream.write( bytes);
-		} catch (IOException e) {
-			throw new BaseException( caller, e);
-		}
-
-	}
-	
 	// write until the end of the stream 
 	public static void write( InputStream inputStream, OutputStream outputStream ) {
 		
@@ -202,23 +82,6 @@ public class StreamUtilities {
 			throw new BaseException( StreamUtilities.class, e);
 		}
 
-	}
-	
-	public static void flush( OutputStream outputStream, boolean swallowException, Object caller ) {
-		
-		if( null == outputStream ) {
-			return;
-		}
-		
-		try {
-			outputStream.flush();
-		} catch (IOException e) {
-			if( swallowException ) {
-				log.warn( e.getMessage(), "e.getMessage()" );			
-			} else {
-				throw new BaseException( caller, e);
-			}			
-		}
 	}
 
 }

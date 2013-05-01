@@ -9,9 +9,9 @@ import java.io.InputStream;
 import java.util.StringTokenizer;
 
 import jsonbroker.library.common.auxiliary.DataHelper;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.MutableData;
 import jsonbroker.library.common.auxiliary.NumericUtilities;
-import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.StreamEntity;
 import jsonbroker.library.common.log.Log;
@@ -96,7 +96,7 @@ public class HttpRequestReader {
 	private static String readLine(InputStream inputStream, MutableData buffer) {
 		
 		
-		int byteRead = StreamUtilities.readByte(  inputStream, HttpRequestReader.class);
+		int byteRead = InputStreamHelper.readByte(  inputStream, HttpRequestReader.class);
 		
 		if( -1 == byteRead ) { 
 			return null;
@@ -128,7 +128,7 @@ public class HttpRequestReader {
 				buffer.append( (byte)byteRead );
 			}
 
-			byteRead = StreamUtilities.readByte(  inputStream, HttpRequestReader.class);
+			byteRead = InputStreamHelper.readByte(  inputStream, HttpRequestReader.class);
 			
 			i++;
 		} while( i < LINE_LENGTH_UPPER_BOUND );
