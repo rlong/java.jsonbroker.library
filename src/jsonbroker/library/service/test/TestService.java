@@ -6,6 +6,7 @@
 package jsonbroker.library.service.test;
 
 import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonObject;
 import jsonbroker.library.common.log.Log;
 import jsonbroker.library.server.broker.DescribedService;
@@ -39,18 +40,14 @@ public class TestService implements DescribedService {
 		log.enteredMethod();		
 	}
 	
-	private String toString( Object o ) {
-		return o.toString();
-	}
-	
 	
 	public void raiseError() {
 
 		log.enteredMethod();
-		toString( null );
+		BaseException e = new BaseException(this, "TestService.raiseError() called");
+		e.setErrorDomain( "jsonbroker.TestService.RAISE_ERROR" );
+		throw e;
 	}
-
-
 	
 	@Override
 	public BrokerMessage process(BrokerMessage request) {

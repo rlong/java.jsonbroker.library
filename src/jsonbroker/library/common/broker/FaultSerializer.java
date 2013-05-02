@@ -18,6 +18,8 @@ public class FaultSerializer {
 		
 		JsonObject answer = new JsonObject();
 		
+		answer.put("errorDomain", baseException.getErrorDomain()); // null is ok
+		
 		answer.put( "faultCode", baseException.getFaultCode() );
 		answer.put( "faultMessage", baseException.getMessage() );
 		answer.put( "underlyingFaultMessage", baseException.getUnderlyingFaultMessage());
@@ -59,6 +61,8 @@ public class FaultSerializer {
 		}
 		
 		JsonObject answer = new JsonObject();
+		
+		answer.put("errorDomain", null); // null is ok
 		
 		answer.put( "faultCode", BaseException.DEFAULT_FAULT_CODE ); // 				
 		answer.put( "faultMessage", t.getMessage() );

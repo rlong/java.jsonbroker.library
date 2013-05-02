@@ -26,19 +26,22 @@ public class BaseException extends RuntimeException implements Loggable {
 	 */
 	private static final long serialVersionUID = -6632414932623607359L;
 
-	////////////////////////////////////////////////////////////////////////////
-	
-	Object _originator;
-	
-	public Object getOriginatingObject() {
-		return _originator;
-	}
-	
-	
     ///////////////////////////////////////////////////////////////////////
 	//
     private HashMap<String, String> _context;
-    
+
+	////////////////////////////////////////////////////////////////////////////
+	// errorDomain	
+	private String _errorDomain;
+
+	public String getErrorDomain() {
+		return _errorDomain;
+	}
+
+	public void setErrorDomain(String errorDomain) {
+		_errorDomain = errorDomain;
+	}
+
 	///////////////////////////////////////////////////////////////////////
     // from XML-RPC
     private int _faultCode;
@@ -51,6 +54,15 @@ public class BaseException extends RuntimeException implements Loggable {
 	public void setFaultCode(int faultCode) {
 		_faultCode = faultCode;
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	Object _originatingObject;
+	
+	public Object getOriginatingObject() {
+		return _originatingObject;
+	}
+	
     
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -65,30 +77,19 @@ public class BaseException extends RuntimeException implements Loggable {
 	}
 
 	
-	////////////////////////////////////////////////////////////////////////////
-	// errorDomain	
-	private String _errorDomain;
-
-	public String getErrorDomain() {
-		return _errorDomain;
-	}
-
-	public void setErrorDomain(String errorDomain) {
-		_errorDomain = errorDomain;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	public BaseException( Object originator, String technicalError ) {
 		super( technicalError );
-		_originator = originator;
+		_originatingObject = originator;
         _faultCode = DEFAULT_FAULT_CODE;
         _context = new HashMap<String, String>();
 	}
 	
 	public BaseException( Object originator, String format, Object ... values ) {
 		super( String.format( format, values ) );
-		_originator = originator;
+		_originatingObject = originator;
         _faultCode = DEFAULT_FAULT_CODE;
         _context = new HashMap<String, String>();
 
@@ -97,7 +98,7 @@ public class BaseException extends RuntimeException implements Loggable {
 	
 	public BaseException( Object originator, Throwable cause ) {
 		super( cause );
-		_originator = originator;
+		_originatingObject = originator;
         _faultCode = DEFAULT_FAULT_CODE;
         _context = new HashMap<String, String>();
         _underlyingFaultMessage = ExceptionHelper.getUnderlyingFaultMessage( cause );
@@ -109,16 +110,16 @@ public class BaseException extends RuntimeException implements Loggable {
 	
 	public String getOriginator() {
 		
-		if( _originator instanceof String ) {
-			return (String)_originator;
+		if( _originatingObject instanceof String ) {
+			return (String)_originatingObject;
 		}
 		
 		Class<?> originatingClass;
 		
-		if( _originator instanceof Class<?> ) {
-			originatingClass = (Class<?>)_originator;
+		if( _originatingObject instanceof Class<?> ) {
+			originatingClass = (Class<?>)_originatingObject;
 		} else {
-			originatingClass = _originator.getClass();
+			originatingClass = _originatingObject.getClass();
 		}
 		
 		String packagedClassName = originatingClass.getName();
