@@ -89,7 +89,7 @@ public class ConnectionHandler implements Runnable{
 		
 	}
 	
-	private boolean writeResponse( HttpResponse response, boolean connectionWillClose ) {
+	private boolean writeResponse( HttpResponse response ) {
 		
 		if( _socket.isOutputShutdown() ) {
 			log.warn( "_socket.isOutputShutdown()" );
@@ -107,7 +107,7 @@ public class ConnectionHandler implements Runnable{
 		}  
 
 		try {			
-			HttpResponseWriter.writeResponse(response,_outputStream, connectionWillClose);
+			HttpResponseWriter.writeResponse(response,_outputStream );
 		} catch( BaseException e ) {
 			
 			if( e.getFaultCode() == StreamUtilities.IOEXCEPTION_ON_STREAM_WRITE ) {
@@ -138,27 +138,44 @@ public class ConnectionHandler implements Runnable{
 		
 		int statusCode = response.getStatus();
 		
-		long timeTaken = System.currentTimeMillis() - request.getCreated();
-
-		String payloadSize = "-";
-		Long contentLength = response.getContentLength();
-        if (null != contentLength)
-        {
-            payloadSize = contentLength.toString();
-        }
-
 		String requestUri = request.getRequestUri();
-
-		if( writeResponseSucceded ) { 
-			log.infoFormat( "%d %d %s T %s", statusCode, timeTaken, payloadSize, requestUri);
-		} else {
-			log.infoFormat( "%d %d %s F %s", statusCode, timeTaken, payloadSize, requestUri);
+		
+		long contentLength = 0;
+		if( null != response.getEntity() ) {
+			contentLength = response.getEntity().getContentLength();
+            if (null != response.getRange())
+            {
+                contentLength = response.getRange().getContentLength(contentLength);
+            }
 		}
 		
-	}
-	
+		long timeTaken = System.currentTimeMillis() - request.getCreated();
 
-	
+        String completed;
+        if (writeResponseSucceded)
+        {
+            completed = "true";
+        } else 
+        {
+            completed = "false";
+        }
+
+        String rangeString;
+        {
+            if (null == response.getRange())
+            {
+                rangeString = "bytes";
+            }
+            else
+            {
+                rangeString = response.getRange().toContentRange(response.getEntity().getContentLength());
+            }
+        }
+
+        log.infoFormat("status:%d uri:%s content-length:%d time-taken:%d completed:%s range:%s", statusCode, requestUri, contentLength, timeTaken, completed, rangeString);
+
+		
+	}
 	
 	private boolean processRequest() {
 		
@@ -173,16 +190,30 @@ public class ConnectionHandler implements Runnable{
 		HttpResponse response = processRequest(request); 
 
 		boolean continueProcessingRequests = true;
+		
+		// vvv http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
+        if( request.isCloseConnectionIndicated() ) {  
+
+            continueProcessingRequests = false;
+        }
+
+		// ^^^ http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
+		
 		int statusCode = response.getStatus();
         if (statusCode < 200 || statusCode > 299)
         {
             continueProcessingRequests = false;
         }
         
-        boolean connectionWillClose = !continueProcessingRequests;
-
+        if( continueProcessingRequests ) {
+        	response.putHeader( "Connection", "keep-alive" );
+        } else {
+        	response.putHeader( "Connection", "close" );
+        	
+        }
+        
 		// write the response ... 
-		boolean writeResponseSucceded = writeResponse(response,connectionWillClose);
+		boolean writeResponseSucceded = writeResponse(response);
 
 		cleanup(response );
 		
@@ -190,7 +221,7 @@ public class ConnectionHandler implements Runnable{
 		
         if (!writeResponseSucceded)
         {
-            continueProcessingRequests = false;
+        	continueProcessingRequests = false;
         }
 
         // if the processing completed, we will permit more requests on this socket
@@ -231,9 +262,7 @@ public class ConnectionHandler implements Runnable{
 		} catch (IOException e) {
 			log.warn( e );
 		}
-
 	}
-	
 	
 	@Override
 	public void run() {

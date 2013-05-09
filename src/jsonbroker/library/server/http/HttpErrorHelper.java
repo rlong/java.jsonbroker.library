@@ -29,18 +29,13 @@ public class HttpErrorHelper {
 	}
 	
 	public static BaseException unauthorized401FromOriginator(Object originatingObject) {
-		return buildException( originatingObject, HttpStatus.UNAUTHORIZED_401 );
+		
+		BaseException answer = buildException( originatingObject, HttpStatus.UNAUTHORIZED_401 );
+		answer.setErrorDomain( HttpStatus.ErrorDomain.UNAUTHORIZED_401 );
+		return answer;
 				
 	}
 	
-    public static BaseException unauthorized401FromOriginator(Object originatingObject, String errorDomain)
-    {
-        BaseException answer = buildException(originatingObject, HttpStatus.UNAUTHORIZED_401);
-        answer.setErrorDomain( errorDomain);
-        return answer;
-
-    }
-
 	
 	public static BaseException forbidden403FromOriginator(Object originatingObject) {
 		return buildException( originatingObject, HttpStatus.FORBIDDEN_403 );

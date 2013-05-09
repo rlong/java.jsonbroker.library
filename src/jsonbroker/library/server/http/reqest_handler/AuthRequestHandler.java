@@ -8,6 +8,7 @@ package jsonbroker.library.server.http.reqest_handler;
 import java.util.HashMap;
 
 import jsonbroker.library.common.exception.BaseException;
+import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.http.headers.HttpHeader;
 import jsonbroker.library.common.http.headers.request.Authorization;
 import jsonbroker.library.common.log.Log;
@@ -22,10 +23,8 @@ public class AuthRequestHandler implements RequestHandler {
 	private static final Log log = Log.getLog(AuthRequestHandler.class);
 	
 	
-	
 	private static final String REQUEST_URI = "/_dynamic_/auth";
 	
-	private static final String ERROR_DOMAIN_NULL_AUTHORIZATION = "jsonbroker.AuthProcessor.NULL_AUTHORIZATION";
 	
 	
 	////////////////////////////////////////////////////////////////////////////
@@ -86,7 +85,7 @@ public class AuthRequestHandler implements RequestHandler {
     	String authorization = request.getHttpHeader("authorization");
     	if( null == authorization ) {
     		log.warn( "null == authorization");
-    		throw HttpErrorHelper.unauthorized401FromOriginator(AuthRequestHandler.class,ERROR_DOMAIN_NULL_AUTHORIZATION);
+    		throw HttpErrorHelper.unauthorized401FromOriginator(AuthRequestHandler.class);
     	}
     	answer = Authorization.buildFromString( authorization );
 
@@ -126,7 +125,7 @@ public class AuthRequestHandler implements RequestHandler {
 			
 		} catch( BaseException e ) {
 			
-			if( ERROR_DOMAIN_NULL_AUTHORIZATION.equals( e.getErrorDomain() ) ) {
+			if( HttpStatus.ErrorDomain.UNAUTHORIZED_401.equals( e.getErrorDomain() ) ) {
 				log.warn( e.getMessage() );
 			} else {
 				log.error( e );

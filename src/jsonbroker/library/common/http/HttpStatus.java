@@ -8,6 +8,11 @@ package jsonbroker.library.common.http;
 public class HttpStatus {
 
 	
+    public class ErrorDomain
+    {
+        public static final String BAD_REQUEST_400 = "jsonbroker.HttpStatus.BAD_REQUEST_400";
+        public static final String UNAUTHORIZED_401 = "jsonbroker.HttpStatus.UNAUTHORIZED_401";
+    }
 	
 	public static final int OK_200 = 200;
 	public static final int NO_CONTENT_204 = 204;

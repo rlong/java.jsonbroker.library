@@ -72,6 +72,10 @@ public class HttpRequest {
 		_entity = entity;
 	}
 
+    ///////////////////////////////////////////////////////////////////////
+    // closeConnectionIndicated
+    private Boolean _closeConnectionIndicated;
+
 
 	////////////////////////////////////////////////////////////////////////////
 	Range _range; 
@@ -113,6 +117,33 @@ public class HttpRequest {
     }
     
     
+    // vvv http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
+    public boolean isCloseConnectionIndicated() 
+    {
+        if (null != _closeConnectionIndicated)
+        {
+            return _closeConnectionIndicated.booleanValue();
+        }
+        
+        String connectionHeader = _headers.get( "connection" );
+        
+        if( null == connectionHeader ) {
+        	
+        	_closeConnectionIndicated = Boolean.FALSE;
+        	
+        } else {
+        	
+        	if( "close".equals( connectionHeader ) ) {
+        		_closeConnectionIndicated = Boolean.TRUE;
+        	} else {
+        		_closeConnectionIndicated = Boolean.FALSE;
+        	}
+        }
+        return _closeConnectionIndicated.booleanValue();
+        
+    }
+    // ^^^ http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
+
     
 	
 }

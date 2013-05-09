@@ -24,7 +24,7 @@ public class HttpResponseWriter {
 	
 	private static final Log log = Log.getLog(HttpResponseWriter.class);
 	
-	public static void writeResponse(HttpResponse response, OutputStream outputStream, boolean connectionWillClose ) {
+	public static void writeResponse(HttpResponse response, OutputStream outputStream ) {
 		
 		log.enteredMethod();
 		
@@ -42,11 +42,6 @@ public class HttpResponseWriter {
 			statusLineAndHeaders.append( String.format( "%s: %s\r\n", key, value ));
 		}
 		
-        if (connectionWillClose)
-        {
-            statusLineAndHeaders.append("Connection: close\r\n");
-        }
-
 		
 		Entity entity = response.getEntity();
 		
@@ -78,44 +73,53 @@ public class HttpResponseWriter {
 		
 		long entityContentLength = entity.getContentLength();
 		long seekPosition = 0;
-		Long contentLength = response.getContentLength();
+		Long amountToWrite = entityContentLength;
 		
 		////////////////////////////////////////////////////////////////////////
 		// headers relevant to range support
 		Range range = response.getRange();
-		if( null != range && HttpStatus.PARTIAL_CONTENT_206 == statusCode ) {
+		
+		if( null == range ) {
+
+			statusLineAndHeaders.append( "Accept-Ranges: bytes\r\n");
+
+			if( HttpStatus.PARTIAL_CONTENT_206 == statusCode ) {
+				log.warn("null == range && HttpStatus.PARTIAL_CONTENT_206 == statusCode");
+			}
+			
+		} else {
 			
 			String contentRangeHeader = String.format( "Content-Range: %s\r\n", range.toContentRange(entityContentLength));			
 			statusLineAndHeaders.append( contentRangeHeader );
 			
+			amountToWrite = range.getContentLength(entityContentLength);
 			seekPosition = range.getSeekPosition( entityContentLength );
 			
-		} else {
-			statusLineAndHeaders.append( "Accept-Ranges: bytes\r\n");
+            if (HttpStatus.PARTIAL_CONTENT_206 != statusCode)
+            {
+                log.warn("null != range && HttpStatus.PARTIAL_CONTENT_206 != statusCode");
+            }
+
 		}
 		
 		////////////////////////////////////////////////////////////////////////
 		// content-length and final newline 
-		statusLineAndHeaders.append( String.format( "Content-Length: %d\r\n\r\n", contentLength.longValue()));
+		statusLineAndHeaders.append( String.format( "Content-Length: %d\r\n\r\n", amountToWrite));
 		
 		////////////////////////////////////////////////////////////////////////
 		// write the headers 
 
 		
-		byte[] utfBytes = StringHelper.toUtfBytes( statusLineAndHeaders.toString());
-		OutputStreamHelper.write( utfBytes, outputStream, HttpResponseWriter.class);
+		byte[] headersUtf8Bytes = StringHelper.toUtfBytes( statusLineAndHeaders.toString());
+		OutputStreamHelper.write( headersUtf8Bytes, outputStream, HttpResponseWriter.class);
 		
 		////////////////////////////////////////////////////////////////////////
 		// write the entity
 		
-		if (Log.isDebugEnabled()) {
-			log.debug(seekPosition, "seekPosition");
-			log.debug(contentLength.longValue(), "contentLength.longValue()");
-		}
 		
 		InputStream entityInputStream = entity.getContent();
 		InputStreamHelper.skip( seekPosition, entityInputStream, HttpResponseWriter.class);
-		StreamUtilities.write( contentLength.longValue(), entityInputStream, outputStream);		
+		StreamUtilities.write( amountToWrite, entityInputStream, outputStream);		
 		OutputStreamHelper.flush( outputStream, true, HttpResponseWriter.class);
 		
 	}
