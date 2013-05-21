@@ -48,7 +48,7 @@ public class Data implements Loggable {
 		
 		_buffer = new DataBuffer(contentLength);
 		
-		StreamUtilities.write(contentLength, inputStream, _buffer);
+		InputStreamHelper.write(inputStream, contentLength, _buffer);
 		
 	}
 	

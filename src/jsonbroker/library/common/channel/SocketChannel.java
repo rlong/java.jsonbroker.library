@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import jsonbroker.library.common.auxiliary.StreamUtilities;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.log.Log;
 
@@ -85,7 +85,7 @@ public class SocketChannel implements Channel {
 	@Override
 	public void write( InputStream inputStream ) {
 	
-		StreamUtilities.write( inputStream, _outputStream );
+		InputStreamHelper.write( inputStream, _outputStream );
 	}
 
 	

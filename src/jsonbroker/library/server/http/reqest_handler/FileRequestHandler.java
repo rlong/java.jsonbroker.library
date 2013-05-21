@@ -29,9 +29,15 @@ public class FileRequestHandler implements RequestHandler {
 	private String _rootFolder;
 
 	////////////////////////////////////////////////////////////////////////////
+	
 
 	public FileRequestHandler( String rootFolder ) {		
-		_rootFolder = rootFolder;		
+		_rootFolder = rootFolder;
+		
+		File root = new File( rootFolder );
+		if( !root.exists() ) {
+			log.warn( "!root.exists(); rootFolder = %s", rootFolder);
+		}
 		
 	}
 	
@@ -98,15 +104,14 @@ public class FileRequestHandler implements RequestHandler {
         int length = (int) file.length();
         log.debug( length, "length");
         
-        FileInputStream fileInputStream;
 		try {
-			fileInputStream = new FileInputStream( file );
+			FileInputStream fileInputStream = new FileInputStream( file );
+	        Entity answer = new StreamEntity( length, fileInputStream );
+	        return answer;
 		} catch (FileNotFoundException e) {
-			throw new BaseException(this, e);
+			log.errorFormat( "exception caught trying open file; absoluteFilename = '%s'; e.getMessage() = '%s'", absoluteFilename, e.getMessage());
+			throw HttpErrorHelper.notFound404FromOriginator( this );
 		}
-        Entity answer = new StreamEntity( length, fileInputStream );
-        return answer;
-        
 	}
 	
 	
@@ -149,6 +154,5 @@ public class FileRequestHandler implements RequestHandler {
 		
 		return "/";
 	}
-
 
 }

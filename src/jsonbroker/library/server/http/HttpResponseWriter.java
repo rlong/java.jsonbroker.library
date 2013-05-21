@@ -12,7 +12,6 @@ import java.util.Map;
 
 import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.OutputStreamHelper;
-import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.HttpStatus;
@@ -53,7 +52,8 @@ public class HttpResponseWriter {
 			if( 204 != statusCode ) {
 				
 				log.warnFormat("null == entity && 204 != statusCode; statusCode = %d", statusCode);
-				statusLineAndHeaders.append( "Content-Length: 0\r\n");				 
+				statusLineAndHeaders.append( "Content-Length: 0\r\n");
+				
 			} else {
 				// from ... 
 				// http://stackoverflow.com/questions/912863/is-an-http-application-that-sends-a-content-length-or-transfer-encoding-with-a-2
@@ -119,7 +119,7 @@ public class HttpResponseWriter {
 		
 		InputStream entityInputStream = entity.getContent();
 		InputStreamHelper.skip( seekPosition, entityInputStream, HttpResponseWriter.class);
-		StreamUtilities.write( amountToWrite, entityInputStream, outputStream);		
+		InputStreamHelper.write( entityInputStream, amountToWrite, outputStream);		
 		OutputStreamHelper.flush( outputStream, true, HttpResponseWriter.class);
 		
 	}
