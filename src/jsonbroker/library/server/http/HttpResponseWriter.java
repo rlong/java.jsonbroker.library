@@ -5,12 +5,10 @@
 
 package jsonbroker.library.server.http;
 
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.http.Entity;
@@ -23,7 +21,7 @@ public class HttpResponseWriter {
 	
 	private static final Log log = Log.getLog(HttpResponseWriter.class);
 	
-	public static void writeResponse(HttpResponse response, OutputStream outputStream ) {
+	public static void tryWriteResponse(HttpResponse response, OutputStream outputStream ) {
 		
 		log.enteredMethod();
 		
@@ -116,12 +114,23 @@ public class HttpResponseWriter {
 		////////////////////////////////////////////////////////////////////////
 		// write the entity
 		
-		
-		InputStream entityInputStream = entity.getContent();
-		InputStreamHelper.skip( seekPosition, entityInputStream, HttpResponseWriter.class);
-		InputStreamHelper.write( entityInputStream, amountToWrite, outputStream);		
+		entity.writeTo( outputStream , seekPosition, amountToWrite);
 		OutputStreamHelper.flush( outputStream, true, HttpResponseWriter.class);
 		
+	}
+	
+	public static void writeResponse(HttpResponse response, OutputStream outputStream ) {
+		
+		try {
+			
+			tryWriteResponse( response, outputStream);
+			
+		} finally {
+			Entity entity = response.getEntity();
+			if( null != entity ) {
+				entity.teardownForCaller( false, HttpResponseWriter.class );				
+			}
+		}
 	}
 
 }

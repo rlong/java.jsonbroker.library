@@ -16,7 +16,6 @@ public class WorkManager {
 	
 	//////////////////////////////////////////////////////////////////////////// 
 	static Worker[] _workers;
-	
 
 	public static void start() { 
 		
@@ -35,9 +34,7 @@ public class WorkManager {
 			_workers[i] = new Worker( name, _workQueue );
 			_workers[i].start();
 		}		
-
 	}
-	
 	
 	public static void enqueue( Job job ) {
 		
@@ -47,6 +44,16 @@ public class WorkManager {
 
 		_workQueue.enqueue( job );
 	}
-
+	
+	public static void enqueue( Job job, JobListener jobListener ) {
+		
+		if( null == _workers )  {
+			log.warn( "null == _workers" );
+		}
+		
+		ListenedJob listenedJob = new ListenedJob( job, jobListener );
+		_workQueue.enqueue( listenedJob );
+		
+	}
 
 }

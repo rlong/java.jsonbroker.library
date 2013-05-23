@@ -106,7 +106,7 @@ public class WebServer implements Runnable{
 					// Accept a new connection from the net, blocking till one comes in				
 					Socket clientSocket = serverSocket.accept();
 					
-					ConnectionHandler.handleConnection( clientSocket,_httpProcessor);
+					HttpConnectionHandler.handleConnection( clientSocket,_httpProcessor);
 				}
 			}
 			

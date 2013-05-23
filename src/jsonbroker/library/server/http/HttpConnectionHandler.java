@@ -18,10 +18,10 @@ import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.log.Log;
 
 
-public class ConnectionHandler implements Runnable{
+public class HttpConnectionHandler implements Runnable{
 
 	
-	private static Log log = Log.getLog(ConnectionHandler.class);
+	private static Log log = Log.getLog(HttpConnectionHandler.class);
 	
 	
 	private static int _connectionId = 1;
@@ -45,7 +45,7 @@ public class ConnectionHandler implements Runnable{
 	
 	
 	////////////////////////////////////////////////////////////////////////////
-	private ConnectionHandler(Socket socket, RequestHandler httpProcessor) {
+	private HttpConnectionHandler(Socket socket, RequestHandler httpProcessor) {
 		
 		_socket = socket;
 		_httpProcessor = httpProcessor;
@@ -124,15 +124,6 @@ public class ConnectionHandler implements Runnable{
 		return true;
 	}
 	
-	private void cleanup(HttpResponse response) {
-		
-		// clean up 'entity' stream if it exists... 
-		Entity entity = response.getEntity();
-		if( null != entity ) {
-			InputStreamHelper.close( entity.getContent(), false, this);
-		}
-	}
-	
 	
 	private void logRequestResponse(HttpRequest request, HttpResponse response, boolean writeResponseSucceded) {
 		
@@ -200,8 +191,7 @@ public class ConnectionHandler implements Runnable{
 		// ^^^ http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
 		
 		int statusCode = response.getStatus();
-        if (statusCode < 200 || statusCode > 299)
-        {
+        if (statusCode < 200 || statusCode > 299) {
             continueProcessingRequests = false;
         }
         
@@ -215,8 +205,7 @@ public class ConnectionHandler implements Runnable{
 		// write the response ... 
 		boolean writeResponseSucceded = writeResponse(response);
 
-		cleanup(response );
-		
+	    // do some logging ...				
 		logRequestResponse(request, response, writeResponseSucceded);
 		
         if (!writeResponseSucceded)
@@ -282,7 +271,7 @@ public class ConnectionHandler implements Runnable{
 		
 		log.enteredMethod();
 		
-		ConnectionHandler connectionHandler = new ConnectionHandler(socket,httpProcessor);
+		HttpConnectionHandler connectionHandler = new HttpConnectionHandler(socket,httpProcessor);
 		
 		Thread thread = new Thread(connectionHandler, "ConnectionHandler." + _connectionId++);
 		
