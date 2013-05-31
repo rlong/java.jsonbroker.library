@@ -31,9 +31,7 @@ public class ListenedJob implements Job {
 		} catch( BaseException e ) {
 			_listener.jobFailed( _delegate, e );
 		}
-		
 	}
-
 	
 }
 

@@ -14,7 +14,6 @@ import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.exception.BaseException;
-import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.log.Log;
 
 
@@ -244,9 +243,14 @@ public class HttpConnectionHandler implements Runnable{
 				// ^^^ http://stackoverflow.com/questions/2208387/java-socket-outputstream-is-not-flushing
 				
 				_socket.close();
+
+			} else {
+				log.debug("!_socket.isConnected()");
 			}
+			
             InputStreamHelper.close(_inputStream, true, this);
             OutputStreamHelper.close(_outputStream, true, this);
+
             
 		} catch (IOException e) {
 			log.warn( e );
