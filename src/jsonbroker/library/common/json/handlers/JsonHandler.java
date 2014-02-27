@@ -17,7 +17,6 @@ import jsonbroker.library.common.json.output.JsonOutput;
 public abstract class JsonHandler {
 	
 	
-	private static JsonStringHandler JSON_STRING_HANDLER = new JsonStringHandler(); 
 
 
 	
@@ -55,7 +54,7 @@ public abstract class JsonHandler {
 		}
 		
 		if( value instanceof String ) {
-			return JSON_STRING_HANDLER;
+			return JsonStringHandler.INSTANCE;
 		}
 		
 		if( value instanceof NullObject ) {
@@ -74,7 +73,7 @@ public abstract class JsonHandler {
 	public static JsonHandler getHandler( byte tokenBeginning ) {
 		
 		if( '"' == tokenBeginning ) {
-			return JSON_STRING_HANDLER;
+			return JsonStringHandler.INSTANCE;
 		}
 		
 		if( '0' <= tokenBeginning && tokenBeginning <= '9' ) {

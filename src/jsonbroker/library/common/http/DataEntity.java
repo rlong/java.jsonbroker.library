@@ -55,14 +55,6 @@ public class DataEntity implements Entity{
 		return SecurityUtilities.md5HashOfData( _data );
 	}
 
-	@Override
-	public void teardownForCaller(boolean swallowErrors, Object caller) {
-		
-		if( null != _streamContent ) {
-			InputStreamHelper.close(_streamContent, swallowErrors, caller);
-			_streamContent = null;
-		}
-	}
 
 	@Override
 	public void writeTo(OutputStream destination, long offset, long length) {
@@ -70,6 +62,8 @@ public class DataEntity implements Entity{
 		InputStream content = this.getContent();		
 		InputStreamHelper.skip( offset, content, this);		
 		InputStreamHelper.write( content, length, destination);		
+		InputStreamHelper.close(_streamContent, false, this);
+		_streamContent = null;
 	}
 	
 

@@ -27,6 +27,10 @@ public class ServiceChannelProxy implements Service {
 		_channel = channel;
 	}
 	
+	public void close(boolean ignoreErrors) {
+		_channel.close(ignoreErrors);
+	}
+	
 	private void dispachRequest( BrokerMessage request ) {
 		
 		JsonArray requestArray = request.toJsonArray();
@@ -46,6 +50,7 @@ public class ServiceChannelProxy implements Service {
 			_channel.write( NEWLINE );
 
 		}
+		_channel.flush();
 	}
 	
 	private BrokerMessage readResponse() {

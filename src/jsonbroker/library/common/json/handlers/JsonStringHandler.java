@@ -12,11 +12,14 @@ import jsonbroker.library.common.json.output.JsonOutput;
 
 public final class JsonStringHandler extends JsonHandler {
 	
+
+	
+	public static final JsonStringHandler INSTANCE = new JsonStringHandler();
 	
 	
 	////////////////////////////////////////////////////////////////////////////
 	
-	JsonStringHandler() {
+	private JsonStringHandler() {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -49,7 +52,7 @@ public final class JsonStringHandler extends JsonHandler {
 				}
 				
 				b = input.nextByte();
-				if ('"' == b || '\\' == b ) {
+				if ('"' == b || '\\' == b || '/' == b ) {
 					data.append( b );
 					continue;
 				}
@@ -94,6 +97,11 @@ public final class JsonStringHandler extends JsonHandler {
 			
 			if( '\\' == c ) {
 				output.append( "\\\\" );
+				continue;
+			}
+			
+			if( '/' == c ) { 
+				output.append( "\\/" );
 				continue;
 			}
 			

@@ -40,19 +40,16 @@ public class StreamEntity implements Entity {
 		throw new BaseException( this, "unsupported" );
 	}
 
-	@Override
-	public void teardownForCaller(boolean swallowErrors, Object caller ) {
-		
-		InputStreamHelper.close( _content, swallowErrors, caller );		
-		
-	}
 
 	@Override
 	public void writeTo(OutputStream destination, long offset, long length) {
 
+		
 		InputStreamHelper.skip( offset, _content, this);		
 		InputStreamHelper.write( _content, length, destination);
-		
+		InputStreamHelper.close( _content, false, this );		
+		_content = null;
+
 	}
 
 

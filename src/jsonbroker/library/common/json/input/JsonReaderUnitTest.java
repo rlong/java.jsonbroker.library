@@ -52,6 +52,10 @@ public class JsonReaderUnitTest extends TestCase{
 		
 	}
 	
+
+
+	
+	
 	public void testStatusStopped() {
 		
 		InputStream statusStopped = JsonReaderUnitTest.class.getResourceAsStream( "/jsonbroker/library/common/json/status.stopped.osx.vlc-2-0-4.json" );

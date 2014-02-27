@@ -13,14 +13,17 @@ import jsonbroker.library.common.json.JsonObject;
 
 public class NetworkAddress extends NetworkAddress_Generated {
 	
+
+	
 	
 
 	////////////////////////////////////////////////////////////////////////////
-	HostName _hostName = new HostName();
+	//
+	String _hostName;
 
-	
 
 	////////////////////////////////////////////////////////////////////////////
+	//
 	NetworkHost _networkHost = null;
 	
 
@@ -43,8 +46,10 @@ public class NetworkAddress extends NetworkAddress_Generated {
 		_port = port;
 	}
 	
-	public NetworkAddress( String hostAddress, int port ) {
-		_networkHost = new NetworkHost( hostAddress );
+	public NetworkAddress( String hostName, int port ) {
+		
+		_hostName = hostName;
+		_networkHost = new NetworkHost( hostName );
 		_port = port;
 //		InetAddress inetAddress = InetAddress.getByName( hostAddress );
 		
@@ -55,11 +60,14 @@ public class NetworkAddress extends NetworkAddress_Generated {
 	//  Other
 	
 	public String getHostAddress() {
+		if( null != _hostName ) {
+			return _hostName;
+		}
 		return _networkHost.getHostAddress();
 	}
 	
 	public String toString() {
-		return _networkHost.getHostAddress() + ":" + _port;
+		return getHostAddress() + ":" + _port;
 	}
 
 	public boolean isEqualToNetworkAddress( NetworkAddress other ) {

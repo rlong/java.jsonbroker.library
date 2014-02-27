@@ -11,6 +11,8 @@ public interface Channel {
 
 	public void close(boolean ignoreErrors);
 	
+	public void flush();
+	
 	// can return null
 	public String readLine();
 	

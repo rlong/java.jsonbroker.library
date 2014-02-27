@@ -6,6 +6,8 @@
 package jsonbroker.library.common.json;
 
 import jsonbroker.library.common.auxiliary.ByteHelper;
+import jsonbroker.library.common.json.input.JsonInput;
+import jsonbroker.library.common.json.input.JsonReader;
 import jsonbroker.library.common.log.Log;
 import junit.framework.TestCase;
 
@@ -48,6 +50,14 @@ public class JsonObjectHelperUnitTest extends TestCase {
 			log.debug( expectedValue, "expectedValue" );
 			assertEquals( "{\"nullKey\":null,\"booleanKey\":true,\"integerKey\":314,\"stringKey\":\"value\"}" , expectedValue);
 		}
+	}
+	
+	public void testUrlFromString() {
+
+		String stringInput = "{\"url\":,\"http:\\/\\/example.com\\/\"}";
+		JsonObject jo = JsonObjectHelper.fromString( stringInput );
+		String url = jo.getString("url"); 
+		assertEquals( "http://example.com/", url );
 		
 	}
 	

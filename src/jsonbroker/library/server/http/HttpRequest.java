@@ -13,8 +13,6 @@ import jsonbroker.library.common.http.headers.request.Range;
 
 public class HttpRequest {
 	
-	public static final String METHOD_GET = "GET";
-	public static final String METHOD_POST = "POST";
 
 	
 	////////////////////////////////////////////////////////////////////////////
@@ -27,13 +25,13 @@ public class HttpRequest {
 
 	////////////////////////////////////////////////////////////////////////////
 	// 
-	String _method;
+	HttpMethod _method;
 	
-	public String getMethod() {
+	public HttpMethod getMethod() {
 		return _method;
 	}
 
-	public void setMethod(String method) {
+	public void setMethod(HttpMethod method) {
 		_method = method;
 	}
 
@@ -101,7 +99,7 @@ public class HttpRequest {
     {
 		_created = System.currentTimeMillis();
 		
-		_method = HttpRequest.METHOD_GET;
+		_method = HttpMethod.GET;
     	_headers = new HashMap<String, String>();
     	    	
     }

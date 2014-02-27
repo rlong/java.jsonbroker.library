@@ -121,6 +121,26 @@ public class JsonArray implements Serializable {
 		return number.intValue();
 	}
 
+	public Integer getIntegerObject( int index, Integer defaultValue ) {
+		
+		Object blob = _values.get(index);
+		
+		if( null == blob ) {
+			return defaultValue;
+		}
+		
+		if( (blob instanceof Integer) ) {
+			return (Integer)blob;
+		}
+
+		if( !(blob instanceof Number) ) {
+			String technicalError = String.format( "!(blob instanceof Number); index = %d; blob.getClass().getName() = %s", index, blob.getClass().getName() );
+			throw new BaseException(this, technicalError);			
+		}
+		
+		Number number = (Number)blob;
+		return number.intValue();
+	}
 
 
 	public JsonArray getJsonArray( int index ) {
@@ -165,6 +185,18 @@ public class JsonArray implements Serializable {
 		
 	}
 	
+	public long getLong( int index ) {
+		
+		Object blob = _values.get(index);
+		
+		if( !(blob instanceof Number) ) {
+			String technicalError = String.format( "!(blob instanceof Number); index = %d; blob.getClass().getName() = %s", index, blob.getClass().getName() );
+			throw new BaseException(JsonArray.class, technicalError);			
+		}
+		
+		Number number = (Number)blob;
+		return number.longValue();
+	}
 
 
 	public Object getObject( int index ) {
@@ -211,12 +243,12 @@ public class JsonArray implements Serializable {
 
 	}
 	
-	public String getString( int index, String def ) {
+	public String getString( int index, String defaultValue ) {
 		
 		Object blob = _values.get(index);
 		
 		if( null == blob ) {
-			return def;
+			return defaultValue;
 		}
 		
 		if( !(blob instanceof String) ) {
@@ -259,6 +291,15 @@ public class JsonArray implements Serializable {
 		_values.set( index, value );
 	}
 	
+	public void set( int index, long value ) {
+		_values.set( index, value );
+	}
+
+
+	public void set( int index, String value ) {
+		_values.set( index, value );
+	}
+
 	
 	public String toString(JsonStringOutput jsonWriter) {
 		
@@ -270,6 +311,15 @@ public class JsonArray implements Serializable {
 	public String toString() {
 		JsonStringOutput writer = new JsonStringOutput();
 		return this.toString( writer);
+	}
+
+	// pre: all the elements of the 'JsonArray' are of type 'String'
+	public String[] toStringArray() {
+		
+		String[] answer = new String[ _values.size() ];
+		_values.toArray( answer );
+		
+		return answer;
 		
 	}
 

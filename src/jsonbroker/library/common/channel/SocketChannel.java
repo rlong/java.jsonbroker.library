@@ -69,6 +69,19 @@ public class SocketChannel implements Channel {
 		}
 	}
 	
+	
+	@Override
+	public void flush() {
+		
+		try {
+			_outputStream.flush();
+		} catch (IOException e) {
+			throw new BaseException(this, e);
+		}
+		
+	}
+
+	
 	@Override
 	// can return null
 	public String readLine() {
@@ -99,6 +112,8 @@ public class SocketChannel implements Channel {
 	public void writeLine( String line ) {
 		ChannelHelper.writeLine( line, _outputStream);
 	}
+
+
 	
 
 }

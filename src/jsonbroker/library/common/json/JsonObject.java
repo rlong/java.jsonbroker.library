@@ -97,8 +97,6 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 		Object blob = _values.get(key);
 		
 		if( null == blob ) {
-			String message = String.format( "null == blob; key = %s", key );			
-			log.debug( message );
 			return defaultValue;
 		}
 		
@@ -178,8 +176,6 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 		Object blob = _values.get(key);
 		
 		if( null == blob ) {
-			//String warning = String.format( "null == blob; key = %s", key );
-			//log.warn( warning );
 			return defaultValue;			
 		}
 
@@ -218,8 +214,6 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 		Object blob = _values.get(key);
 		
 		if( null == blob ) {
-			String warning = String.format( "null == blob; key = %s", key );
-			log.warn( warning );
 			return defaultValue;
 		}
 		
@@ -257,8 +251,6 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 		Object blob = _values.get(key);
 		
 		if( null == blob ) {
-			String warning = String.format( "null == blob; key = %s", key );
-			log.warn( warning );
 			return defaultValue;
 			
 		}
@@ -302,7 +294,6 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 		Object blob = _values.get(key);
 		
 		if( null == blob ) {
-			log.warnFormat( "null == blob; key = %s", key );
 			return defaultValue;
 		}
 		
@@ -409,6 +400,10 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 		return build( data );
 		
 	}
+	
+	public int size() {
+		return _values.size();
+	}
 
 	public String toString(JsonStringOutput jsonWriter) {
 		
@@ -464,6 +459,10 @@ public class JsonObject implements Serializable {//extends HashMap<String, Objec
 	
 	public Set<Entry<String, Object>> entrySet() {
 		return _values.entrySet();
+	}
+	
+	public Set<String> keySet() {
+		return _values.keySet();
 	}
 
 	

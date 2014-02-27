@@ -81,6 +81,7 @@ public class Data implements Loggable {
 		
 	}
 	
+	// gets the underlying buffer, changes to the returned value will be reflected in the Data object
 	public byte[] getBytes() {
 		return _buffer.getBytes();
 	}

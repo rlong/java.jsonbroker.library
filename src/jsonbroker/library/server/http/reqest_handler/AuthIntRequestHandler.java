@@ -143,7 +143,7 @@ public class AuthIntRequestHandler implements RequestHandler {
 		try {
 			
 			authorization = getAuthorizationRequestHeader( request );
-			_securityManager.authenticateRequest( request.getMethod(), authorization, entity);
+			_securityManager.authenticateRequest( request.getMethod().getName(), authorization, entity);
 
 			answer = httpProcessor.processRequest( request );
 			return answer;

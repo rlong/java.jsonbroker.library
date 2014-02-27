@@ -69,10 +69,18 @@ public class HttpRequestReader {
          */
 		String method = tokenizer.nextToken();
 		
-		if( "GET".equals( method ) || "get".equals( method )) {
-			request.setMethod( HttpRequest.METHOD_GET );
-		} else if( "POST".equals( method ) || "post".equals( method )) {
-			request.setMethod( HttpRequest.METHOD_POST );			
+		if(  HttpMethod.GET.matches( method ) ) {
+			
+			request.setMethod( HttpMethod.GET );
+			
+		} else if( HttpMethod.POST.matches( method ) ) {
+			
+			request.setMethod( HttpMethod.POST );
+						
+		} else if (HttpMethod.OPTIONS.matches(method)) {
+			
+			request.setMethod( HttpMethod.OPTIONS );
+			
 		} else { 
 			
 			log.errorFormat( "unknown HTTP method; method = '%s'; line = '%s'" , method, line );
@@ -176,7 +184,7 @@ public class HttpRequestReader {
 		MutableData buffer = new MutableData();
 		String firstLine = readLine(inputStream,buffer);
 		
-		log.debug(firstLine, "firstLine");
+//		log.debug(firstLine, "firstLine");
 		
 		// null corresponds to the end of a stream
 		if( null == firstLine ) {
@@ -219,7 +227,7 @@ public class HttpRequestReader {
 		
 		long contentLength = NumericUtilities.parseLong(contentLengthString);
 		
-		log.debug(contentLength, "contentLength");
+//		log.debug(contentLength, "contentLength");
 		
 		Entity body = new StreamEntity( contentLength, inputStream );
 		answer.setEntity( body );

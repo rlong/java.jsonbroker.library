@@ -140,11 +140,10 @@ public class InputStreamHelper {
 				bytesRead = inputStream.read( buffer, 0, bytesToWrite );
 			} catch (IOException e) {
 				throw new BaseException( StreamUtilities.class, e);
-			}		
-				
-			//log.debug( bytesRead, "bytesRead");
+			}
+			
 			if( -1 == bytesRead ) {
-				throw new BaseException( StreamUtilities.class, "-1 == bytesRead");
+				throw new BaseException( InputStreamHelper.class, "-1 == bytesRead");
 			}
 			
 			try {

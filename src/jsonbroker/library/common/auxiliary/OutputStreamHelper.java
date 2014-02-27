@@ -15,7 +15,7 @@ public class OutputStreamHelper {
 
 	private static final Log log = Log.getLog(OutputStreamHelper.class);
 
-	public static void close( OutputStream outputStream ) {
+	public static void close( OutputStream outputStream, Object caller ) {
 		
 		if( null == outputStream ) {
 			return;
@@ -24,7 +24,7 @@ public class OutputStreamHelper {
 		try {
 			outputStream.close();
 		} catch (IOException e) {
-			throw new BaseException( StreamUtilities.class, e);
+			throw new BaseException( caller, e);
 		}
 	}
 

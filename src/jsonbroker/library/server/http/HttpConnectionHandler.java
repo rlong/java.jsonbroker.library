@@ -14,6 +14,7 @@ import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.exception.BaseException;
+import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.log.Log;
 
 
@@ -24,6 +25,9 @@ public class HttpConnectionHandler implements Runnable{
 	
 	
 	private static int _connectionId = 1;
+	
+	
+
 	
 	
 	////////////////////////////////////////////////////////////////////////////
@@ -82,7 +86,18 @@ public class HttpConnectionHandler implements Runnable{
 			return _httpProcessor.processRequest( request );
 			
 		} catch( Throwable t ) {
-			log.warn( t );
+			if( t instanceof BaseException )  {
+				BaseException be = (BaseException)t;
+				String errorDomain = be.getErrorDomain();
+				if( HttpStatus.ErrorDomain.NOT_FOUND_404.equals( errorDomain ) ) {
+					log.warnFormat( "errorDomain = '%s'; t.getMessage() = '%s'", errorDomain, t.getMessage() );
+				} else {
+					log.warn( t );
+				}
+			} else {
+				log.warn( t );
+			}
+			
 			return HttpErrorHelper.toHttpResponse( t );
 		}
 		

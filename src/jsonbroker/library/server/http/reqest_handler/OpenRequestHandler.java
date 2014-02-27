@@ -46,7 +46,7 @@ public class OpenRequestHandler implements RequestHandler {
 	
 	private RequestHandler getRequestHandler( String requestUri ) {
 	
-		log.debug( requestUri, "requestUri" );
+		//log.debug( requestUri, "requestUri" );
 		
 		int indexOfQuestionMark = requestUri.indexOf( '?' );
 		if( -1 != indexOfQuestionMark ) {

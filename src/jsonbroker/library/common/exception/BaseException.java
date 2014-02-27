@@ -150,10 +150,10 @@ public class BaseException extends RuntimeException implements Loggable {
 		}
 
 		if( 0 < lineNumber ) {
-			return String.format( "%s:%x", className, lineNumber);
+			return String.format( "%s:%d", className, lineNumber);
 		}
 		if( null != methodName ) {
-			return String.format( "%s:%s", className, methodName);
+			return String.format( "[%s %s]", className, methodName);
 		} 
 		
 		return String.format( "%s:-1", className);

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Richard Long & HexBeerium
+// Copyright (c) 2014 Richard Long & HexBeerium
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
@@ -21,11 +21,9 @@ public class ServiceHelper {
 		String methodName = request.getMethodName();
 		
 		BaseException answer = new BaseException( originator, "Unknown methodName; methodName = '%s'", methodName );
+		answer.setErrorDomain( "jsonbroker.ServiceHelper.METHOD_NOT_FOUND" );
 		answer.setFaultCode( METHOD_NOT_FOUND );
 		
 		return answer;
-		
-				
 	}
-	
 }

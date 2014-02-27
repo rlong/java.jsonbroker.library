@@ -25,11 +25,13 @@ public class MimeTypes {
 		MIME_TYPES.put( ".jpg", "image/jpeg");
 		MIME_TYPES.put( ".js", "application/javascript");
 		MIME_TYPES.put( ".json", APPLICATION_JSON );
+		MIME_TYPES.put( ".map", APPLICATION_JSON ); // http://stackoverflow.com/questions/19911929/what-mime-type-should-i-use-for-source-map-files
 		MIME_TYPES.put( ".png", "image/png");
 		MIME_TYPES.put( ".svg", "image/svg+xml"); // http://www.ietf.org/rfc/rfc3023.txt, section 8.19
-		
+		MIME_TYPES.put( ".ts", "text/x.typescript"); // http://stackoverflow.com/questions/13213787/whats-the-mime-type-of-typescript
+		MIME_TYPES.put( ".ttf", "application/x-font-ttf"); // http://symbolset.com/blog/properly-serve-webfonts/
+		MIME_TYPES.put( ".woff", "application/x-font-woff"); // http://symbolset.com/blog/properly-serve-webfonts/
 	}
-
 	
 	
 	public static String getMimeTypeForPath( String path ) {

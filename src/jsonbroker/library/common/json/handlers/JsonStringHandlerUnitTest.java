@@ -20,37 +20,69 @@ public class JsonStringHandlerUnitTest extends TestCase {
 	public void test1() { 
 		log.enteredMethod();
 	}
-	public void testWriteABC() { 
+	
+	
+	private String encodeJsonStringValue( String input ) {
+
 		JsonStringOutput output = new JsonStringOutput();
+		JsonStringHandler handler = JsonStringHandler.INSTANCE;
 		
-		JsonStringHandler handler = new JsonStringHandler();
+		handler.writeValue( input, output);
 		
-		handler.writeValue( "ABC", output);
+		return output.toString();
+
+	}
+	
+	private String decodeJsonStringValue( String input ) {
 		
-		String actual = output.toString();
+		
+		MutableData data = new MutableData();
+		data.append( StringHelper.toUtfBytes(input));
+		
+		JsonDataInput jsonDataInput = new JsonDataInput(data);
+				
+		String answer = JsonStringHandler.readString( jsonDataInput);
+		return answer;
+
+	}
+
+	
+	public void testWriteABC() {
+		
+		String actual = encodeJsonStringValue( "ABC" );
 		assertEquals( "\"ABC\"" , actual);
 		
 		
-		
 	}
-
+	
 	public void testReadABC() { 
-		String expected = "\"ABC\"";
 		
-		MutableData data = new MutableData();
-		data.append( StringHelper.toUtfBytes(expected));
-		
-		JsonDataInput input = new JsonDataInput(data);
-				
-		JsonStringHandler handler = new JsonStringHandler();
-		Object handlerResponse = handler.readValue( input);
-		
-		assertTrue( handlerResponse instanceof String );
-		
-		String actual = (String)handlerResponse;
+		String actual = decodeJsonStringValue( "\"ABC\"" );
 		assertEquals( "ABC" , actual);
 		
 	}
+	
+	
+	
+	
+	public void testReadWriteSlashes() {
+		
+		{
+			String encodedValue = encodeJsonStringValue( "\\" );
+			assertEquals( "\"\\\\\"" , encodedValue);
+			String decodedValue = decodeJsonStringValue( encodedValue );
+			assertEquals( "\\", decodedValue);
+		}
+
+		{
+			String encodedValue = encodeJsonStringValue( "/" );
+			assertEquals( "\"\\/\"" , encodedValue);
+			String decodedValue = decodeJsonStringValue( encodedValue );
+			assertEquals( "/", decodedValue);
+		}
+		
+	}
+
 	
 	
 	public void testExtendedChars() { 
@@ -62,7 +94,7 @@ public class JsonStringHandlerUnitTest extends TestCase {
 		
 		JsonDataInput input = new JsonDataInput(data);
 		
-		JsonStringHandler handler = new JsonStringHandler();
+		JsonStringHandler handler = JsonStringHandler.INSTANCE;
 		Object handlerResponse = handler.readValue( input);
 		
 		assertTrue( handlerResponse instanceof String );
@@ -80,7 +112,7 @@ public class JsonStringHandlerUnitTest extends TestCase {
 		
 		JsonDataInput input = new JsonDataInput(data);
 		
-		JsonStringHandler handler = new JsonStringHandler();
+		JsonStringHandler handler = JsonStringHandler.INSTANCE;
 		Object handlerResponse = handler.readValue( input);
 		
 		assertTrue( handlerResponse instanceof String );
@@ -100,7 +132,7 @@ public class JsonStringHandlerUnitTest extends TestCase {
 		JsonDataInput input = new JsonDataInput(data);
 		
 		
-		JsonStringHandler handler = new JsonStringHandler();
+		JsonStringHandler handler = JsonStringHandler.INSTANCE;
 		Object handlerResponse = handler.readValue( input);
 		
 		assertTrue( handlerResponse instanceof String );

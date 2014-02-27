@@ -38,7 +38,6 @@ public class AuthRequestHandler implements RequestHandler {
 	
 	public AuthRequestHandler( HttpSecurityManager securityManager ) {
 		
-		
 		_processors = new HashMap<String, RequestHandler>();
 		_securityManager = securityManager;
 	}
@@ -118,7 +117,7 @@ public class AuthRequestHandler implements RequestHandler {
 		try {
 			
 			authorization = getAuthorizationRequestHeader( request );
-			_securityManager.authenticateRequest( request.getMethod(), authorization );
+			_securityManager.authenticateRequest( request.getMethod().getName(), authorization );
 
 			answer = httpProcessor.processRequest( request );
 			return answer;

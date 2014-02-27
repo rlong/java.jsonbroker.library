@@ -14,8 +14,10 @@ import jsonbroker.library.common.http.DataEntity;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.log.Log;
+import jsonbroker.library.server.broker.DescribedService;
 import jsonbroker.library.server.broker.ServicesRegistery;
 import jsonbroker.library.server.http.HttpErrorHelper;
+import jsonbroker.library.server.http.HttpMethod;
 import jsonbroker.library.server.http.HttpRequest;
 import jsonbroker.library.server.http.HttpResponse;
 import jsonbroker.library.server.http.RequestHandler;
@@ -33,20 +35,32 @@ public class ServicesRequestHandler implements RequestHandler {
 		Defaults defaults = Defaults.getDefaults( "jsonbroker.ServicesRequestHandler" );
 		_MAXIMUM_REQUEST_ENTITY_LENGTH = defaults.getInt( "MAXIMUM_REQUEST_ENTITY_LENGTH" , 32 * 1024);
 	}
-	
+
+	public ServicesRequestHandler(){
+		
+		_servicesRegistery = new ServicesRegistery();
+	}
+
 	
 	public ServicesRequestHandler( ServicesRegistery servicesRegistery ){
 		
 		_servicesRegistery = servicesRegistery;
 	}
 	
-	@Override
-	public String getProcessorUri() {
-		return "/services";
-	}
+    public void addService(DescribedService service)
+    {
+        log.infoFormat("adding service '%s'", service.getServiceDescription().getServiceName());
+        _servicesRegistery.addService(service);
+    }
+    
+    public void removeService( DescribedService service) {
+        log.debugFormat("adding service '%s'", service.getServiceDescription().getServiceName());
+        _servicesRegistery.removeService(service);    	
+    }
+    
 
 	
-	private Data getData( Entity entity ) {
+	private static Data getData( Entity entity ) {
 		if( entity instanceof DataEntity ) {
 			
 			DataEntity dataEntity = (DataEntity)entity;
@@ -58,11 +72,11 @@ public class ServicesRequestHandler implements RequestHandler {
 		
 	}
 	
-	private BrokerMessage process(BrokerMessage request) {
+	private static BrokerMessage process(ServicesRegistery servicesRegistery, BrokerMessage request) {
 		
 		try {
 			
-			return _servicesRegistery.process( request );
+			return servicesRegistery.process( request );
 			
 		} catch( Throwable t ) { 
 			log.error( t );
@@ -71,27 +85,26 @@ public class ServicesRequestHandler implements RequestHandler {
 	}
 
 	
-	@Override
-	public HttpResponse processRequest(HttpRequest request) {
+	static HttpResponse processPostRequest(ServicesRegistery servicesRegistery, HttpRequest request) {
 		
 		
-		if( !HttpRequest.METHOD_POST.equals( request.getMethod().toUpperCase()) ) {
+		if( HttpMethod.POST !=  request.getMethod() ) {
 			log.errorFormat( "unsupported method; request.getMethod() = '%s'", request.getMethod());
-			throw HttpErrorHelper.badRequest400FromOriginator( this );
+			throw HttpErrorHelper.badRequest400FromOriginator( ServicesRequestHandler.class );
 		}
 		
 		Entity entity = request.getEntity();
         if (_MAXIMUM_REQUEST_ENTITY_LENGTH < entity.getContentLength())
         {
             log.errorFormat("_MAXIMUM_REQUEST_ENTITY_LENGTH < entity.getContentLength(); _MAXIMUM_REQUEST_ENTITY_LENGTH = %d; entity.getContentLength() = %d", _MAXIMUM_REQUEST_ENTITY_LENGTH, entity.getContentLength());
-            throw HttpErrorHelper.requestEntityTooLarge413FromOriginator(this);
+            throw HttpErrorHelper.requestEntityTooLarge413FromOriginator(ServicesRequestHandler.class);
         }
 
 			
 		Data data = getData( entity );
 		
 		BrokerMessage call = Serializer.deserialize( data );		
-		BrokerMessage response = process(call);
+		BrokerMessage response = process( servicesRegistery, call);
 		
 		HttpResponse answer;
 		{
@@ -109,6 +122,23 @@ public class ServicesRequestHandler implements RequestHandler {
 		return answer;
 		
 	}
+	
+	@Override
+    public HttpResponse processRequest(HttpRequest request)
+    {
+        return processPostRequest(_servicesRegistery, request);
+    }
+	
+	@Override
+	public String getProcessorUri() {
+		return "/services";
+	}
+	
+	
+	public void debug() {
+		_servicesRegistery.debug();
+	}
+
 
 
 }

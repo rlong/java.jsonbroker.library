@@ -6,11 +6,16 @@
 package jsonbroker.library.common.json;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import jsonbroker.library.common.auxiliary.Data;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
+import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.input.JsonDataInput;
 import jsonbroker.library.common.json.input.JsonInput;
 import jsonbroker.library.common.json.input.JsonReader;
@@ -43,6 +48,32 @@ public class JsonArrayHelper {
         
         JsonArray answer = builder.getArrayDocument();
         return answer;
+		
+	}
+	
+
+	public static JsonArray read( File file ) {
+		
+		FileInputStream fis = null;
+		
+		try {
+			
+			fis = new FileInputStream( file );
+			return read( fis );
+			
+		} catch (FileNotFoundException e) {
+			throw new BaseException( JsonArrayHelper.class, e );
+		} finally {
+			if( null != fis ) {
+				InputStreamHelper.close( fis, false, JsonArrayHelper.class);
+			}
+		}
+		
+	}
+
+	public static JsonArray read( String path ) {
+		
+		return read( new File( path ) );
 		
 	}
 	

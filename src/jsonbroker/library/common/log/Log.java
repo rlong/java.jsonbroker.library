@@ -126,6 +126,14 @@ public class Log {
 		_delegate.debug( this, value, name);
 	}
 	
+	public void debug( String value, String name, int index ) {
+		
+		name = name + "[" + index + "]";
+		_delegate.debug( this, value, name);
+		
+	}
+	
+
 	
 	public void debugIp4Address( int value, String name ) {
 		
@@ -148,6 +156,12 @@ public class Log {
 	public void info( String message ) {
 		_delegate.info( this, message);
 	}
+	
+	
+	public void info( boolean value, String name ) {		
+		info( LogDelegateHelper.toString( value, name) );
+	}
+
 
 	public void info( String value, String name ) {
 		info( LogDelegateHelper.toString( value, name) );

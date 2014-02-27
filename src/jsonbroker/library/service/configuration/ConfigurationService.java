@@ -101,7 +101,7 @@ public class ConfigurationService implements DescribedService {
 			throw new BaseException( this, e);
 		}
 		finally {
-			OutputStreamHelper.close( fos );
+			OutputStreamHelper.close( fos, this );
 		}
 	}
 

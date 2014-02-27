@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import jsonbroker.library.common.auxiliary.OperatingSystemUtilities;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.HttpStatus;
@@ -21,6 +22,12 @@ import jsonbroker.library.server.http.MimeTypes;
 import jsonbroker.library.server.http.RequestHandler;
 
 public class FileRequestHandler implements RequestHandler {
+
+    public class ErrorDomain
+    {
+        //public static final String BAD_REQUEST_400 = "jsonbroker.HttpStatus.BAD_REQUEST_400";        
+    }
+
 	
 	private static Log log = Log.getLog(FileRequestHandler.class);
 
@@ -36,53 +43,21 @@ public class FileRequestHandler implements RequestHandler {
 		
 		File root = new File( rootFolder );
 		if( !root.exists() ) {
-			log.warn( "!root.exists(); rootFolder = %s", rootFolder);
-		}
-		
-	}
-	
-	
-	private static void validateRequestUri( String requestUri ) {
-		
-		log.debug( requestUri, "requestUri");
-		
-		if( '/' != requestUri.charAt(0 ) ) {
-			
-			log.errorFormat( "'/' != requestUri.charAt(0); requestUri = '%s'", requestUri);
-			throw HttpErrorHelper.forbidden403FromOriginator( FileRequestHandler.class );
-		}
-		
-		if( -1 != requestUri.indexOf( "/.") ) { // UNIX hidden files
-			
-			log.errorFormat( "-1 != requestUri.indexOf( \"/.\"); requestUri = '%s'", requestUri);
-			
-			throw HttpErrorHelper.forbidden403FromOriginator( FileRequestHandler.class );
-			
-		}
-		
-		if( -1 != requestUri.indexOf( "..") ) { // parent directory
-			
-			log.errorFormat( "-1 != requestUri.indexOf( \"..\"); requestUri = '%s'", requestUri);
-			throw HttpErrorHelper.forbidden403FromOriginator( FileRequestHandler.class );
-			
-		}
-		
-	}
-	
-	
-	private static void validateMimeTypeForRequestUri( String requestUri ) {
-		
-		if( null == MimeTypes.getMimeTypeForPath( requestUri ) ) {
-			
-			log.errorFormat( "null == getMimeTypeForRequestUri( requestUri ); requestUri = '%s'", requestUri ); 
-			throw HttpErrorHelper.forbidden403FromOriginator( FileRequestHandler.class );
+			log.warnFormat( "!root.exists(); rootFolder = %s", rootFolder);
 		}
 	}
 	
-	public Entity readFile( String relativePath  ) {
+	
+	
+	
 
-		// for windows ... replace the forward slashes with back-slashes to make a file name
-        relativePath = relativePath.replace('/', '\\');
+	private Entity readFile( String relativePath  ) {
+
+		// for windows ... replace the forward slashes with back-slashes to make a file name		
+		if( OperatingSystemUtilities.isWindows() ) {
+			relativePath = relativePath.replace('/', '\\');
+		}
+        
 
         String absoluteFilename = _rootFolder + relativePath;
         
@@ -102,7 +77,7 @@ public class FileRequestHandler implements RequestHandler {
         }
 
         int length = (int) file.length();
-        log.debug( length, "length");
+//        log.debug( length, "length");
         
 		try {
 			FileInputStream fileInputStream = new FileInputStream( file );
@@ -127,8 +102,8 @@ public class FileRequestHandler implements RequestHandler {
 		
 		{ // some validation 
 			
-			validateRequestUri( requestUri );
-			validateMimeTypeForRequestUri( requestUri );			
+			RequestHandlerHelper.validateRequestUri( requestUri );
+			RequestHandlerHelper.validateMimeTypeForRequestUri( requestUri );			
 		}
 
         try
@@ -143,7 +118,7 @@ public class FileRequestHandler implements RequestHandler {
         } catch( BaseException e ) {
         	throw e;
         } catch( Throwable t ) {        	
-        	log.error(t.getMessage(), "t.getMessage()" ); 
+        	log.error(t.getMessage() ); 
         	throw HttpErrorHelper.notFound404FromOriginator(this);        	
         }
         		

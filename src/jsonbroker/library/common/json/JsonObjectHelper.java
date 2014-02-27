@@ -6,13 +6,21 @@
 package jsonbroker.library.common.json;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.OutputStream;
 
 import jsonbroker.library.common.auxiliary.Data;
+import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
+import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.input.JsonDataInput;
 import jsonbroker.library.common.json.input.JsonInput;
 import jsonbroker.library.common.json.input.JsonReader;
+import jsonbroker.library.common.json.input.JsonStreamInput;
+import jsonbroker.library.common.json.output.JsonPrettyPrinter;
 import jsonbroker.library.common.json.output.JsonStreamOutput;
 import jsonbroker.library.common.json.output.JsonStringOutput;
 import jsonbroker.library.common.json.output.JsonWriter;
@@ -34,6 +42,52 @@ public class JsonObjectHelper {
         return answer;
 
 	}
+	
+	public static void prettyPrint( JsonObject jsonObject, OutputStream destination ) {
+
+		JsonStreamOutput jsonStreamOutput = new JsonStreamOutput( destination );
+		JsonPrettyPrinter prettyPrinter = new JsonPrettyPrinter(jsonStreamOutput);
+		JsonWalker.walk( jsonObject, prettyPrinter);
+		jsonStreamOutput.flush();
+	}
+
+	
+	public static JsonObject read( InputStream inputStream ) {
+		
+		JsonStreamInput jsonStreamInput = new JsonStreamInput( inputStream );
+        JsonBuilder builder = new JsonBuilder();
+        JsonReader.read(jsonStreamInput, builder);
+        
+        JsonObject answer = builder.getObjectDocument();
+        return answer;		
+	}
+	
+	public static JsonObject read( File file ) {
+		
+		FileInputStream fis = null;
+		
+		try {
+			
+			fis = new FileInputStream( file );
+			return read( fis );
+			
+		} catch (FileNotFoundException e) {
+			throw new BaseException( JsonObjectHelper.class, e );
+		} finally {
+			if( null != fis ) {
+				InputStreamHelper.close( fis, false, JsonObjectHelper.class);
+			}
+		}
+		
+	}
+
+	public static JsonObject read( String path ) {
+		
+		return read( new File( path ) );
+		
+	}
+
+
 	
 	public static String toString( JsonObject jsonObject ) {
 		

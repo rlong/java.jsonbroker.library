@@ -23,7 +23,6 @@ public class HttpResponseWriter {
 	
 	public static void tryWriteResponse(HttpResponse response, OutputStream outputStream ) {
 		
-		log.enteredMethod();
 		
 		int statusCode = response.getStatus();
 		String statusString = HttpStatus.getReason( statusCode );
@@ -121,16 +120,8 @@ public class HttpResponseWriter {
 	
 	public static void writeResponse(HttpResponse response, OutputStream outputStream ) {
 		
-		try {
+		tryWriteResponse( response, outputStream);
 			
-			tryWriteResponse( response, outputStream);
-			
-		} finally {
-			Entity entity = response.getEntity();
-			if( null != entity ) {
-				entity.teardownForCaller( false, HttpResponseWriter.class );				
-			}
-		}
 	}
 
 }

@@ -45,7 +45,9 @@ public class HttpErrorHelper {
 	
 	public static BaseException notFound404FromOriginator(Object originatingObject) {
 		
-		return buildException( originatingObject, HttpStatus.NOT_FOUND_404 );
+		BaseException answer = buildException( originatingObject, HttpStatus.NOT_FOUND_404 );
+		answer.setErrorDomain( HttpStatus.ErrorDomain.NOT_FOUND_404 );
+		return answer;
 				
 	}
 	
