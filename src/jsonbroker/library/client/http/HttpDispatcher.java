@@ -165,7 +165,7 @@ public class HttpDispatcher {
 	    		if( null == apacheEntityInputStream ) { // e.g. http 204 
 	    			responseHandler.handleResponseEntity( responseHeaders, null );
 	    		} else {
-		    		StreamEntity responseEntity = new StreamEntity(apacheEntity.getContentLength(), apacheEntityInputStream);
+		    		StreamEntity responseEntity = new StreamEntity(apacheEntityInputStream, apacheEntity.getContentLength());
 		    		responseHandler.handleResponseEntity( responseHeaders, responseEntity );
 	    		}	    		
 	    	}

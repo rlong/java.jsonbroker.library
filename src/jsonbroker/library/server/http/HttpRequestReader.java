@@ -227,9 +227,8 @@ public class HttpRequestReader {
 		
 		long contentLength = NumericUtilities.parseLong(contentLengthString);
 		
-//		log.debug(contentLength, "contentLength");
 		
-		Entity body = new StreamEntity( contentLength, inputStream );
+		Entity body = new StreamEntity( inputStream, contentLength );
 		answer.setEntity( body );
 
 		return answer;

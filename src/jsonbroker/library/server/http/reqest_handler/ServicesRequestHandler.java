@@ -54,7 +54,7 @@ public class ServicesRequestHandler implements RequestHandler {
     }
     
     public void removeService( DescribedService service) {
-        log.debugFormat("adding service '%s'", service.getServiceDescription().getServiceName());
+        log.debugFormat("removing service '%s'", service.getServiceDescription().getServiceName());
         _servicesRegistery.removeService(service);    	
     }
     

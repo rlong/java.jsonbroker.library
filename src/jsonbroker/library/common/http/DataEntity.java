@@ -45,6 +45,12 @@ public class DataEntity implements Entity{
 
 	}
 
+	// can return null
+	@Override
+	public String getMimeType() {
+		return null;
+	}
+
 	@Override
 	public long getContentLength() {
 		return _data.getCount();

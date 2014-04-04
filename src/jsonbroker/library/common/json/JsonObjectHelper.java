@@ -9,11 +9,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.StreamHandler;
 
 import jsonbroker.library.common.auxiliary.Data;
 import jsonbroker.library.common.auxiliary.InputStreamHelper;
+import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.input.JsonDataInput;
@@ -111,6 +114,23 @@ public class JsonObjectHelper {
 		JsonWriter writer = new JsonWriter(jsonStreamOutput);
 		JsonWalker.walk( jsonObject, writer);
 		jsonStreamOutput.flush();
+	}
+	
+	
+	public static void write( JsonObject jsonObject, File destination ) {
+		
+		FileOutputStream fos = null;
+		
+		try {
+			fos = new FileOutputStream( destination );
+		} catch (FileNotFoundException e) {
+			throw new BaseException( JsonObjectHelper.class, e );
+		}
+		
+		write( jsonObject, fos );
+		
+		OutputStreamHelper.close( fos, JsonObjectHelper.class );
+
 	}
 	
 }

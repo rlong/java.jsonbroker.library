@@ -23,7 +23,7 @@ public class LogDelegateHelper {
 				return stackTrace[i].getMethodName();
 			}
 		}
-		return "<undefined>";
+		return "?";
 		
 	}
 	

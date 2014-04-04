@@ -23,11 +23,6 @@ import jsonbroker.library.server.http.RequestHandler;
 
 public class FileRequestHandler implements RequestHandler {
 
-    public class ErrorDomain
-    {
-        //public static final String BAD_REQUEST_400 = "jsonbroker.HttpStatus.BAD_REQUEST_400";        
-    }
-
 	
 	private static Log log = Log.getLog(FileRequestHandler.class);
 
@@ -81,7 +76,7 @@ public class FileRequestHandler implements RequestHandler {
         
 		try {
 			FileInputStream fileInputStream = new FileInputStream( file );
-	        Entity answer = new StreamEntity( length, fileInputStream );
+	        Entity answer = new StreamEntity( fileInputStream, length );
 	        return answer;
 		} catch (FileNotFoundException e) {
 			log.errorFormat( "exception caught trying open file; absoluteFilename = '%s'; e.getMessage() = '%s'", absoluteFilename, e.getMessage());

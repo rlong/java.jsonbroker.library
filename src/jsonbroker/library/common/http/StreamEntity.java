@@ -5,36 +5,81 @@
 
 package jsonbroker.library.common.http;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 
 import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.exception.BaseException;
 
 public class StreamEntity implements Entity {
 	
+	
 	////////////////////////////////////////////////////////////////////////////
+	//
+	InputStream _content;
+	
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	private long _contentLength;
 	
 	public long getContentLength() {
 		return _contentLength;
 	}
-	
+
 	////////////////////////////////////////////////////////////////////////////
-	InputStream _content;
+	//
+	URL _contentSource;
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	private String _mimeType;
+	
 	
 	@Override
-	public InputStream getContent() {
-		return _content;
+	// can return null
+	public String getMimeType() {
+		return _mimeType;
 	}
+
 	
 	////////////////////////////////////////////////////////////////////////////
 	// intended for file & network streams
-	public StreamEntity( long contentLength, InputStream content ) {
+	public StreamEntity( InputStream content, long contentLength ) {
 		_contentLength = contentLength;
 		_content = content;
 	}
 	
+	public StreamEntity( URL contentSource, long contentLength, String mimeType ) {
+		
+		_contentSource = contentSource;
+		_contentLength = contentLength;
+		_mimeType = mimeType;
+	
+	}
+	
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
+	
+	@Override
+	public InputStream getContent() {
+		
+		
+		if( null == _content ) {
+			
+			try {
+				_content = _contentSource.openStream();
+			} catch (IOException e) {
+				throw new BaseException( this, e );
+			}
+		}
+		
+		return _content;
+	}
+
 	
 	public String md5() {
 		throw new BaseException( this, "unsupported" );
@@ -44,10 +89,10 @@ public class StreamEntity implements Entity {
 	@Override
 	public void writeTo(OutputStream destination, long offset, long length) {
 
-		
-		InputStreamHelper.skip( offset, _content, this);		
-		InputStreamHelper.write( _content, length, destination);
-		InputStreamHelper.close( _content, false, this );		
+		InputStream content = getContent();
+		InputStreamHelper.skip( offset, content, this);		
+		InputStreamHelper.write( content, length, destination);
+		InputStreamHelper.close( content, false, this );		
 		_content = null;
 
 	}

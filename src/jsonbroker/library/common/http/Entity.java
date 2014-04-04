@@ -14,6 +14,10 @@ public interface Entity  {
 	public InputStream getContent();
 
 	public long getContentLength();
+	
+	// can return null
+	public String getMimeType();
+	
 
 	// can return null. depends on the underlying object and how it was built
 	public String md5();

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2enclosuresfull.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:jwplayer="http://developer.longtailvideo.com/" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+<channel>
+	
+	<lastBuildDate>Mon, 31 Mar 2014 01:31:47 UTC</lastBuildDate>
+	<title>TEDTalks (video)</title>
+	<link>http://www.ted.com/talks/list</link>
+	<generator>TED - TED.com</generator>
+	<description>TED is a nonprofit devoted to Ideas Worth Spreading. On this feed, you'll find TEDTalks video to inspire, intrigue and stir the imagination from some of the world's leading thinkers and doers, speaking from the stage at TED conferences, TEDx events and partner events around the world. This podcast is also available in high-def video and audio-only formats.</description>
+	<itunes:subtitle>TED is a nonprofit devoted to Ideas Worth Spreading. On this feed, you'll find TEDTalks video to inspire, intrigue and stir the imagination from some of the world's leading thinkers and doers, speaking from the stage at TED conferences, TEDx events and pa</itunes:subtitle>
+	<itunes:author>TEDTalks</itunes:author>
+	<itunes:summary>TED is a nonprofit devoted to Ideas Worth Spreading. On this feed, you'll find TEDTalks video to inspire, intrigue and stir the imagination from some of the world's leading thinkers and doers, speaking from the stage at TED conferences, TEDx events and partner events around the world. This podcast is also available in high-def video and audio-only formats.</itunes:summary>
+	<language>en</language>
+	<copyright>TED Conferences LLC</copyright>
+	<itunes:owner>
+		<itunes:name>TED</itunes:name>
+		<itunes:email>contact@ted.com</itunes:email>
+	</itunes:owner>
+	<image>
+		<url>http://ted.streamguys.net/TEDTalksvideo_tile_144.jpg</url>
+		<title>TEDTalks (video)</title>
+		<link>http://www.ted.com/talks/list</link>
+		<width>144</width>
+		<height>144</height>
+	</image>
+	<itunes:image href="http://images.ted.com/images/ted/podcast/en/iTunes_ideasworthspreading_video.jpg" />
+	<category>Science</category>
+	<category>Technology</category>
+	<category>Entertainment</category>
+	<category>Design</category>
+	
+	
+	<itunes:keywords>TED, TEDTalks, TED Talks, inspiration, creativity, tech demo, education</itunes:keywords>
+	<itunes:explicit>no</itunes:explicit>
+	<media:rating scheme="urn:simple">nonadult</media:rating>
+			<atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" type="application/rss+xml" href="http://feeds.feedburner.com/TEDTalks_video" /><feedburner:info uri="tedtalks_video" /><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com/" /><media:copyright>TED Conferences LLC</media:copyright><media:thumbnail url="http://images.ted.com/images/ted/podcast/en/iTunes_ideasworthspreading_video.jpg" /><media:keywords>TED, TEDTalks, TED Talks, inspiration, creativity, tech demo, education</media:keywords><media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Arts/Design</media:category><media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Technology</media:category><media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Education</media:category><media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Society &amp; Culture</media:category><media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">News &amp; Politics</media:category><itunes:category text="Arts"><itunes:category text="Design" /></itunes:category><itunes:category text="Technology" /><itunes:category text="Education" /><itunes:category text="Society &amp; Culture" /><itunes:category text="News &amp; Politics" /><feedburner:browserFriendly>Each year, TED hosts 80 of the world's most fascinating people: Trusted voices and convention-breaking mavericks, icons and geniuses. These podcasts (also available in audio format) capture the most extraordinary presentations delivered from the TED stage. Each week, we'll release a new talk to inspire, intrigue and stir the imagination. For best effect, plan to listen to at least three, start to finish. (They have a cumulative effect.) If you have a curious soul and an open mind, we think you'll be hooked...</feedburner:browserFriendly><item>
+	<title>TED: Hugh Herr: The new bionics that let us run, climb and dance - Hugh Herr (2014)</title>
+	<itunes:author>Hugh Herr</itunes:author>
+	<description>Hugh Herr is building the next generation of bionic limbs, robotic prosthetics inspired by nature's own designs. Herr lost both legs in a climbing accident 30 years ago; now, as the head of the MIT Media Lab’s Biomechatronics group, he shows his incredible technology in a talk that's both technical and deeply personal — with the help of ballroom dancer Adrianne Haslet-Davis, who lost her left leg in the 2013 Boston Marathon bombing, and performs again for the first time on the TED stage.&lt;img src="http://feeds.feedburner.com/~r/TEDTalks_video/~4/kGm9o5RclPQ" height="1" width="1"/&gt;</description>
+	<itunes:subtitle>Hugh Herr: The new bionics that let us run, climb and dance</itunes:subtitle>
+	<itunes:summary><![CDATA[Hugh Herr is building the next generation of bionic limbs, robotic prosthetics inspired by nature's own designs. Herr lost both legs in a climbing accident 30 years ago; now, as the head of the MIT Media Lab’s Biomechatronics group, he shows his incredible technology in a talk that's both technical and deeply personal — with the help of ballroom dancer Adrianne Haslet-Davis, who lost her left leg in the 2013 Boston Marathon bombing, and performs again for the first time on the TED stage.]]></itunes:summary>
+	
+	<link>http://feedproxy.google.com/~r/TEDTalks_video/~3/kGm9o5RclPQ/hugh_herr_the_new_bionics_that_let_us_run_climb_and_dance</link>
+	<guid isPermaLink="false">eng.video.talk.ted.com:1959</guid>
+	<jwplayer:talkId>1959</jwplayer:talkId>
+	<pubDate>Fri, 28 Mar 2014 12:12:15 +0000</pubDate>
+	<category>Higher Education</category>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:19:00</itunes:duration>
+	<itunes:keywords>TED</itunes:keywords>
+	<media:content url="http://feedproxy.google.com/~r/TEDTalks_video/~5/G4AOWXVwlPA/HughHerr_2014.mp4" fileSize="67056243" type="video/mp4" />
+		<media:thumbnail url="http://images.ted.com/images/ted/ca0520623aeb359f6d5f371d516371fadcae2454_480x360.jpg" width="480" height="360" />
+	<itunes:image url="http://images.ted.com/images/ted/ca0520623aeb359f6d5f371d516371fadcae2454_615x461.jpg" />
+	<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TEDTalks</dc:creator><feedburner:origLink>http://www.ted.com/talks/hugh_herr_the_new_bionics_that_let_us_run_climb_and_dance</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/TEDTalks_video/~5/G4AOWXVwlPA/HughHerr_2014.mp4" length="67056243" type="video/mp4" /><feedburner:origEnclosureLink>http://download.ted.com/talks/HughHerr_2014.mp4?apikey=172BB350-0205</feedburner:origEnclosureLink></item>			<item>
+	<title>TED: Del Harvey: The strangeness of scale at Twitter - Del Harvey (2014)</title>
+	<itunes:author>Del Harvey</itunes:author>
+	<description>When hundreds of thousands of Tweets are fired every second, a one-in-a-million chance -- including unlikely sounding sounding scenarios that could harm users -- happens about 500 times a day. For Del Harvey, who heads Twitter’s Trust and Safety Team, these odds aren’t good. The security maven spends her days thinking about how to prevent worst-case scenarios while giving voice to people around the globe. With deadpan humor, she offers a window into how she keeps 240 million users safe.&lt;img src="http://feeds.feedburner.com/~r/TEDTalks_video/~4/qkezxHK5F2A" height="1" width="1"/&gt;</description>
+	<itunes:subtitle>Del Harvey: The strangeness of scale at Twitter</itunes:subtitle>
+	<itunes:summary><![CDATA[When hundreds of thousands of Tweets are fired every second, a one-in-a-million chance -- including unlikely sounding sounding scenarios that could harm users -- happens about 500 times a day. For Del Harvey, who heads Twitter’s Trust and Safety Team, these odds aren’t good. The security maven spends her days thinking about how to prevent worst-case scenarios while giving voice to people around the globe. With deadpan humor, she offers a window into how she keeps 240 million users safe.]]></itunes:summary>
+	
+	<link>http://feedproxy.google.com/~r/TEDTalks_video/~3/qkezxHK5F2A/del_harvey_the_strangeness_of_scale_at_twitter</link>
+	<guid isPermaLink="false">eng.video.talk.ted.com:1958</guid>
+	<jwplayer:talkId>1958</jwplayer:talkId>
+	<pubDate>Thu, 27 Mar 2014 14:32:54 +0000</pubDate>
+	<category>Higher Education</category>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:09:19</itunes:duration>
+	<itunes:keywords>TED</itunes:keywords>
+	<media:content url="http://feedproxy.google.com/~r/TEDTalks_video/~5/0X_A5FBYYMc/DelHarvey_2014.mp4" fileSize="31761524" type="video/mp4" />
+		<media:thumbnail url="http://images.ted.com/images/ted/630d123572ec57fd0a35a1b15016cf4a3d1ec40f_480x360.jpg" width="480" height="360" />
+	<itunes:image url="http://images.ted.com/images/ted/630d123572ec57fd0a35a1b15016cf4a3d1ec40f_615x461.jpg" />
+	<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TEDTalks</dc:creator><feedburner:origLink>http://www.ted.com/talks/del_harvey_the_strangeness_of_scale_at_twitter</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/TEDTalks_video/~5/0X_A5FBYYMc/DelHarvey_2014.mp4" length="31761524" type="video/mp4" /><feedburner:origEnclosureLink>http://download.ted.com/talks/DelHarvey_2014.mp4?apikey=172BB350-0205</feedburner:origEnclosureLink></item>			<item>
+	<title>TED: Ed Yong: Suicidal crickets, zombie roaches and other parasite tales - Ed Yong (2014)</title>
+	<itunes:author>Ed Yong</itunes:author>
+	<description>We humans set a premium on our own free will and independence ... and yet there's a shadowy influence we might not be considering. As science writer Ed Yong explains in this fascinating, hilarious and disturbing talk, parasites have perfected the art of manipulation to an incredible degree. So are they influencing us? It's more than likely.&lt;img src="http://feeds.feedburner.com/~r/TEDTalks_video/~4/3sqndQ379Tg" height="1" width="1"/&gt;</description>
+	<itunes:subtitle>Ed Yong: Suicidal crickets, zombie roaches and other parasite tales</itunes:subtitle>
+	<itunes:summary><![CDATA[We humans set a premium on our own free will and independence ... and yet there's a shadowy influence we might not be considering. As science writer Ed Yong explains in this fascinating, hilarious and disturbing talk, parasites have perfected the art of manipulation to an incredible degree. So are they influencing us? It's more than likely.]]></itunes:summary>
+	
+	<link>http://feedproxy.google.com/~r/TEDTalks_video/~3/3sqndQ379Tg/ed_yong_suicidal_wasps_zombie_roaches_and_other_tales_of_parasites</link>
+	<guid isPermaLink="false">eng.video.talk.ted.com:1955</guid>
+	<jwplayer:talkId>1955</jwplayer:talkId>
+	<pubDate>Wed, 26 Mar 2014 15:05:29 +0000</pubDate>
+	<category>Higher Education</category>
+	<itunes:explicit>no</itunes:explicit>
+	<itunes:duration>00:13:14</itunes:duration>
+	<itunes:keywords>TED</itunes:keywords>
+	<media:content url="http://feedproxy.google.com/~r/TEDTalks_video/~5/h-wLg3QGyCQ/EdYong_2014.mp4" fileSize="45125973" type="video/mp4" />
+		<media:thumbnail url="http://images.ted.com/images/ted/4167f2a3758ebb6aa58c3ddedb86c3d2ae237301_480x360.jpg" width="480" height="360" />
+	<itunes:image url="http://images.ted.com/images/ted/4167f2a3758ebb6aa58c3ddedb86c3d2ae237301_615x461.jpg" />
+	<dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">TEDTalks</dc:creator><feedburner:origLink>http://www.ted.com/talks/ed_yong_suicidal_wasps_zombie_roaches_and_other_tales_of_parasites</feedburner:origLink><enclosure url="http://feedproxy.google.com/~r/TEDTalks_video/~5/h-wLg3QGyCQ/EdYong_2014.mp4" length="45125973" type="video/mp4" /><feedburner:origEnclosureLink>http://download.ted.com/talks/EdYong_2014.mp4?apikey=172BB350-0205</feedburner:origEnclosureLink></item>	<media:credit role="author">TEDTalks</media:credit><media:rating>nonadult</media:rating><media:description type="plain">TED is a nonprofit devoted to Ideas Worth Spreading. On this feed, you'll find TEDTalks video to inspire, intrigue and stir the imagination from some of the world's leading thinkers and doers, speaking from the stage at TED conferences, TEDx events and pa</media:description></channel>
+</rss>
