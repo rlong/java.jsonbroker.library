@@ -30,7 +30,15 @@ public class InputStreamHelper {
 	
 	public static final int read( InputStream inputStream, byte[] destination, Object caller ) {
 		try {
-			return inputStream.read(destination);
+			return inputStream.read(destination);			
+		} catch (IOException e) {
+			throw new BaseException( caller, e);
+		}
+	}
+
+	public static final int read( InputStream inputStream, byte[] destination, int offset, int length, Object caller ) {
+		try {
+			return inputStream.read( destination, offset, length );
 		} catch (IOException e) {
 			throw new BaseException( caller, e);
 		}

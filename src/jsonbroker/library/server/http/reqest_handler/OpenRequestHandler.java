@@ -31,7 +31,7 @@ public class OpenRequestHandler implements RequestHandler {
 	public void addRequestHandler( RequestHandler processor ) {
 		
 		String requestUri = REQUEST_URI + processor.getProcessorUri();
-		log.debug( requestUri, "requestUri" );
+		log.infoFormat( "'%s' -> %s", requestUri, processor.getClass().getName());		
 		_processors.put( requestUri, processor );
 	}
 	
@@ -46,7 +46,7 @@ public class OpenRequestHandler implements RequestHandler {
 	
 	private RequestHandler getRequestHandler( String requestUri ) {
 	
-		//log.debug( requestUri, "requestUri" );
+		
 		
 		int indexOfQuestionMark = requestUri.indexOf( '?' );
 		if( -1 != indexOfQuestionMark ) {

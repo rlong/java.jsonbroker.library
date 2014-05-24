@@ -1,10 +1,12 @@
-// Copyright (c) 2013 Richard Long & HexBeerium
+// Copyright (c) 2014 Richard Long & HexBeerium
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
 
 package jsonbroker.library.common.http;
 
+
+// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 public class HttpStatus {
 
 	
@@ -15,9 +17,13 @@ public class HttpStatus {
         public static final String NOT_FOUND_404 = "jsonbroker.HttpStatus.NOT_FOUND_404";
     }
 	
+    public static final int SWITCHING_PROTOCOLS_101 = 101;
+    
 	public static final int OK_200 = 200;
 	public static final int NO_CONTENT_204 = 204;
 	public static final int PARTIAL_CONTENT_206 = 206;
+	
+	public static final int NOT_MODIFIED_304 = 304;	
 	
 	public static final int BAD_REQUEST_400 = 400;
 	public static final int UNAUTHORIZED_401 = 401;
@@ -33,13 +39,20 @@ public class HttpStatus {
 	public static String getReason( int statusCode ) {
 		
 		switch (statusCode) {
+		
+		case 101:
+			return "Switching Protocols";
+			
 		case 200:
 			return "OK";
 		case 204:
 			return "No Content";
 		case 206:
 			return "Partial Content";
-			
+
+		case 304:
+			return "Not Modified";
+
 		case 400:
 			return "Bad Request";
         case 401:

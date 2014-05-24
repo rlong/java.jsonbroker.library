@@ -12,10 +12,15 @@ public class LogDelegateHelper {
 	
 	public static String getMethodName(Log origin) {
 		
+		// 'origin._targetClass' can be null
+		if( null == origin._targetClass ) {
+			return "-";
+		}
+		
 		Exception e = new Exception();
 		StackTraceElement[] stackTrace = e.getStackTrace();
 		
-		String targetClassName = origin.getTargetClass().getName();
+		String targetClassName = origin._targetClass.getName();
 		
 		for( int i = 0; i < stackTrace.length; i++ ) {
 			

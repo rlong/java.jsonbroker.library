@@ -49,7 +49,6 @@ public class ServicesRequestHandler implements RequestHandler {
 	
     public void addService(DescribedService service)
     {
-        log.infoFormat("adding service '%s'", service.getServiceDescription().getServiceName());
         _servicesRegistery.addService(service);
     }
     

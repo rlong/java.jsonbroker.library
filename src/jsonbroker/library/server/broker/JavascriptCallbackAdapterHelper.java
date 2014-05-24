@@ -22,7 +22,7 @@ public class JavascriptCallbackAdapterHelper {
 		log.enteredMethod();
 		
 		JsonStringOutput jsonWriter = new JsonStringOutput();
-		jsonWriter.append("jsonbroker.forwardFault(\"fault\",");
+		jsonWriter.append("client.ClientBroker.forwardFault(\"fault\",");
 		
 		JsonObjectHandler jsonObjectHandler = JsonObjectHandler.getInstance();
 		jsonObjectHandler.writeValue( request.getMetaData(), jsonWriter);
@@ -46,7 +46,7 @@ public class JavascriptCallbackAdapterHelper {
 		//log.enteredMethod();
 		
 		JsonStringOutput jsonWriter = new JsonStringOutput();
-		jsonWriter.append("jsonbroker.forwardResponse(\"response\",");
+		jsonWriter.append("client.ClientBroker.forwardResponse(\"response\",");
 		JsonObjectHandler jsonObjectHandler = JsonObjectHandler.getInstance();
 		jsonObjectHandler.writeValue( response.getMetaData(), jsonWriter);
 		jsonWriter.append(",\"");

@@ -1,7 +1,8 @@
-// Copyright (c) 2013 Richard Long & HexBeerium
+// Copyright (c) 2014 Richard Long & HexBeerium
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
+
 
 package jsonbroker.library.common.http.multi_part;
 
@@ -66,7 +67,7 @@ public class ContentDisposition implements HttpHeader {
         ParametersScanner scanner = new ParametersScanner(0, value);
         String firstAttribute = scanner.nextAttribute();
         if (null == firstAttribute) {
-            BaseException e = new BaseException(ContentDisposition.class, "null == firstAttribute; value = $s", value);
+            BaseException e = new BaseException(ContentDisposition.class, "null == firstAttribute; value = '%s'", value);
             throw e;
         }
         

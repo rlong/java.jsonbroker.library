@@ -8,6 +8,8 @@ package jsonbroker.library.common.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+//import org.apache.commons.codec.binary.Base64;
+
 import jsonbroker.library.common.auxiliary.ByteHelper;
 import jsonbroker.library.common.auxiliary.Data;
 import jsonbroker.library.common.auxiliary.RandomUtilities;
@@ -18,6 +20,19 @@ import jsonbroker.library.common.log.Log;
 public class SecurityUtilities {
 	
 	private static final Log log = Log.getLog(SecurityUtilities.class);
+
+	public static String base64Encode( byte[] bytes ) {
+
+		// exporting an unsigned apk in ADT 22.3.0-887826 complains: 'can't find referenced class org.apache.commons.codec.binary.Base64
+//		byte[] base64Bytes = Base64.encodeBase64( bytes );
+//		return new String( base64Bytes );
+
+		
+		char[] chars = Base64Encoder.encode( bytes );
+		return new String( chars );
+		
+		
+	}
 
     public static String generateNonce()
     {
@@ -90,6 +105,33 @@ public class SecurityUtilities {
 		
 	}
 	
+	
+	
+	
+    public static byte[] sha1HashOfBytes( byte[] input ) {
+
+		MessageDigest digester = null;
+		try {
+			digester = MessageDigest.getInstance("SHA1");
+		} catch (NoSuchAlgorithmException e) {
+			throw new BaseException( SecurityUtilities.class, e);
+		}
+    	
+		digester.update( input );
+		byte[] answer = digester.digest();
+		
+		return answer;
+
+    }
+	
+
+	public static byte[] sha1HashOfString(String input) {
+		
+		byte[] utf8Value = StringHelper.toUtfBytes( input );
+		
+		return sha1HashOfBytes( utf8Value );
+		
+	}
 
 
 }

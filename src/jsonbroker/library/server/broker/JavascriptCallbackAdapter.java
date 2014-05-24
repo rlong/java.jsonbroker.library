@@ -12,6 +12,6 @@ public interface JavascriptCallbackAdapter {
 
 	public abstract void onFault( BrokerMessage request, Throwable fault);
 	public abstract void onNotification( BrokerMessage notification );
-	public abstract void onResponse( BrokerMessage request, BrokerMessage response );
+	public abstract void onResponse( BrokerMessage response );
 
 }

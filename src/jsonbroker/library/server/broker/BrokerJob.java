@@ -106,7 +106,7 @@ public class BrokerJob implements Job{
 			if( BrokerMessageType.ONEWAY == request.getMessageType() ) {
 				// no reply 
 			} else { 
-				_callbackAdapter.onResponse( request, response );
+				_callbackAdapter.onResponse( response );
 			}
 		} catch( Throwable t ) {
 			_callbackAdapter.onFault( request, t);			

@@ -33,7 +33,7 @@ public class ConsoleLogDelegate implements LogDelegate {
 		if( _isDebugEnabled ) {
 			String threadName = Thread.currentThread().getName();
 			String methodName = LogDelegateHelper.getMethodName(origin);
-			String line = String.format( "DBG %s [%s %s] %s", threadName, origin.getCallerClassName(), methodName, message);
+			String line = String.format( "DBG %s [%s %s] %s", threadName, origin.getCallerName(), methodName, message);
 			debug( line );
 		}
 	}
@@ -123,10 +123,10 @@ public class ConsoleLogDelegate implements LogDelegate {
 			if( _isDebugEnabled ) { 
 				String threadName = Thread.currentThread().getName();
 				String methodName = LogDelegateHelper.getMethodName(origin);
-				line = String.format( "INF %s [%s %s] %s", threadName, origin.getCallerClassName(), methodName, message);
+				line = String.format( "INF %s [%s %s] %s", threadName, origin.getCallerName(), methodName, message);
 			} else {
 				String threadName = Thread.currentThread().getName();
-				line = String.format( "INF %s [%s -] %s", threadName, origin.getCallerClassName(), message);
+				line = String.format( "INF %s [%s -] %s", threadName, origin.getCallerName(), message);
 			}
 		}
 		
@@ -145,7 +145,7 @@ public class ConsoleLogDelegate implements LogDelegate {
 		
 		String threadName = Thread.currentThread().getName();
 		String methodName = LogDelegateHelper.getMethodName(origin);
-		String line = String.format( "WRN %s [%s %s] %s", threadName, origin.getCallerClassName(), methodName, message);
+		String line = String.format( "WRN %s [%s %s] %s", threadName, origin.getCallerName(), methodName, message);
 		
 		warn( line );
 		
@@ -162,7 +162,7 @@ public class ConsoleLogDelegate implements LogDelegate {
 
 		String threadName = Thread.currentThread().getName();
 		String methodName = LogDelegateHelper.getMethodName(origin);
-		String line = String.format( "ERR %s [%s %s] %s", threadName, origin.getCallerClassName(), methodName, message);
+		String line = String.format( "ERR %s [%s %s] %s", threadName, origin.getCallerName(), methodName, message);
 		
 		error( line );
 	}

@@ -5,11 +5,8 @@ import java.io.InputStream;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.HandlerBase;
-
 import jsonbroker.library.common.json.JsonArray;
 import jsonbroker.library.common.json.JsonBuilder;
-import jsonbroker.library.common.json.JsonBuilderUnitTest;
 import jsonbroker.library.common.log.Log;
 import junit.framework.TestCase;
 

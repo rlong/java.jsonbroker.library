@@ -55,6 +55,19 @@ public class OutputStreamHelper {
 	
 	}
 
+	public static void write( OutputStream outputStream, byte[] bytes, Object caller ) {
+		
+		try {
+			outputStream.write( bytes);
+		} catch (IOException e) {
+			throw new BaseException( caller, e);
+		}
+	}
+
+	/**
+	 * 
+	 * @deprecated use write( OutputStream outputStream,  byte[] bytes, Object caller )
+	 */
 	public static void write( byte[] bytes, OutputStream outputStream, Object caller ) {
 		
 		try {
@@ -62,8 +75,17 @@ public class OutputStreamHelper {
 		} catch (IOException e) {
 			throw new BaseException( caller, e);
 		}
-	
 	}
+	
+	public static void write( OutputStream outputStream, byte[] bytes, int offset, int length, Object caller ) {
+		
+		try {
+			outputStream.write( bytes, offset, length);
+		} catch (IOException e) {
+			throw new BaseException( caller, e);
+		}
+	}
+
 
 	public static void flush( OutputStream outputStream, boolean swallowException, Object caller ) {
 		

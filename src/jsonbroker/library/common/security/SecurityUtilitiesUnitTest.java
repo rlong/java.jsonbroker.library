@@ -5,6 +5,7 @@
 
 package jsonbroker.library.common.security;
 
+import jsonbroker.library.common.auxiliary.StringHelper;
 import jsonbroker.library.common.log.Log;
 import junit.framework.TestCase;
 
@@ -54,6 +55,23 @@ public class SecurityUtilitiesUnitTest extends TestCase {
 		userPassword = SecurityUtilities.generateNumericUserPassword( nonce );
 		assertEquals( "01000000" , userPassword );
 
+	}
+	
+	
+	public void testBase64Encode() {
+		
+		// vvv http://javarevisited.blogspot.com.au/2012/02/how-to-encode-decode-string-in-java.html
+		
+		byte[] bytes = StringHelper.toUtfBytes("original String before base64 encoding in Java");
+		String actual = SecurityUtilities.base64Encode( bytes );
+
+		String expected = "b3JpZ2luYWwgU3RyaW5nIGJlZm9yZSBiYXNlNjQgZW5jb2RpbmcgaW4gSmF2YQ==";
+
+		// ^^^ http://javarevisited.blogspot.com.au/2012/02/how-to-encode-decode-string-in-java.html
+
+		assertEquals( expected, actual );
+
+		
 	}
 
 	

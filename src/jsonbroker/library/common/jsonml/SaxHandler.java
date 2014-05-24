@@ -6,7 +6,6 @@ import jsonbroker.library.common.json.JsonDocumentHandler;
 import jsonbroker.library.common.log.Log;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 

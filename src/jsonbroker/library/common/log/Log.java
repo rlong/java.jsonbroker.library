@@ -23,42 +23,46 @@ public class Log {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
-	//
+	// can be null
 	Class<?> _targetClass;
 	
-	public Class<?> getTargetClass() {
-		return _targetClass;
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	protected String _callerClassName;
+	protected String _callerName;
 	
 	
-	public String getCallerClassName() {
-		return _callerClassName;
+	public String getCallerName() {
+		return _callerName;
 	}
 
 
 	////////////////////////////////////////////////////////////////////////////
-	
 
+	
+	protected Log( String callerName ) {
+		_callerName = callerName;
+	}
+
+	
 	protected Log( Class<?> c ) {
 		_targetClass = c;
 		
 		int lastIndexOfDot = _targetClass.getName().lastIndexOf( '.' );
 		if( -1 == lastIndexOfDot ) {
-			_callerClassName = _targetClass.getName();
+			_callerName = _targetClass.getName();
 		} else {
-			_callerClassName = _targetClass.getName().substring( lastIndexOfDot + 1 ); // +1 to skip over the '.'
+			_callerName = _targetClass.getName().substring( lastIndexOfDot + 1 ); // +1 to skip over the '.'
 		}
 	}
 
 	public static Log getLog( Class<?> c ) {
-		return new Log( c );
-		
+		return new Log( c );	
 	}
 
+	public static Log getLog( String callerName ) {
+		return new Log( callerName );	
+	}
 	
 	private static String[] toLogMessages(Throwable t) {
 		

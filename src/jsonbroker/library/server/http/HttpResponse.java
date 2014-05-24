@@ -17,6 +17,14 @@ public class HttpResponse {
 	
 	////////////////////////////////////////////////////////////////////////////
 	//
+	ConnectionHandler.Delegate _connectionDelegate;
+	
+	public void setConnectionDelegate(ConnectionHandler.Delegate connectionDelegate) {
+		_connectionDelegate = connectionDelegate;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	private int _status;
 	
 	

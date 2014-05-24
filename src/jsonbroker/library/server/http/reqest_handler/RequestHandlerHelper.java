@@ -42,6 +42,8 @@ public class RequestHandlerHelper {
 
 	public static void validateMimeTypeForRequestUri( String requestUri ) {
 		
+		
+		
 		if( null == MimeTypes.getMimeTypeForPath( requestUri ) ) {
 			
 			log.errorFormat( "null == getMimeTypeForRequestUri( requestUri ); requestUri = '%s'", requestUri ); 
@@ -49,6 +51,16 @@ public class RequestHandlerHelper {
 		}
 	}
 	
+	public static String removeUriParameters( String uri ) {
+		
+		int indexOfFirstQuestionMark = uri.indexOf( '?' );
+		if( -1 != indexOfFirstQuestionMark ) {
+			uri = uri.substring( 0, indexOfFirstQuestionMark);
+		}
+		
+		return uri;
+
+	}
 	
 	
 }

@@ -46,21 +46,37 @@ public class HttpResponseWriter {
 		
 		if( null == entity ) {
 
-			if( 204 != statusCode ) {
+			
+			if( 101 == statusCode ) {
 				
-				log.warnFormat("null == entity && 204 != statusCode; statusCode = %d", statusCode);
-				statusLineAndHeaders.append( "Content-Length: 0\r\n");
+				// 'Switching Protocols'
+				statusLineAndHeaders.append("\r\n");
 				
 			} else {
-				// from ... 
-				// http://stackoverflow.com/questions/912863/is-an-http-application-that-sends-a-content-length-or-transfer-encoding-with-a-2
-				// ... it would 'appear' safest to not include 'Content-Length' on a 204
+				
+				if( 204 == statusCode ) {
+					
+					// from ... 
+					// http://stackoverflow.com/questions/912863/is-an-http-application-that-sends-a-content-length-or-transfer-encoding-with-a-2
+					// ... it would 'appear' safest to not include 'Content-Length' on a 204
+
+				} else if( 304 == statusCode ) {
+					
+					// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.5
+					// http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.3
+					
+				} else {
+					
+					log.warnFormat("null == entity; statusCode = %d", statusCode);
+					statusLineAndHeaders.append( "Content-Length: 0\r\n");
+					
+				} 
+				
+				statusLineAndHeaders.append("Accept-Ranges: bytes\r\n\r\n");
 			}
 			
-			statusLineAndHeaders.append("Accept-Ranges: bytes\r\n\r\n");
-			
 			byte[] utfBytes = StringHelper.toUtfBytes( statusLineAndHeaders.toString());
-			OutputStreamHelper.write( utfBytes, outputStream, HttpResponseWriter.class);
+			OutputStreamHelper.write( outputStream, utfBytes, HttpResponseWriter.class);
 
 			return; // our work is done
 		}
@@ -108,7 +124,7 @@ public class HttpResponseWriter {
 
 		
 		byte[] headersUtf8Bytes = StringHelper.toUtfBytes( statusLineAndHeaders.toString());
-		OutputStreamHelper.write( headersUtf8Bytes, outputStream, HttpResponseWriter.class);
+		OutputStreamHelper.write( outputStream, headersUtf8Bytes, HttpResponseWriter.class);
 		
 		////////////////////////////////////////////////////////////////////////
 		// write the entity

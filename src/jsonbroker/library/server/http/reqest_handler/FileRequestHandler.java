@@ -45,8 +45,7 @@ public class FileRequestHandler implements RequestHandler {
 	
 	
 	
-
-	private Entity readFile( String relativePath  ) {
+	private File toFile( String  relativePath  ) {
 
 		// for windows ... replace the forward slashes with back-slashes to make a file name		
 		if( OperatingSystemUtilities.isWindows() ) {
@@ -58,18 +57,26 @@ public class FileRequestHandler implements RequestHandler {
         
         log.debug( absoluteFilename, "absoluteFilename");
         
-        File file = new File( absoluteFilename );
+        File answer = new File( absoluteFilename );
         
-        if( !file.exists() ) {
+        if( !answer.exists() ) {
         	
-        	log.errorFormat( "!file.exists(); absoluteFilename = '%s'" , absoluteFilename);
+        	log.errorFormat( "!answer.exists(); absoluteFilename = '%s'" , absoluteFilename);
         	throw HttpErrorHelper.notFound404FromOriginator( this );
         }
         
-        if( !file.canRead() ) {
-        	log.errorFormat( "!file.canRead(); absoluteFilename = '%s'" , absoluteFilename);
+        if( !answer.canRead() ) {
+        	log.errorFormat( "!answer.canRead(); absoluteFilename = '%s'" , absoluteFilename);
         	throw HttpErrorHelper.forbidden403FromOriginator( this);
         }
+        
+        return answer;
+
+	}
+	
+
+	private Entity readFile( File file  ) {
+
 
         int length = (int) file.length();
 //        log.debug( length, "length");
@@ -79,7 +86,7 @@ public class FileRequestHandler implements RequestHandler {
 	        Entity answer = new StreamEntity( fileInputStream, length );
 	        return answer;
 		} catch (FileNotFoundException e) {
-			log.errorFormat( "exception caught trying open file; absoluteFilename = '%s'; e.getMessage() = '%s'", absoluteFilename, e.getMessage());
+			log.errorFormat( "exception caught trying open file; file.getAbsolutePath() = '%s'; e.getMessage() = '%s'", file.getAbsolutePath(), e.getMessage());
 			throw HttpErrorHelper.notFound404FromOriginator( this );
 		}
 	}
@@ -94,17 +101,29 @@ public class FileRequestHandler implements RequestHandler {
 			requestUri = requestUri + "index.html";
 		}
 		
+		requestUri = RequestHandlerHelper.removeUriParameters( requestUri );
+		
 		
 		{ // some validation 
 			
 			RequestHandlerHelper.validateRequestUri( requestUri );
 			RequestHandlerHelper.validateMimeTypeForRequestUri( requestUri );			
 		}
+		
+		
+    	File file = toFile( requestUri );
+    	
+    	String eTag = Long.toHexString( file.lastModified() );
+    	
+    	
+    	
+		
 
         try
         {
         	
-        	Entity body = readFile( requestUri );        	
+        	Entity body = readFile( file );
+        	
             HttpResponse answer = new HttpResponse( HttpStatus.OK_200, body );
             String contentType = MimeTypes.getMimeTypeForPath(requestUri);
             answer.setContentType( contentType );

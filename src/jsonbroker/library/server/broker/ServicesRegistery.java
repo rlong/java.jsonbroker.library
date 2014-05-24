@@ -74,7 +74,7 @@ public class ServicesRegistery implements Service {
 	
 	public void addService( DescribedService service ) {
 		String serviceName = service.getServiceDescription().getServiceName();
-		log.debugFormat( "adding service '%s'", serviceName);
+		log.infoFormat("'%s' -> %s", service.getServiceDescription().getServiceName(), service.getClass().getName());
 		_services.put( serviceName, service);
 	}
 	
