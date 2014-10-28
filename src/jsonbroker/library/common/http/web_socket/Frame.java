@@ -128,19 +128,20 @@ public class Frame {
 
 			byte1 = (byte)_payloadLength;
 			
-		} else if ( 126 + 0xFFFF > _payloadLength) {
+		} else if ( 126 + 0xFFFF > _payloadLength) { // greater than 125 but less than '126 + 0xFFFF' (65,661)
 			
 			byte1 = 126;
 			
 			extendedLength = new byte[2];
 			
-			int length = _payloadLength - 126;
+			int payloadLength = _payloadLength;
 			
-			extendedLength[1] = (byte)(length&0xFF); // Least Significant Byte 
-			length >>= 8;
-			extendedLength[0] = (byte)(length&0xFF); // Most Significant Byte
+			// network byte order (big endian) ... 
+			extendedLength[1] = (byte)(payloadLength&0xFF); // Least Significant Byte 
+			payloadLength >>= 8;
+			extendedLength[0] = (byte)(payloadLength&0xFF); // Most Significant Byte
 			
-		} else { // greater than 125 but less than '126 + 0xFFFF' (65,661)
+		} else { // greater than '126 + 0xFFFF' (65,661)
 			throw new BaseException( this, "unhandled payload length (too large); _payloadLength = %d", _payloadLength );
 		}
 		
@@ -151,6 +152,11 @@ public class Frame {
 		}
 		
 		OutputStreamHelper.write( byte1, outputStream, this);
+		
+		if( null != extendedLength ) {
+			
+			OutputStreamHelper.write( outputStream, extendedLength, this);
+		}
 		
 		if( null != _maskingKey ) {
 			OutputStreamHelper.write( outputStream, _maskingKey, this);
@@ -180,3 +186,4 @@ public class Frame {
 	
 	
 }
+

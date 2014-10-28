@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Richard Long & HexBeerium
+// Copyright (c) 2014 Richard Long & HexBeerium
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
@@ -45,35 +45,70 @@ public class FileRequestHandler implements RequestHandler {
 	
 	
 	
-	private File toFile( String  relativePath  ) {
-
-		// for windows ... replace the forward slashes with back-slashes to make a file name		
-		if( OperatingSystemUtilities.isWindows() ) {
-			relativePath = relativePath.replace('/', '\\');
-		}
-        
-
-        String absoluteFilename = _rootFolder + relativePath;
-        
-        log.debug( absoluteFilename, "absoluteFilename");
-        
-        File answer = new File( absoluteFilename );
-        
-        if( !answer.exists() ) {
-        	
-        	log.errorFormat( "!answer.exists(); absoluteFilename = '%s'" , absoluteFilename);
-        	throw HttpErrorHelper.notFound404FromOriginator( this );
-        }
-        
-        if( !answer.canRead() ) {
-        	log.errorFormat( "!answer.canRead(); absoluteFilename = '%s'" , absoluteFilename);
-        	throw HttpErrorHelper.forbidden403FromOriginator( this);
-        }
-        
-        return answer;
-
+	@Override
+	public String getProcessorUri() {
+		
+		return "/";
 	}
+
+
+
+
+	public HttpResponse processRequest(HttpRequest request) {
+			
+			
+			String requestUri = request.getRequestUri();
+			
+			if( requestUri.endsWith( "/" ) ) {
+				requestUri = requestUri + "index.html";
+			}
+			
+			requestUri = RequestHandlerHelper.removeUriParameters( requestUri );
+			
+			
+			{ // some validation 
+				
+				RequestHandlerHelper.validateRequestUri( requestUri );
+				RequestHandlerHelper.validateMimeTypeForRequestUri( requestUri );			
+			}
+			
+	    	File file = toFile( requestUri );
+	    	
+	    	String eTag = "\"" + Long.toHexString( file.lastModified() ) + "\"";
+	    	
+	    	HttpResponse answer;
+	    	
+	    	String ifNoneMatch = request.getHttpHeader( "if-none-match" );
+			
+	    	if( null != ifNoneMatch && eTag.equals(ifNoneMatch) ) {
 	
+	    		answer = new HttpResponse( HttpStatus.NOT_MODIFIED_304 );
+	    		
+	    	} else {
+	    		
+	    		try {
+	
+	    			Entity body = readFile(file);
+	
+	    			answer = new HttpResponse(HttpStatus.OK_200, body);
+	    			
+	    			String contentType = MimeTypes.getMimeTypeForPath(requestUri);
+	    			answer.setContentType(contentType);
+	
+	    		} catch (BaseException e) {
+	    			throw e;
+	    		} catch (Throwable t) {
+	    			log.error(t.getMessage());
+	    			throw HttpErrorHelper.notFound404FromOriginator(this);
+	    		}
+	    	}
+			answer.putHeader( "ETag", eTag );
+			return answer;
+	
+		}
+
+
+
 
 	private Entity readFile( File file  ) {
 
@@ -92,56 +127,30 @@ public class FileRequestHandler implements RequestHandler {
 	}
 	
 	
-	public HttpResponse processRequest(HttpRequest request) {
-		
-		
-		String requestUri = request.getRequestUri();
-		
-		if( requestUri.endsWith( "/" ) ) {
-			requestUri = requestUri + "index.html";
+	private File toFile( String  relativePath  ) {
+	
+		// for windows ... replace the forward slashes with back-slashes to make a file name		
+		if( OperatingSystemUtilities.isWindows() ) {
+			relativePath = relativePath.replace('/', '\\');
 		}
-		
-		requestUri = RequestHandlerHelper.removeUriParameters( requestUri );
-		
-		
-		{ // some validation 
-			
-			RequestHandlerHelper.validateRequestUri( requestUri );
-			RequestHandlerHelper.validateMimeTypeForRequestUri( requestUri );			
-		}
-		
-		
-    	File file = toFile( requestUri );
-    	
-    	String eTag = Long.toHexString( file.lastModified() );
-    	
-    	
-    	
-		
-
-        try
-        {
-        	
-        	Entity body = readFile( file );
-        	
-            HttpResponse answer = new HttpResponse( HttpStatus.OK_200, body );
-            String contentType = MimeTypes.getMimeTypeForPath(requestUri);
-            answer.setContentType( contentType );
-            return answer;
-            
-        } catch( BaseException e ) {
-        	throw e;
-        } catch( Throwable t ) {        	
-        	log.error(t.getMessage() ); 
-        	throw HttpErrorHelper.notFound404FromOriginator(this);        	
-        }
-        		
-	}
-
-	@Override
-	public String getProcessorUri() {
-		
-		return "/";
+	
+	    String absoluteFilename = _rootFolder + relativePath;
+	    
+	    File answer = new File( absoluteFilename );
+	    
+	    if( !answer.exists() ) {
+	    	
+	    	log.errorFormat( "!answer.exists(); absoluteFilename = '%s'" , absoluteFilename);
+	    	throw HttpErrorHelper.notFound404FromOriginator( this );
+	    }
+	    
+	    if( !answer.canRead() ) {
+	    	log.errorFormat( "!answer.canRead(); absoluteFilename = '%s'" , absoluteFilename);
+	    	throw HttpErrorHelper.forbidden403FromOriginator( this);
+	    }
+	    
+	    return answer;
+	
 	}
 
 }

@@ -66,7 +66,6 @@ public class BrokerJob implements Job{
 		}
 		
 		String jsonString = _jsonRequestString;
-		log.debug( jsonString, "jsonString" );
 		
 		
 		// strip off 'jsonbroker:'
@@ -75,8 +74,6 @@ public class BrokerJob implements Job{
 		if( _isUriEncoded ) {
 			jsonString = StringHelper.decodeURIComponent( jsonString );
 		}
-		
-		log.debug( jsonString, "jsonString" );
 		
 		
 		byte[] bytes = StringHelper.toUtfBytes( jsonString );		

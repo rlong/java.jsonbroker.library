@@ -221,7 +221,7 @@ public class HttpRequestReader {
 
 		// no body ?
 		if (null == contentLengthString) {
-			log.debug("null == contentLengthString");			
+			// log.debug("null == contentLengthString");			
 			return answer;
 		}
 		

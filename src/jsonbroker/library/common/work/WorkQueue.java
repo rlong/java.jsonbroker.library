@@ -20,8 +20,8 @@ public class WorkQueue {
 		
 		_queue = new LinkedBlockingQueue<Job>();
 		
+		
 	}
-	
 	
 	public void enqueue( Job job ) {
 		
@@ -49,4 +49,9 @@ public class WorkQueue {
 		return answer;
 	}
 
+	
+	public int size() {
+		return _queue.size();
+	}
+	
 }

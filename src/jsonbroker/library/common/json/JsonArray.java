@@ -88,6 +88,10 @@ public class JsonArray implements Serializable {
 	public void add( String value ) {
 		_values.add( value);
 	}
+	
+	public void clear() {
+		_values.clear();
+	}
 
 
 	public int getInteger( int index ) {

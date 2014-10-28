@@ -21,7 +21,7 @@ public class OperatingSystemUtilities {
 		
 		if( null == _isWindows ) {
 
-			String seperator =  "'" + File.separatorChar + "'";
+			String seperator =  "" + File.separatorChar;
 			log.debug( seperator, "seperator" );
 
 			

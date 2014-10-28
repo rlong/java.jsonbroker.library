@@ -26,13 +26,22 @@ public class WebServer implements Runnable{
 	
 	////////////////////////////////////////////////////////////////////////////
 	//
+	private ConnectionPolicy _connectionPolicy;
+	
+	
+	public void setConnectionPolicy(ConnectionPolicy connectionPolicy) {
+		_connectionPolicy = connectionPolicy;
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
 	private int _port;
 	
 	public int getPort() {
 		return _port;
 	}
 	
-	
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	private RequestHandler _httpProcessor;
@@ -81,7 +90,18 @@ public class WebServer implements Runnable{
 	}
 	
 	
-	
+
+	private static void closeClientSocket( Socket clientSocket ) {
+		
+		try {
+
+			clientSocket.close();
+			
+		} catch( Throwable t ) {
+			log.error( t );
+		}
+		
+	}
 
 	@Override
 	public void run() {
@@ -106,7 +126,17 @@ public class WebServer implements Runnable{
 					// Accept a new connection from the net, blocking till one comes in				
 					Socket clientSocket = serverSocket.accept();
 					
-					ConnectionHandler.handleConnection( clientSocket,_httpProcessor);
+					boolean clientSocketAccepted = true;
+					
+					if( null != _connectionPolicy ) {
+						clientSocketAccepted = _connectionPolicy.accept( clientSocket); // can set `clientSocket` to null 
+					}
+					
+					if( clientSocketAccepted ) { 
+						ConnectionHandler.handleConnection( clientSocket,_httpProcessor);
+					} else {
+						closeClientSocket( clientSocket );
+					}
 				}
 			}
 			
@@ -141,7 +171,6 @@ public class WebServer implements Runnable{
 	
 	public void stop() {
 		
-		log.warn( "untested!" );
 		if( null == _serverSocket ) {
 			// shouldn't be calling stop on an instance that is not listening
 			log.warn( "null == _serverSocket" );

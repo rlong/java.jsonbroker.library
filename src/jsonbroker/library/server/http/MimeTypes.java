@@ -14,6 +14,8 @@ public class MimeTypes {
 	
 	public static String APPLICATION_JSON = "application/json";
 	
+	public static String IMAGE_JPEG = "image/jpeg";
+	
 	static {
 		MIME_TYPES = new HashMap<String, String>();
 		
@@ -21,8 +23,8 @@ public class MimeTypes {
 		MIME_TYPES.put( ".html", "text/html");
 		MIME_TYPES.put( ".gif", "image/gif");
 		MIME_TYPES.put( ".ico", "image/x-icon");
-		MIME_TYPES.put( ".jpeg", "image/jpeg");
-		MIME_TYPES.put( ".jpg", "image/jpeg");
+		MIME_TYPES.put( ".jpeg", IMAGE_JPEG);
+		MIME_TYPES.put( ".jpg", IMAGE_JPEG);
 		MIME_TYPES.put( ".js", "application/javascript");
 		MIME_TYPES.put( ".json", APPLICATION_JSON );
 		MIME_TYPES.put( ".map", APPLICATION_JSON ); // http://stackoverflow.com/questions/19911929/what-mime-type-should-i-use-for-source-map-files

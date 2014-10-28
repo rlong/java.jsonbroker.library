@@ -17,9 +17,9 @@ public class HttpResponse {
 	
 	////////////////////////////////////////////////////////////////////////////
 	//
-	ConnectionHandler.Delegate _connectionDelegate;
+	ConnectionDelegate _connectionDelegate;
 	
-	public void setConnectionDelegate(ConnectionHandler.Delegate connectionDelegate) {
+	public void setConnectionDelegate(ConnectionDelegate connectionDelegate) {
 		_connectionDelegate = connectionDelegate;
 	}
 

@@ -31,35 +31,17 @@ public class TextWebSocket {
 	}
 
 	
-	public void sendCloseFrame() {
+	public void close() {
 		
-		log.enteredMethod();
-		Frame frame = new Frame( Frame.OPCODE_CONNECTION_CLOSE, 0 );
-		frame.write( _outputStream );		
-	}
-	
-	public void sendTextFrame( String text ) {
-		
-		
-		byte[] utfBytes = StringHelper.toUtfBytes( text );
-		log.debug( utfBytes.length, "utfBytes.length" );
-		Frame frame = new Frame( Frame.OPCODE_TEXT_FRAME, utfBytes.length );
-		frame.write( _outputStream );
-		
-		OutputStreamHelper.write( _outputStream, utfBytes, this);
-		OutputStreamHelper.flush( _outputStream, false, this);
-	}
-	
-	private byte readByte() {
-		
-		int answer = InputStreamHelper.readByte( _inputStream, this);
-		if( -1 == answer ) {
-			throw new BaseException( this, "-1 == answer" );
+		try {
+			_socket.close();
+		} catch (IOException e) {
+			throw new BaseException( this, e);
 		}
-		return (byte)answer;
-
+		InputStreamHelper.close( _inputStream, false, this );
+		OutputStreamHelper.close( _outputStream, false, this );
 	}
-	
+
 
 	public String recieveTextFrame() {
 		
@@ -96,15 +78,24 @@ public class TextWebSocket {
 		return answer;
 	}
 	
-	public void close() {
+	public void sendCloseFrame() {
 		
-		try {
-			_socket.close();
-		} catch (IOException e) {
-			throw new BaseException( this, e);
-		}
-		InputStreamHelper.close( _inputStream, false, this );
-		OutputStreamHelper.close( _outputStream, false, this );
+		log.enteredMethod();
+		Frame frame = new Frame( Frame.OPCODE_CONNECTION_CLOSE, 0 );
+		frame.write( _outputStream );		
+	}
+
+
+	public void sendTextFrame( String text ) {
+		
+		
+		byte[] utfBytes = StringHelper.toUtfBytes( text );
+		
+		Frame frame = new Frame( Frame.OPCODE_TEXT_FRAME, utfBytes.length );
+		frame.write( _outputStream );
+		
+		OutputStreamHelper.write( _outputStream, utfBytes, this);
+		OutputStreamHelper.flush( _outputStream, false, this);
 	}
 
 

@@ -1,11 +1,10 @@
-// Copyright (c) 2013 Richard Long & HexBeerium
+// Copyright (c) 2014 Richard Long & HexBeerium
 //
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
 
 package jsonbroker.library.server.http;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -14,10 +13,9 @@ import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.http.ConnectionHandler.Delegate;
 
 
-public class HttpDelegate implements ConnectionHandler.Delegate {
+public class HttpDelegate implements ConnectionDelegate {
 
 	
 	private static Log log = Log.getLog(HttpDelegate.class);
@@ -156,7 +154,7 @@ public class HttpDelegate implements ConnectionHandler.Delegate {
 	
 
 	@Override
-	public Delegate processRequest( Socket socket, InputStream inputStream, OutputStream outputStream ) {
+	public ConnectionDelegate processRequest( Socket socket, InputStream inputStream, OutputStream outputStream ) {
 		
 		// get the request ... 
 		HttpRequest request = readRequest( inputStream );
@@ -168,7 +166,7 @@ public class HttpDelegate implements ConnectionHandler.Delegate {
 		// process the request ... 
 		HttpResponse response = processRequest(request); 
 
-		Delegate answer = this;
+		ConnectionDelegate answer = this;
 		
 		if( null != response._connectionDelegate ) {
 			answer = response._connectionDelegate;
@@ -183,7 +181,7 @@ public class HttpDelegate implements ConnectionHandler.Delegate {
 		// ^^^ http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
 		
 		int statusCode = response.getStatus();
-        if ( statusCode > 299) {
+        if ( statusCode > 399) {
             answer = null;
         }
         

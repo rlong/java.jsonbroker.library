@@ -12,9 +12,7 @@ import java.net.Socket;
 
 import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.OutputStreamHelper;
-import jsonbroker.library.common.auxiliary.StreamUtilities;
 import jsonbroker.library.common.exception.BaseException;
-import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.log.Log;
 
 
@@ -29,7 +27,7 @@ public class ConnectionHandler implements Runnable{
 	
 	////////////////////////////////////////////////////////////////////////////
 	//
-	Delegate _delegate;
+	ConnectionDelegate _delegate;
 	
 	
 	////////////////////////////////////////////////////////////////////////////
@@ -120,7 +118,7 @@ public class ConnectionHandler implements Runnable{
 	
 	public static void handleConnection( Socket socket, RequestHandler httpProcessor ) {
 		
-		log.enteredMethod();
+//		log.enteredMethod();
 		
 		ConnectionHandler connectionHandler = new ConnectionHandler(socket,httpProcessor);
 		
@@ -130,11 +128,5 @@ public class ConnectionHandler implements Runnable{
 	}
 	
 	
-	public interface Delegate {
-		
-		
-		public Delegate processRequest( Socket socket, InputStream inputStream, OutputStream outputStream);
-
-	}
 
 }
