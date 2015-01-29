@@ -8,6 +8,41 @@ import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.log.Log;
 
+/* from http://tools.ietf.org/html/rfc6455#section-5.2 ...
+
+      0                   1                   2                   3
+      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+     +-+-+-+-+-------+-+-------------+-------------------------------+
+     |F|R|R|R| opcode|M| Payload len |    Extended payload length    |
+     |I|S|S|S|  (4)  |A|     (7)     |             (16/64)           |
+     |N|V|V|V|       |S|             |   (if payload len==126/127)   |
+     | |1|2|3|       |K|             |                               |
+     +-+-+-+-+-------+-+-------------+ - - - - - - - - - - - - - - - +
+     |     Extended payload length continued, if payload len == 127  |
+     + - - - - - - - - - - - - - - - +-------------------------------+
+     |                               |Masking-key, if MASK set to 1  |
+     +-------------------------------+-------------------------------+
+     | Masking-key (continued)       |          Payload Data         |
+     +-------------------------------- - - - - - - - - - - - - - - - +
+     :                     Payload Data continued ...                :
+     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
+     |                     Payload Data continued ...                |
+     +---------------------------------------------------------------+
+
+   FIN:  1 bit
+
+      Indicates that this is the final fragment in a message.  The first
+      fragment MAY also be the final fragment.
+
+   RSV1, RSV2, RSV3:  1 bit each
+
+      MUST be 0 unless an extension is negotiated that defines meanings
+      for non-zero values.  If a nonzero value is received and none of
+      the negotiated extensions defines the meaning of such a nonzero
+      value, the receiving endpoint MUST _Fail the WebSocket
+      Connection_.
+       
+ */
 public class Frame {
 	
 	private static Log log = Log.getLog(Frame.class);
@@ -52,6 +87,27 @@ public class Frame {
 
 	
 	
+	public void applyMask( byte[] bytes ) {
+		
+		if( null == _maskingKey ) {
+			return;
+		}
+		
+		int maskIndex = 0;
+		for( int i = 0, count = bytes.length; i < count; i++ ) {
+			
+			bytes[i] ^= _maskingKey[maskIndex];
+			
+			maskIndex++;
+			if( 4 == maskIndex  ) {
+				maskIndex = 0;
+			}
+			
+		}
+	}
+
+
+
 	private static byte readByte( InputStream inputStream ) {
 		
 		int answer = InputStreamHelper.readByte( inputStream, Frame.class);
@@ -162,26 +218,6 @@ public class Frame {
 			OutputStreamHelper.write( outputStream, _maskingKey, this);
 		}
 		
-	}
-	
-	
-	public void applyMask( byte[] bytes ) {
-		
-		if( null == _maskingKey ) {
-			return;
-		}
-		
-		int maskIndex = 0;
-		for( int i = 0, count = bytes.length; i < count; i++ ) {
-			
-			bytes[i] ^= _maskingKey[maskIndex];
-			
-			maskIndex++;
-			if( 4 == maskIndex  ) {
-				maskIndex = 0;
-			}
-			
-		}
 	}
 	
 	
