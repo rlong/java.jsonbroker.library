@@ -5,7 +5,10 @@
 
 package jsonbroker.library.test;
 
-import jsonbroker.library.client.broker.ServiceHttpProxy;
+import jsonbroker.library.broker.client.ServiceHttpProxy;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.Service;
+import jsonbroker.library.broker.server.ServicesRegistery;
 import jsonbroker.library.client.http.Authenticator;
 import jsonbroker.library.client.http.HttpDispatcher;
 import jsonbroker.library.common.exception.BaseException;
@@ -13,9 +16,6 @@ import jsonbroker.library.common.log.Log;
 import jsonbroker.library.common.net.NetworkAddress;
 import jsonbroker.library.common.security.SecurityConfiguration;
 import jsonbroker.library.common.security.Subject;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.Service;
-import jsonbroker.library.server.broker.ServicesRegistery;
 import jsonbroker.library.server.http.reqest_handler.AuthRequestHandler;
 import jsonbroker.library.server.http.reqest_handler.OpenRequestHandler;
 import jsonbroker.library.server.http.reqest_handler.ServicesRequestHandler;

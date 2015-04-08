@@ -3,14 +3,8 @@
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
 
-package jsonbroker.library.common.broker;
+package jsonbroker.library.broker;
 
-
-/**
- * 
- * @deprecated use jsonbroker.library.broker.BrokerMessageBuilder
- *
- */
 public class BrokerMessageBuilder {
 
 	public static BrokerMessage buildRequest( String serviceName, String methodName ) {

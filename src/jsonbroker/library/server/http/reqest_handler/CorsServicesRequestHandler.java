@@ -2,8 +2,8 @@ package jsonbroker.library.server.http.reqest_handler;
 
 import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.ServicesRegistery;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.ServicesRegistery;
 import jsonbroker.library.server.http.HttpMethod;
 import jsonbroker.library.server.http.HttpRequest;
 import jsonbroker.library.server.http.HttpResponse;

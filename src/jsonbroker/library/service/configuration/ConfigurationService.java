@@ -12,16 +12,16 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import jsonbroker.library.broker.BrokerMessage;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.ServiceDescription;
+import jsonbroker.library.broker.server.ServiceHelper;
 import jsonbroker.library.common.auxiliary.InputStreamHelper;
 import jsonbroker.library.common.auxiliary.OutputStreamHelper;
 import jsonbroker.library.common.auxiliary.StringHelper;
-import jsonbroker.library.common.broker.BrokerMessage;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonObject;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.ServiceDescription;
-import jsonbroker.library.server.broker.ServiceHelper;
 
 
 public class ConfigurationService implements DescribedService {

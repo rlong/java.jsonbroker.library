@@ -7,7 +7,7 @@ package jsonbroker.library.server.http.security;
 
 import org.junit.experimental.categories.Category;
 
-import jsonbroker.library.client.broker.ServiceHttpProxy;
+import jsonbroker.library.broker.client.ServiceHttpProxy;
 import jsonbroker.library.client.http.Authenticator;
 import jsonbroker.library.client.http.HttpDispatcher;
 import jsonbroker.library.common.exception.BaseException;

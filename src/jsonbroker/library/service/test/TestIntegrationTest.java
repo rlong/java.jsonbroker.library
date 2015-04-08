@@ -5,14 +5,14 @@
 
 package jsonbroker.library.service.test;
 
-import org.junit.experimental.categories.Category;
-
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.Service;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.Service;
 import jsonbroker.library.test.IntegrationTest;
 import jsonbroker.library.test.JsonBrokerIntegrationTestUtilities;
 import junit.framework.TestCase;
+
+import org.junit.experimental.categories.Category;
 
 @Category(IntegrationTest.class)
 public class TestIntegrationTest extends TestCase  {

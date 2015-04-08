@@ -3,17 +3,18 @@
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
 
-package jsonbroker.library.common.broker;
+package jsonbroker.library.broker;
 
 import jsonbroker.library.common.exception.BaseException;
 
-/**
- * 
- * @deprecated use jsonbroker.library.broker.BrokerMessageType
- *
- */
-public class BrokerMessageType extends jsonbroker.library.broker.BrokerMessageType {
+public class BrokerMessageType {
 	
+	////////////////////////////////////////////////////////////////////////////
+	protected String _identifier;
+	
+	public String getIdentifier() {
+		return _identifier;
+	}
 
 	public static final BrokerMessageType FAULT = new BrokerMessageType("fault");
 	public static final BrokerMessageType NOTIFICATION = new BrokerMessageType("notification");
@@ -23,12 +24,12 @@ public class BrokerMessageType extends jsonbroker.library.broker.BrokerMessageTy
 	public static final BrokerMessageType REQUEST = new BrokerMessageType("request");
 	public static final BrokerMessageType RESPONSE = new BrokerMessageType("response");
 	
-	private BrokerMessageType(String identifier) {
-		super( identifier );
+	protected BrokerMessageType(String identifier) {
+		_identifier = identifier;
 	}
 	
 	public static BrokerMessageType lookup( String identifier) {
-		
+
 		if( FAULT._identifier.equals(identifier) ) {
 			return FAULT;
 		}
@@ -60,8 +61,6 @@ public class BrokerMessageType extends jsonbroker.library.broker.BrokerMessageTy
 
 		String technicalError = String.format("unexpected identifier; identifier = '%s'", identifier);
 		throw new BaseException(BrokerMessageType.class, technicalError);
-
-		
 		
 	}
 	

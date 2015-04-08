@@ -5,13 +5,13 @@
 
 package jsonbroker.library.server.channel.endpoint;
 
-import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessage;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.ServicesRegistery;
 import jsonbroker.library.common.channel.Channel;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonArray;
 import jsonbroker.library.common.json.JsonObject;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.ServicesRegistery;
 import jsonbroker.library.server.channel.ChannelEndpoint;
 import jsonbroker.library.server.channel.ChannelResponse;
 

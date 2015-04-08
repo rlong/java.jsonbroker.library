@@ -5,11 +5,15 @@
 
 package jsonbroker.library.server.broker;
 
-import jsonbroker.library.common.broker.BrokerMessage;
 
-public interface Service {
+
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.server.Service
+ *
+ */
+public interface Service extends jsonbroker.library.broker.server.Service {
 	
-	public BrokerMessage process( BrokerMessage request );
 	
 	
 

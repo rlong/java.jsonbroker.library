@@ -3,7 +3,7 @@
 // Released under the MIT license ( http://opensource.org/licenses/MIT )
 //
 
-package jsonbroker.library.common.broker;
+package jsonbroker.library.broker;
 
 import jsonbroker.library.common.auxiliary.Data;
 import jsonbroker.library.common.auxiliary.StringHelper;
@@ -16,11 +16,7 @@ import jsonbroker.library.common.json.output.JsonStringOutput;
 
 
 
-/**
- * 
- * @deprecated use jsonbroker.library.broker.Serializer
- *
- */
+
 public class Serializer  {
 
 	
@@ -47,8 +43,18 @@ public class Serializer  {
 	
 	public static Data serialize( BrokerMessage message ) {
 		
-		return jsonbroker.library.broker.Serializer.serialize( message );
+		JsonStringOutput writer = new JsonStringOutput();
+		
+		JsonArray messageComponents = message.toJsonArray();
+		JsonArrayHandler.writeJsonArray( messageComponents, writer);
+		
+		String json = writer.toString();
+		byte[] jsonBytes = StringHelper.toUtfBytes( json);
+		
+		Data answer = new Data(jsonBytes);
+		return answer;
 		
 	}
+	
 
 }

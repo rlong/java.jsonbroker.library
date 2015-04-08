@@ -5,13 +5,13 @@
 
 package jsonbroker.library.client.channel;
 
-import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessage;
+import jsonbroker.library.broker.server.Service;
 import jsonbroker.library.common.channel.Channel;
 import jsonbroker.library.common.exception.BaseException;
 import jsonbroker.library.common.json.JsonArray;
 import jsonbroker.library.common.json.JsonArrayHelper;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.Service;
 
 public class ServiceChannelProxy implements Service {
 

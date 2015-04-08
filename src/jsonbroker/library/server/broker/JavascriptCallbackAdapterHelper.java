@@ -5,103 +5,30 @@
 
 package jsonbroker.library.server.broker;
 
-import jsonbroker.library.common.broker.BrokerMessage;
-import jsonbroker.library.common.broker.FaultSerializer;
-import jsonbroker.library.common.json.JsonArray;
-import jsonbroker.library.common.json.handlers.JsonHandler;
-import jsonbroker.library.common.json.handlers.JsonObjectHandler;
-import jsonbroker.library.common.json.output.JsonStringOutput;
-import jsonbroker.library.common.log.Log;
+import jsonbroker.library.broker.BrokerMessage;
 
-public class JavascriptCallbackAdapterHelper {
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.server.JavascriptCallbackAdapterHelper
+ *
+ */
+public class JavascriptCallbackAdapterHelper extends jsonbroker.library.broker.server.JavascriptCallbackAdapterHelper {
 
-	private static Log log = Log.getLog( JavascriptCallbackAdapterHelper.class );
 
 	public static String buildJavascriptFault(BrokerMessage request, Throwable fault) {
 
-		log.enteredMethod();
-		
-		JsonStringOutput jsonWriter = new JsonStringOutput();
-		jsonWriter.append("client.ClientBroker.forwardFault(\"fault\",");
-		
-		JsonObjectHandler jsonObjectHandler = JsonObjectHandler.getInstance();
-		jsonObjectHandler.writeValue( request.getMetaData(), jsonWriter);
-		jsonWriter.append(",\"");
-		jsonWriter.append( request.getServiceName() );
-		jsonWriter.append("\",1,0,\"");
-		jsonWriter.append( request.getMethodName() );
-		jsonWriter.append("\",");
-		jsonObjectHandler.writeValue( FaultSerializer.toJsonObject(fault), jsonWriter );
-		jsonWriter.append(");");
-
-		String answer = jsonWriter.toString();
-		
-		log.debug( answer, "answer");
-		
-		return answer;
+		return jsonbroker.library.broker.server.JavascriptCallbackAdapterHelper.buildJavascriptFault( request, fault);
 	}
 	
 	public static String buildJavascriptResponse(BrokerMessage response) {
-		
-		//log.enteredMethod();
-		
-		JsonStringOutput jsonWriter = new JsonStringOutput();
-		jsonWriter.append("client.ClientBroker.forwardResponse(\"response\",");
-		JsonObjectHandler jsonObjectHandler = JsonObjectHandler.getInstance();
-		jsonObjectHandler.writeValue( response.getMetaData(), jsonWriter);
-		jsonWriter.append(",\"");
-		jsonWriter.append( response.getServiceName() );
-		jsonWriter.append("\",1,0,\"");
-		jsonWriter.append( response.getMethodName() );
-		jsonWriter.append("\",");
-		jsonObjectHandler.writeValue( response.getAssociativeParamaters(), jsonWriter );
-		JsonArray parameters = response.getOrderedParamaters();
-		
-		for( int i = 0, count = parameters.size(); i < count; i++ ) {
-			jsonWriter.append( ',');
-			Object blob = parameters.getObject( i );
-			JsonHandler handler = JsonHandler.getHandler( blob );
-			handler.writeValue( blob, jsonWriter);			
-		}
-		
-		jsonWriter.append(");");
-		
-		String answer = jsonWriter.toString();
-		
-		return answer;
+
+		return jsonbroker.library.broker.server.JavascriptCallbackAdapterHelper.buildJavascriptResponse( response );
 
 	}
 
 	public static String buildJavascriptNotification(BrokerMessage notification) {
-		
-		log.enteredMethod();
-		
-		JsonStringOutput jsonWriter = new JsonStringOutput();
-		jsonWriter.append("jsonbroker.onNotification(");
-		JsonObjectHandler jsonObjectHandler = JsonObjectHandler.getInstance();
-		jsonObjectHandler.writeValue( notification.getMetaData(), jsonWriter);
-		jsonWriter.append(",\"");
-		jsonWriter.append( notification.getServiceName() );
-		jsonWriter.append("\",1,0,\"");
-		jsonWriter.append( notification.getMethodName() );
-		jsonWriter.append("\",");
-		jsonObjectHandler.writeValue( notification.getAssociativeParamaters(), jsonWriter );
-		JsonArray parameters = notification.getOrderedParamaters();
-		
-		for( int i = 0, count = parameters.size(); i < count; i++ ) {
-			jsonWriter.append( ',');
-			Object blob = parameters.getObject( i );
-			JsonHandler handler = JsonHandler.getHandler( blob );
-			handler.writeValue( blob, jsonWriter);			
-		}
-		
-		jsonWriter.append(");");
-		
-		String answer = jsonWriter.toString();
-		
-		log.debug( answer, "answer");
 
-		return answer;
+		return jsonbroker.library.broker.server.JavascriptCallbackAdapterHelper.buildJavascriptNotification( notification );
 
 	}
 

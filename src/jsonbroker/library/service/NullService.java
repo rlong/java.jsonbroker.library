@@ -5,10 +5,10 @@
 
 package jsonbroker.library.service;
 
-import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessage;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.ServiceDescription;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.ServiceDescription;
 
 
 

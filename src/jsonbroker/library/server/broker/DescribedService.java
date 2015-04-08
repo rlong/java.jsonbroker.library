@@ -5,9 +5,14 @@
 
 package jsonbroker.library.server.broker;
 
-public interface DescribedService extends Service {
+
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.server.DescribedService
+ *
+ */
+public interface DescribedService extends jsonbroker.library.broker.server.DescribedService {
 
 	
-	public ServiceDescription getServiceDescription();
 
 }

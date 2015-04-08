@@ -5,9 +5,9 @@
 
 package jsonbroker.library.service.test;
 
-import jsonbroker.library.common.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessage;
+import jsonbroker.library.broker.server.Service;
 import jsonbroker.library.common.json.JsonObject;
-import jsonbroker.library.server.broker.Service;
 
 public class TestProxy {
 	

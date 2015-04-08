@@ -5,24 +5,18 @@
 
 package jsonbroker.library.server.broker;
 
-public class ServiceDescription {
-	
-	private String _serviceName;
 
-	public String getServiceName() {
-		return _serviceName;
-	}
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.server.ServiceDescription
+ *
+ */
+public class ServiceDescription extends jsonbroker.library.broker.server.ServiceDescription {
+	
 
 	public ServiceDescription( String serviceName ) {
-		_serviceName = serviceName;
+		super( serviceName );
 	}
 	
-	public int getMajorVersion() {
-		return 1;
-	}
-	
-	public int getMinorVersion() {
-		return 0;
-	}
 
 }

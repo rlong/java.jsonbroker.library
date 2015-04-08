@@ -5,13 +5,15 @@
 
 package jsonbroker.library.server.broker;
 
-import jsonbroker.library.common.broker.BrokerMessage;
 
-public interface JavascriptCallbackAdapter {
+
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.server.JavascriptCallbackAdapter
+ *
+ */
+public interface JavascriptCallbackAdapter extends jsonbroker.library.broker.server.JavascriptCallbackAdapter {
 	
 
-	public abstract void onFault( BrokerMessage request, Throwable fault);
-	public abstract void onNotification( BrokerMessage notification );
-	public abstract void onResponse( BrokerMessage response );
 
 }

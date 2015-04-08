@@ -6,16 +6,16 @@
 package jsonbroker.library.server.http.reqest_handler;
 
 import jsonbroker.library.common.auxiliary.Data;
-import jsonbroker.library.common.broker.BrokerMessage;
-import jsonbroker.library.common.broker.BrokerMessageType;
-import jsonbroker.library.common.broker.Serializer;
+import jsonbroker.library.broker.BrokerMessage;
+import jsonbroker.library.broker.BrokerMessageType;
+import jsonbroker.library.broker.Serializer;
+import jsonbroker.library.broker.server.DescribedService;
+import jsonbroker.library.broker.server.ServicesRegistery;
 import jsonbroker.library.common.defaults.Defaults;
 import jsonbroker.library.common.http.DataEntity;
 import jsonbroker.library.common.http.Entity;
 import jsonbroker.library.common.http.HttpStatus;
 import jsonbroker.library.common.log.Log;
-import jsonbroker.library.server.broker.DescribedService;
-import jsonbroker.library.server.broker.ServicesRegistery;
 import jsonbroker.library.server.http.HttpErrorHelper;
 import jsonbroker.library.server.http.HttpMethod;
 import jsonbroker.library.server.http.HttpRequest;

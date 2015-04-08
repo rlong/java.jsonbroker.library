@@ -5,44 +5,22 @@
 
 package jsonbroker.library.client.broker;
 
-import jsonbroker.library.common.broker.BrokerMessage;
-import jsonbroker.library.common.json.JsonObject;
 import jsonbroker.library.server.broker.Service;
 
-public class MetaProxy {
-	
-    ////////////////////////////////////////////////////////////////////////////
-	//
-	Service _service;
 
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.client.MetaProxy
+ *
+ */
+public class MetaProxy extends jsonbroker.library.broker.client.MetaProxy {
+	
 	
 	public MetaProxy( Service service )  {
 		
-		_service = service;
+		super( service  );
 		
 	}
 	
-	public int[] getVersion( String serviceName ) {
-		
-    	BrokerMessage request = BrokerMessage.buildMetaRequest( serviceName, "getVersion");
-		
-    	BrokerMessage response = _service.process( request );
-    	
-    	JsonObject associativeParamaters = response.getAssociativeParamaters();
-    	boolean exists = associativeParamaters.getBoolean( "exists" );
-    	if( !exists ) {
-    		
-    		return null;
-    		
-    	} else {
-    		
-    		int majorVersion = associativeParamaters.getInt( "majorVersion" );
-    		int minorVersion = associativeParamaters.getInt( "minorVersion" );    		
-    		int answer[] = {majorVersion,minorVersion};
-    		return answer;
-    		
-    	}
-    	
-	}
 
 }

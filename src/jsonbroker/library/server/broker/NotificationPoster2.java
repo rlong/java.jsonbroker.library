@@ -5,36 +5,18 @@
 
 package jsonbroker.library.server.broker;
 
-import jsonbroker.library.common.broker.BrokerMessage;
-import jsonbroker.library.common.broker.BrokerMessageType;
-import jsonbroker.library.common.log.Log;
+import jsonbroker.library.broker.server.JavascriptCallbackAdapter;
 
-public class NotificationPoster2 {
-	
-	private static final Log log = Log.getLog(NotificationPoster2.class);
-
-	JavascriptCallbackAdapter _callbackAdapter;
-	String _serviceName;
-	String _methodName; 
+/**
+ * 
+ * @deprecated use jsonbroker.library.broker.server.NotificationPoster2
+ *
+ */
+public class NotificationPoster2 extends jsonbroker.library.broker.server.NotificationPoster2 {
 	
 	public NotificationPoster2( JavascriptCallbackAdapter callbackAdapter, String serviceName, String methodName ) {
-		
-		_callbackAdapter = callbackAdapter;
-		_serviceName = serviceName;
-		_methodName = methodName;
+		super( callbackAdapter, serviceName, methodName );
 		
 	}
 	
-	public void post() {
-		
-		log.enteredMethod();
-		
-		BrokerMessage notificaiton = new BrokerMessage();
-		notificaiton.setMessageType( BrokerMessageType.NOTIFICATION );
-		notificaiton.setServiceName( _serviceName);
-		notificaiton.setMethodName( _methodName );
-		
-		_callbackAdapter.onNotification( notificaiton );
-	}
-
 }

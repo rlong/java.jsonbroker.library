@@ -281,7 +281,7 @@ public class HttpDispatcher {
     	int port =  _networkAddress.getPort();
     	
     	String uri = String.format( "http://%s:%d%s", host, port, requestUri );
-    	log.debug( uri, "uri" );
+//    	log.debug( uri, "uri" );
     	
 		HttpPost answer = new HttpPost( uri );
 
@@ -325,7 +325,7 @@ public class HttpDispatcher {
     		apacheRequest = buildPostRequest( requestAdapter, authenticator);
     		statusCode = dispatch( apacheRequest, authenticator, responseAdapter);
     	}
-    	log.debug( statusCode, "statusCode" );
+//    	log.debug( statusCode, "statusCode" );
     	if( statusCode < 200 || statusCode > 299 ) {
     		BaseException e = new BaseException( this, HttpStatus.getReason( statusCode ) );
     		e.setFaultCode( statusCode );
@@ -341,7 +341,7 @@ public class HttpDispatcher {
     	HttpRequestBase apacheRequest = buildPostRequest( requestAdapter, null );
     	
     	int statusCode = dispatch( apacheRequest, null, responseAdapter );
-    	log.debug( statusCode, "statusCode" );
+//    	log.debug( statusCode, "statusCode" );
     	
     	if( statusCode < 200 || statusCode > 299 ) {
     		BaseException e = new BaseException( this, HttpStatus.getReason( statusCode ) );
