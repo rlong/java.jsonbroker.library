@@ -20,6 +20,7 @@ public class MimeTypes {
 		MIME_TYPES = new HashMap<String, String>();
 		
 		MIME_TYPES.put( ".css", "text/css");
+		MIME_TYPES.put( ".eot", "application/vnd.ms-fontobject");
 		MIME_TYPES.put( ".html", "text/html");
 		MIME_TYPES.put( ".gif", "image/gif");
 		MIME_TYPES.put( ".ico", "image/x-icon");

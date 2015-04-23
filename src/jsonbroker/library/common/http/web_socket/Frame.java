@@ -62,7 +62,7 @@ public class Frame {
 //	private static final int OPCODE_BINARY_RESERVED_7 = 0x07;
 	public static final int OPCODE_CONNECTION_CLOSE = 0x08;
 //	private static final int OPCODE_PING = 0x09;	
-//	private static final int OPCODE_PONG = 0x0a;
+	private static final int OPCODE_PONG = 0x0a;
 //	private static final int OPCODE_BINARY_RESERVED_B = 0x0b;
 //	private static final int OPCODE_BINARY_RESERVED_C = 0x0c;
 //	private static final int OPCODE_BINARY_RESERVED_D = 0x0d;
@@ -119,7 +119,7 @@ public class Frame {
 	}
 
 	
-	public static Frame readFrame( InputStream inputStream) {
+	public static Frame tryReadFrame( InputStream inputStream) {
 
 		byte byte0;
 		{
@@ -139,6 +139,20 @@ public class Frame {
 				// ok
 			} else if( OPCODE_CONNECTION_CLOSE == opCode ) {
 				// ok
+			} else if( OPCODE_PONG == opCode ) {
+	            
+	            
+	            // vvv [RFC 6455 - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455#section-5.5.3)
+	            
+//	            A Pong frame MAY be sent unsolicited.  This serves as a
+//	            unidirectional heartbeat.  A response to an unsolicited Pong frame is
+//	            not expected.
+	            
+	            // ^^^ [RFC 6455 - The WebSocket Protocol](https://tools.ietf.org/html/rfc6455#section-5.5.3)
+	            
+	            // ok
+				log.debug( "OPCODE_PONG" );
+
 			} else {
 				throw new BaseException( Frame.class, "unhandled opcode; opCode = %d", opCode );
 			}
@@ -171,6 +185,21 @@ public class Frame {
 		}
 
 		return answer;
+	}
+	
+	public static Frame readFrame( InputStream inputStream) {
+		
+		try {
+			Frame answer = null;
+			do {
+				answer = tryReadFrame(inputStream);
+			}
+			while( null != answer && Frame.OPCODE_PONG == answer._opCode );
+			return answer;
+		} catch( Exception e ) {
+			log.error( e );
+			return null;
+		}
 	}
 	
 	void write( OutputStream outputStream ) {
